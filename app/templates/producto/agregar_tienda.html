@@ -1,0 +1,74 @@
+{% extends "Herencia.html" %}
+{% load static %}
+
+{% block title %}25 Urban Store - Agregar Tienda{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'style/producto/agregar_tienda.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="urban-container">
+    <div class="glass-card">
+        <h1 class="urban-title">NUEVA TIENDA</h1>
+        <p class="urban-subtitle">DEFINE TU TERRITORIO</p>
+
+        <form method="post" class="urban-form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="nombre_tienda" class="urban-label">NOMBRE DEL SPOT</label>
+                <div class="input-wrapper">
+                    <input type="text" id="nombre_tienda" name="nombre_tienda" class="urban-input" placeholder="Ej: Zona Norte, Outlet Maipú..." required>
+                    <span class="focus-border"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="urban-label">¿QUÉ MUEVES AQUÍ?</label>
+                <div class="checkbox-grid">
+                    
+                    <label class="custom-checkbox">
+                        <input type="checkbox" name="categorias" value="Torso">
+                        <span class="checkmark"></span>
+                        <i class="category-icon fas fa-tshirt"></i>
+                        <span class="label-text">TORSO</span>
+                    </label>
+
+                    <label class="custom-checkbox">
+                        <input type="checkbox" name="categorias" value="Pantalones">
+                        <span class="checkmark"></span>
+                        <i class="category-icon fas fa-socks"></i>
+                        <span class="label-text">PANTALONES</span>
+                    </label>
+
+                    <label class="custom-checkbox">
+                        <input type="checkbox" name="categorias" value="Calzado">
+                        <span class="checkmark"></span>
+                        <i class="category-icon fas fa-shoe-prints"></i>
+                        <span class="label-text">CALZADO</span>
+                    </label>
+
+                    <label class="custom-checkbox">
+                        <input type="checkbox" name="categorias" value="Accesorios">
+                        <span class="checkmark"></span>
+                        <i class="category-icon fas fa-hat-cowboy"></i>
+                        <span class="label-text">ACCESORIOS</span>
+                    </label>
+
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="urban-btn">
+                    CREAR TIENDA <span class="btn-icon">➜</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/agregar_tienda.js' %}"></script>
+{% endblock %}

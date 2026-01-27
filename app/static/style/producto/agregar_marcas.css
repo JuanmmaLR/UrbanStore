@@ -1,0 +1,200 @@
+/* =========================================
+   ESTILO URBAN STORE - AGREGAR MARCA
+   Paleta: #0F0F0F | #202020 | #5DD62C
+   ========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+/* --- CONFIGURACIÓN BASE --- */
+body {
+    background-color: #0F0F0F !important;
+    color: #F8F8F8;
+    font-family: 'Permanent Marker', cursive;
+    background-image: none !important; /* Eliminamos fondo de imagen antiguo si existiera conflicto */
+    min-height: 100vh;
+}
+
+.urban-container {
+    padding: 4rem 0;
+}
+
+/* --- TARJETAS (CARDS) --- */
+.urban-card {
+    background-color: #202020;
+    border: 2px solid #333;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.urban-card:hover {
+    border-color: #337418;
+    box-shadow: 0 0 20px rgba(93, 214, 44, 0.1);
+}
+
+/* --- TIPOGRAFÍA Y TÍTULOS --- */
+.urban-title {
+    color: #5DD62C;
+    font-size: 3rem;
+    text-shadow: 0 0 10px rgba(93, 214, 44, 0.4);
+    margin-bottom: 0.5rem;
+    letter-spacing: 2px;
+}
+
+.urban-subtitle {
+    color: #F8F8F8;
+    font-size: 1.2rem;
+    opacity: 0.7;
+    margin-bottom: 2rem;
+}
+
+.urban-section-title {
+    color: #5DD62C;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #333;
+    padding-bottom: 1rem;
+}
+
+.urban-label {
+    color: #F8F8F8;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    display: block;
+    letter-spacing: 1px;
+}
+
+/* --- FORMULARIOS --- */
+.input-wrapper input,
+.form-control {
+    background-color: #0F0F0F !important;
+    border: 2px solid #333 !important;
+    color: #F8F8F8 !important;
+    border-radius: 8px;
+    padding: 15px;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.2rem;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.input-wrapper input:focus,
+.form-control:focus {
+    border-color: #5DD62C !important;
+    box-shadow: 0 0 15px rgba(93, 214, 44, 0.3) !important;
+    outline: none;
+}
+
+.input-wrapper input::placeholder {
+    color: #666;
+}
+
+/* --- BOTONES --- */
+.urban-btn {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.2rem;
+    padding: 12px 30px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: none;
+    min-width: 180px;
+}
+
+.save-btn {
+    background-color: #5DD62C;
+    color: #0F0F0F !important;
+    box-shadow: 0 0 10px rgba(93, 214, 44, 0.3);
+}
+
+.save-btn:hover {
+    background-color: #337418;
+    color: #F8F8F8 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(93, 214, 44, 0.6);
+}
+
+.cancel-btn {
+    background-color: #333;
+    color: #F8F8F8 !important;
+    border: 1px solid #444;
+}
+
+.cancel-btn:hover {
+    background-color: #d62c2c; /* Rojo alerta para cancelar */
+    border-color: #d62c2c;
+    box-shadow: 0 0 15px rgba(214, 44, 44, 0.4);
+}
+
+/* --- ALERTA --- */
+.urban-alert {
+    color: #d62c2c;
+    font-size: 1rem;
+    text-align: center;
+    background-color: rgba(214, 44, 44, 0.1);
+    border: 1px solid #d62c2c;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+/* --- TABLA URBAN --- */
+.urban-table-responsive {
+    overflow-x: auto;
+}
+
+.urban-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.urban-table th {
+    background-color: #337418;
+    color: #F8F8F8;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.4rem;
+    border: 1px solid #0F0F0F;
+    letter-spacing: 1px;
+}
+
+.urban-table td {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    padding: 20px;
+    vertical-align: top;
+    min-width: 200px; /* Asegura ancho en móvil */
+}
+
+/* --- TAGS (Marcas) --- */
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.urban-tag {
+    background-color: #0F0F0F;
+    color: #5DD62C;
+    border: 1px solid #5DD62C;
+    padding: 5px 12px;
+    border-radius: 20px; /* Estilo píldora */
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    cursor: default;
+}
+
+.urban-tag:hover {
+    background-color: #5DD62C;
+    color: #0F0F0F;
+    box-shadow: 0 0 10px rgba(93, 214, 44, 0.5);
+}
+
+.empty-tag {
+    color: #555;
+    font-style: italic;
+    font-size: 0.9rem;
+}

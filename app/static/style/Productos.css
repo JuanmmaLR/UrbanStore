@@ -1,0 +1,151 @@
+/* static/style/Productos.css */
+
+/* Estilos base */
+#contenedorPrincipal {
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Estilos de la tarjeta */
+[id^="tarjeta_"] {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  height: 100%;
+}
+
+[id^="tarjeta_"]:hover {
+  transform: translateY(-5px);
+}
+
+[id^="imagenProducto_"] {
+  height: 250px;
+  object-fit: cover;
+  width: 100%;
+}
+
+[id^="cuerpoTarjeta_"] {
+  padding: 1.25rem;
+}
+
+[id^="nombreProducto_"] {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  height: 3rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+/* Estilos específicos por elemento */
+#filaProductos {
+  margin-top: 20px;
+}
+
+[id^="marcaProducto_"] {
+  color: #6c757d;
+  font-size: 0.875rem;
+}
+
+[id^="precioProducto_"] {
+  color: #198754;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+[id^="metodoPago_"] {
+  color: #6c757d;
+  font-size: 0.75rem;
+  font-weight: normal;
+}
+
+[id^="botonCarrito_"] {
+  background-color: #212529;
+  transition: background-color 0.3s;
+}
+
+[id^="botonCarrito_"]:hover {
+  background-color: #424649;
+}
+
+/* Filtros y paginación */
+.filtros-container {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.filtros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.filtro-group {
+  margin-bottom: 10px;
+}
+
+.filtro-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.filtro-group select, .filtro-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.page-item {
+  margin: 0 5px;
+}
+
+.page-link {
+  padding: 8px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #333;
+}
+
+.page-item.active .page-link {
+  background: #212529;
+  color: white;
+  border-color: #212529;
+}
+
+.no-products {
+  text-align: center;
+  padding: 40px 0;
+  background: #fff;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  [id^="columna_"] {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 576px) {
+  [id^="columna_"] {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,42 @@
+/* static/style/Usuarios/FormularioEnvio.css */
+
+.table-hover tbody tr:hover {
+    background-color: rgba(40, 167, 69, 0.1);
+    cursor: pointer;
+}
+
+.modal-header {
+    background-color: #28a745;
+    color: white;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+    color: #0c5460;
+}
+
+    .form-filter {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+    .badge-processed {
+        background-color: #28a745;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+    }
+    .badge-not-processed {
+        background-color: #dc3545;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+    }
+    .filter-label {
+        font-weight: 600;
+        margin-bottom: 5px;
+    }

@@ -1,0 +1,800 @@
+
+
+
+
+
+
+
+
+
+
+
+{% extends "Herencia.html" %}
+{% load static %}
+
+{% block title %}25 Urban Store - Administración{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'style/producto/Administracion.css' %}" />
+{% endblock %}
+
+{% block content %}
+<section class="admin-panel-container">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h1 class="urban-title">ZONA DE ADMINISTRACIÓN</h1>
+                <p class="urban-subtitle">GESTIONA TU IMPERIO URBAN</p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center g-4">
+            
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="urban-card">
+                    <div class="card-img-wrapper">
+                        <img src="{% static 'img/producto/agregar-producto.png' %}" class="urban-img" alt="Agregar Producto">
+                    </div>
+                    <div class="card-body text-center">
+                        <h3 class="card-title">NUEVO DROP</h3>
+                        <a href="{% url 'agregar_producto' %}" class="btn urban-btn">AGREGAR PRODUCTO</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="urban-card">
+                    <div class="card-img-wrapper">
+                        <img src="{% static 'img/producto/modificar-producto.png' %}" class="urban-img" alt="Modificar Producto">
+                    </div>
+                    <div class="card-body text-center">
+                        <h3 class="card-title">EDITAR STOCK</h3>
+                        <a href="{% url 'modificar' %}" class="btn urban-btn">MODIFICAR PRODUCTO</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="urban-card">
+                    <div class="card-img-wrapper">
+                        <img src="{% static 'img/producto/eliminar-producto.png' %}" class="urban-img" alt="Eliminar Producto">
+                    </div>
+                    <div class="card-body text-center">
+                        <h3 class="card-title">LIMPIAR INVENTARIO</h3>
+                        <a href="{% url 'eliminar' %}" class="btn urban-btn btn-danger-custom">ELIMINAR PRODUCTO</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="urban-card">
+                    <div class="card-img-wrapper">
+                        <img src="{% static 'img/producto/listar-producto.png' %}" class="urban-img" alt="Agregar Marca">
+                    </div>
+                    <div class="card-body text-center">
+                        <h3 class="card-title">NUEVA MARCA</h3>
+                        <a href="{% url 'agrega_marca' %}" class="btn urban-btn">AGREGAR MARCA</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="urban-card">
+                    <div class="card-img-wrapper">
+                        <img src="{% static 'img/producto/agregar_tienda.png' %}" class="urban-img" alt="Agregar Tienda">
+                    </div>
+                    <div class="card-body text-center">
+                        <h3 class="card-title">EXPANDIR TERRITORIO</h3>
+                        <a href="{% url 'agregar_tienda' %}" class="btn urban-btn">AGREGAR SPOT</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="urban-card">
+                    <div class="card-img-wrapper">
+                         <div class="icon-placeholder">
+                            <i class="fas fa-users" style="font-size: 5rem; color: #5DD62C;"></i>
+                        </div>
+                    </div>
+                    <div class="card-body text-center">
+                        <h3 class="card-title">CREW & CLIENTES</h3>
+                        <a href="{% url 'Admin_User' %}" class="btn urban-btn">GESTIONAR USUARIOS</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{# Añade JavaScript específico si es necesario #}
+{% block extra_js %}
+<script src="{% static 'js/Administracion.js' %}"></script>
+{% endblock %}  
+
+
+
+
+
+
+{% extends "Herencia.html" %}
+{% load static %}
+
+{% block title %}25 Urban Store - Agregar Producto{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'style/producto/agregar.css' %}" />
+<style>
+    .page-container {
+        background-image: url("{% static 'img/Header/agregar.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+        padding: 2rem 0;
+    }
+    
+</style>
+{% endblock %}
+
+{% block content %}
+
+<section class="agregar"></section>
+<div class="page-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="form-container">
+                    <div class="card-header bg-primary text-white mb-4">
+                        <h2 class="text-center">Agregar Nuevo Producto</h2>
+                    </div>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.tipo.id_for_label }}" class="form-label">Tipo de Producto</label>
+                            {{ form.tipo }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.modelo.id_for_label }}" class="form-label">Modelo</label>
+                            {{ form.modelo }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.precio.id_for_label }}" class="form-label">Precio</label>
+                            {{ form.precio }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.descripcion.id_for_label }}" class="form-label">Descripción</label>
+                            {{ form.descripcion }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.cantidad.id_for_label }}" class="form-label">Cantidad en stock</label>
+                            {{ form.cantidad }}
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            {{ form.nuevo }}
+                            <label for="{{ form.nuevo.id_for_label }}" class="form-check-label">¿Es nuevo?</label>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.marca.id_for_label }}" class="form-label">Marca</label>
+                            {{ form.marca }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="{{ form.genero.id_for_label }}" class="form-label">Género</label>
+                            {{ form.genero }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.color.id_for_label }}" class="form-label">Color</label>
+                            {{ form.color }}
+                        </div>
+                        <div class="mb-3" id="imagen-field">
+                            <label for="{{ form.imagen.id_for_label }}" class="form-label">Imagen del Producto</label>
+                            {{ form.imagen }}
+                        </div>
+                        
+                        <div class="mb-3" id="tipo-accesorio-field" style="display: none;">
+                            <label for="{{ form.tipo_accesorio.id_for_label }}" class="form-label">Tipo de Accesorio</label>
+                            {{ form.tipo_accesorio }}
+                        </div>
+                        <div class="mb-3" id="subcategoria-tronco-field" style="display: none;">
+                            <label for="{{ form.subcategoria_tronco.id_for_label }}" class="form-label">Subcategoría</label>
+                            {{ form.subcategoria_tronco }}
+                        </div>
+
+                        <div class="mb-3" id="subcategoria-piernas-field" style="display: none;">
+                            <label for="{{ form.subcategoria_piernas.id_for_label }}" class="form-label">Subcategoría</label>
+                            {{ form.subcategoria_piernas }}
+                        </div>
+
+                        <div class="mb-3" id="subcategoria-zapatos-field" style="display: none;">
+                            <label for="{{ form.subcategoria_zapatos.id_for_label }}" class="form-label">Subcategoría</label>
+                            {{ form.subcategoria_zapatos }}
+                        </div>
+                        
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary py-2">Guardar Producto</button>
+                            <a href="{% url 'Administracion' %}" class="btn btn-secondary py-2">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'js/agregar.js' %}"></script>
+{% endblock %}
+
+
+
+
+
+
+{% extends "Herencia.html" %}
+{% load static %}
+
+{% block title %}25 Urban Store - Agregar Tienda{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'style/producto/agregar_tienda.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="urban-container">
+    <div class="glass-card">
+        <h1 class="urban-title">NUEVA TIENDA</h1>
+        <p class="urban-subtitle">DEFINE TU TERRITORIO</p>
+
+        <form method="post" class="urban-form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="nombre_tienda" class="urban-label">NOMBRE DEL SPOT</label>
+                <div class="input-wrapper">
+                    <input type="text" id="nombre_tienda" name="nombre_tienda" class="urban-input" placeholder="Ej: Zona Norte, Outlet Maipú..." required>
+                    <span class="focus-border"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="urban-label">¿QUÉ MUEVES AQUÍ?</label>
+                <div class="checkbox-grid">
+                    
+                    <label class="custom-checkbox">
+                        <input type="checkbox" name="categorias" value="Torso">
+                        <span class="checkmark"></span>
+                        <i class="category-icon fas fa-tshirt"></i>
+                        <span class="label-text">TORSO</span>
+                    </label>
+
+                    <label class="custom-checkbox">
+                        <input type="checkbox" name="categorias" value="Pantalones">
+                        <span class="checkmark"></span>
+                        <i class="category-icon fas fa-socks"></i>
+                        <span class="label-text">PANTALONES</span>
+                    </label>
+
+                    <label class="custom-checkbox">
+                        <input type="checkbox" name="categorias" value="Calzado">
+                        <span class="checkmark"></span>
+                        <i class="category-icon fas fa-shoe-prints"></i>
+                        <span class="label-text">CALZADO</span>
+                    </label>
+
+                    <label class="custom-checkbox">
+                        <input type="checkbox" name="categorias" value="Accesorios">
+                        <span class="checkmark"></span>
+                        <i class="category-icon fas fa-hat-cowboy"></i>
+                        <span class="label-text">ACCESORIOS</span>
+                    </label>
+
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="urban-btn">
+                    CREAR TIENDA <span class="btn-icon">➜</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/agregar_tienda.js' %}"></script>
+{% endblock %}
+
+
+
+
+
+
+{% extends "Herencia.html" %}
+{% load static %}
+
+{% block title %}25 Urban Store - Agregar Marca{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'style/producto/agregar_marcas.css' %}">
+
+{% endblock %}
+
+{% block content %}
+<section class="urban-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            
+            <div class="col-12 col-lg-8 mb-5">
+                <div class="urban-card form-card">
+                    <div class="card-header-urban">
+                        <h2 class="urban-title text-center">NUEVA MARCA</h2>
+                        <p class="urban-subtitle text-center">AÑADE UNA NUEVA FIRMA Y ASÍGNALA A UN SPOT</p>
+                    </div>
+                    
+                    <div class="card-body-urban">
+                        <form method="POST" action="{% url 'agrega_marca' %}">
+                            {% csrf_token %}
+                            
+                            <div class="mb-4">
+                                <label for="{{ form.nombre.id_for_label }}" class="urban-label">NOMBRE DE LA MARCA</label>
+                                <div class="input-wrapper">
+                                    {{ form.nombre }}
+                                </div>
+                                {% if form.nombre.errors %}
+                                    <div class="urban-alert mt-2">
+                                        {{ form.nombre.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="id_tienda" class="urban-label">SPOT / TIENDA</label>
+                                <div class="input-wrapper">
+                                    <select name="tienda" id="id_tienda" class="form-control urban-select">
+                                        <option value="" selected disabled>SELECCIONA EL SPOT</option>
+                                        {% for tienda in tiendas %}
+                                            <option value="{{ tienda.id }}">{{ tienda.nombre_tienda }}</option>
+                                        {% empty %}
+                                            <option value="" disabled>NO HAY TIENDAS REGISTRADAS</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4 text-end">
+                                <small style="color: #337418; font-family: 'Permanent Marker', cursive;">
+                                    LOGUEADO COMO: <span style="color: #5DD62C;">{{ user.username|upper }}</span>
+                                </small>
+                            </div>
+
+                            <div class="d-grid gap-3 d-md-flex justify-content-md-center actions-panel">
+                                <button type="submit" class="btn urban-btn save-btn">GUARDAR MARCA</button>
+                                <a href="{% url 'Administracion' %}" class="btn urban-btn cancel-btn">VOLVER AL PANEL</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="urban-card table-card">
+                    <h3 class="urban-section-title">MARCAS ACTIVAS POR CATEGORÍA</h3>
+                    <p class="text-center" style="color: #888; margin-top: -1rem; margin-bottom: 2rem; font-size: 0.9rem;">
+                        <i class="fas fa-info-circle"></i> Hover sobre la marca para ver el Creador
+                    </p>
+                    
+                    <div class="urban-table-responsive">
+                        <table class="urban-table">
+                            <thead>
+                                <tr>
+                                    <th>TORSO</th>
+                                    <th>PANTALONES</th>
+                                    <th>CALZADO</th>
+                                    <th>ACCESORIOS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="brand-column">
+                                        <div class="tags-container">
+                                            {% for marca in marcas_torso %}
+                                                <span class="urban-tag" title="Creado por: {{ marca.usuario.username|default:'Desconocido' }}">
+                                                    {{ marca.nombre }} 
+                                                    {% if marca.tienda %}
+                                                        <small style="color: #337418; font-size: 0.7em;">[{{ marca.tienda.nombre_tienda }}]</small>
+                                                    {% endif %}
+                                                </span>
+                                            {% empty %}
+                                                <span class="empty-tag">VACÍO</span>
+                                            {% endfor %}
+                                        </div>
+                                    </td>
+                                    <td class="brand-column">
+                                        <div class="tags-container">
+                                            {% for marca in marcas_pantalones %}
+                                                <span class="urban-tag" title="Creado por: {{ marca.usuario.username|default:'Desconocido' }}">
+                                                    {{ marca.nombre }}
+                                                    {% if marca.tienda %}
+                                                        <small style="color: #337418; font-size: 0.7em;">[{{ marca.tienda.nombre_tienda }}]</small>
+                                                    {% endif %}
+                                                </span>
+                                            {% empty %}
+                                                <span class="empty-tag">VACÍO</span>
+                                            {% endfor %}
+                                        </div>
+                                    </td>
+                                    <td class="brand-column">
+                                        <div class="tags-container">
+                                            {% for marca in marcas_calzado %}
+                                                <span class="urban-tag" title="Creado por: {{ marca.usuario.username|default:'Desconocido' }}">
+                                                    {{ marca.nombre }}
+                                                    {% if marca.tienda %}
+                                                        <small style="color: #337418; font-size: 0.7em;">[{{ marca.tienda.nombre_tienda }}]</small>
+                                                    {% endif %}
+                                                </span>
+                                            {% empty %}
+                                                <span class="empty-tag">VACÍO</span>
+                                            {% endfor %}
+                                        </div>
+                                    </td>
+                                    <td class="brand-column">
+                                        <div class="tags-container">
+                                            {% for marca in marcas_accesorios %}
+                                                <span class="urban-tag" title="Creado por: {{ marca.usuario.username|default:'Desconocido' }}">
+                                                    {{ marca.nombre }}
+                                                    {% if marca.tienda %}
+                                                        <small style="color: #337418; font-size: 0.7em;">[{{ marca.tienda.nombre_tienda }}]</small>
+                                                    {% endif %}
+                                                </span>
+                                            {% empty %}
+                                                <span class="empty-tag">VACÍO</span>
+                                            {% endfor %}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/agrega_marca.js' %}"></script>
+{% endblock %}
+
+
+
+
+
+
+{% extends "Herencia.html" %}
+{% load static %}
+
+{% block title %}25 Urban Store - Eliminar Productos{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'style/producto/eliminar.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Eliminar Productos</h2>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    <form method="post" class="mb-4">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <label for="tipo_producto" class="form-label">Selecciona el tipo de producto:</label>
+                <select name="tipo_producto" id="tipo_producto" class="form-select" required>
+                    <option value="">-- Selecciona --</option>
+                    <option value="Tronco">Torso</option>
+                    <option value="Piernas">Pantalones</option>
+                    <option value="Zapatos">Calzado</option>
+                    <option value="Complemento">Accesorios</option>
+                </select>
+            </div>
+            <div class="col-md-6 d-flex align-items-end">
+                <button type="submit" name="listar" class="btn btn-primary">Listar Productos</button>
+            </div>
+        </div>
+    </form>
+    
+    {% if productos %}
+        <form method="post" id="eliminarForm">
+            {% csrf_token %}
+            <input type="hidden" name="tipo_producto" value="{{ tipo_producto }}">
+            
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Seleccionar</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Modelo</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Marca</th>
+                            <th scope="col">Imagen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in productos %}
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="seleccionados" value="{{ producto.id }}" class="form-check-input">
+                                </td>
+                                <td>{{ producto.nombre }}</td>
+                                <td>{{ producto.modelo|default:"-" }}</td>
+                                <td>${{ producto.precio }}</td>
+                                <td>{{ producto.marca }}</td>
+                                <td>
+                                    {% if producto.imagen %}
+                                        <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="product-image">
+                                    {% else %}
+                                        Sin imagen
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="d-flex justify-content-between mt-3">
+                <button type="button" class="btn btn-danger" id="eliminarSeleccionados">
+                    Eliminar Seleccionados
+                </button>
+                <button type="button" class="btn btn-danger" id="eliminarTodos">
+                    Eliminar Todos
+                </button>
+            </div>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/eliminar.js' %}"></script>
+{% endblock %}
+
+
+
+
+
+
+{% extends "Herencia.html" %}
+{% load static %}
+
+{% block title %}25 Urban Store - Modificar Productos{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'style/producto/modificar.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="modificar-container">
+    <h2 class="text-center mb-4">Modificar Productos</h2>
+    
+    <!-- Selector de tipo de producto -->
+    <div class="product-type-selector">
+        <form id="productTypeForm" method="POST" action="{% url 'modificar' %}">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-8">
+                    <label for="tipo_producto" class="form-label">Seleccione el tipo de producto:</label>
+                    <select class="form-select" id="tipo_producto" name="tipo_producto" required>
+                        <option value="" selected disabled>-- Seleccione --</option>
+                        <option value="Tronco">Torso</option>
+                        <option value="Piernas">Pantalones</option>
+                        <option value="Zapatos">Calzado</option>
+                        <option value="Complemento">Accesorios</option>
+                    </select>
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100" name="listar">Listar Productos</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Lista de productos -->
+    {% if productos %}
+    <div class="product-list">
+        <h4 class="mb-3">Productos de {{ tipo_producto }}</h4>
+        
+        <form id="modifyForm" method="POST" action="{% url 'modificar' %}">
+            {% csrf_token %}
+            <input type="hidden" name="tipo_producto" value="{{ tipo_producto }}">
+            
+            <div class="row">
+                {% for producto in productos %}
+                <div class="col-md-6">
+                    <div class="product-card">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="producto_id" 
+                                   id="producto_{{ producto.id }}" value="{{ producto.id }}" required>
+                            <label class="form-check-label" for="producto_{{ producto.id }}">
+                                <strong>{{ producto.modelo }}</strong>
+                            </label>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-3">
+                                {% if producto.imagen %}
+                                <img src="{{ producto.imagen.url }}" alt="{{ producto.modelo }}" class="img-fluid">
+                                {% else %}
+                                <img src="{% static 'img/placeholder.jpg' %}" alt="Sin imagen" class="img-fluid">
+                                {% endif %}
+                            </div>
+                            <div class="col-md-9">
+                                <p><strong>Modelo:</strong> {{ producto.modelo|default:"-" }}</p>
+                                <p><strong>Precio:</strong> ${{ producto.precio }}</p>
+                                <p><strong>Marca:</strong> {{ producto.marca }}</p>
+                                <p><strong>Género:</strong> {{ producto.get_genero_display }}</p>
+                                <p><strong>Color:</strong> {{ producto.get_color_display }}</p>
+                                {% if producto.subcategoria %}
+                                <p><strong>Subcategoría:</strong> {{ producto.get_subcategoria_display }}</p>
+                                {% endif %}
+                                {% if producto.tipo %}
+                                <p><strong>Tipo:</strong> {{ producto.get_tipo_display }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="text-center mt-4">
+                <button type="button" class="btn btn-modificar" id="btnModificar">Modificar Producto Seleccionado</button>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+    
+    <!-- Modal de confirmación -->
+    <div class="confirmation-modal" id="confirmationModal">
+        <div class="modal-content">
+            <h4>Confirmar Modificación</h4>
+            <p>¿Estás seguro que deseas modificar este producto?</p>
+            <div class="d-flex justify-content-between mt-4">
+                <button type="button" class="btn btn-secondary" id="cancelModal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="confirmModify">Confirmar</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Formulario de modificación (inicialmente oculto) -->
+    <div class="modification-form mt-4" id="modificationForm" style="display: none;">
+        <h4>Editar Producto</h4>
+        <form id="editProductForm" method="POST" action="{% url 'modificar' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="actualizar" value="true">
+            <input type="hidden" name="tipo_producto" id="editTipoProducto">
+            <input type="hidden" name="producto_id" id="editProductoId">
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="editModelo">Modelo</label>
+                        <input type="text" class="form-control" id="editModelo" name="modelo" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editPrecio">Precio</label>
+                        <input type="number" class="form-control" id="editPrecio" name="precio" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editCantidad">Cantidad en stock</label>
+                        <input type="number" class="form-control" id="editCantidad" name="cantidad" min="0" value="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editMarca">Marca</label>
+                        <select class="form-select" id="editMarca" name="marca" required>
+                            {% for marca in marcas %}
+                            <option value="{{ marca.id }}">{{ marca.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editGenero">Género</label>
+                        <select class="form-select" id="editGenero" name="genero" required>
+                            {% for value, display in GENERO_CHOICES %}
+                            <option value="{{ value }}">{{ display }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editColor">Color</label>
+                        <select class="form-select" id="editColor" name="color" required>
+                            {% for value, display in COLOR_CHOICES %}
+                            <option value="{{ value }}">{{ display }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="editDescripcion">Descripción</label>
+                        <textarea class="form-control" id="editDescripcion" name="descripcion" rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="editNuevo" name="nuevo">
+                        <label class="form-check-label" for="editNuevo">¿Es nuevo?</label>
+                    </div>
+                    
+                    <div class="form-group" id="subcategoriaGroup" style="display: none;">
+                        <label for="editSubcategoria">Subcategoría</label>
+                        <select class="form-select" id="editSubcategoria" name="subcategoria">
+                            {% for value, display in SUBCATEGORIA_TRONCO %}
+                                <option value="{{ value }}">{{ display }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="tipoAccesorioGroup" style="display: none;">
+                        <label for="editTipoAccesorio">Tipo de Accesorio</label>
+                        <select class="form-select" id="editTipoAccesorio" name="tipo_accesorio">
+                            <option value="REL">Reloj</option>
+                            <option value="BUF">Bufanda</option>
+                            <option value="CIN">Cinturón</option>
+                            <option value="COL">Collar</option>
+                            <option value="GOR">Gorra</option>
+                            <option value="PUL">Pulseras</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editImagen">Imagen</label>
+                        <input type="file" class="form-control" id="editImagen" name="imagen">
+                        <small class="text-muted">Dejar en blanco para mantener la imagen actual</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                <button type="button" class="btn btn-secondary" id="cancelEdit">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/modificar.js' %}"></script>
+{% endblock %}
+

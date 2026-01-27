@@ -1,0 +1,892 @@
+/* ========================================== */
+/* COMPILACION AUTOMATICA CSS                 */
+/* GRUPO: PRODUCTO                    */
+/* FECHA: 2026-01-26 15:12:18         */
+/* ========================================== */
+
+/* ************************************************************ */
+/* ARCHIVO: Administracion.css */
+/* RUTA: C:\Users\juanl\Git\PROYECTOS\UrbanStore\UStore\app\static\style\producto\Administracion.css */
+/* ************************************************************ */
+
+ /* =========================================
+   ESTILO URBAN STORE - ADMINISTRACIÓN
+   Paleta: #0F0F0F | #202020 | #5DD62C
+   ========================================= */
+
+/* Importación de fuente (si no está en Herencia.html) */
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+/* Reset básico para asegurar fondo */
+body {
+    background-color: #0F0F0F !important;
+    color: #F8F8F8;
+    font-family: 'Permanent Marker', cursive;
+}
+
+.admin-panel-container {
+    padding: 4rem 0;
+    min-height: 100vh;
+    background-color: #0F0F0F;
+}
+
+/* --- TÍTULOS --- */
+.urban-title {
+    color: #5DD62C;
+    font-size: 3.5rem;
+    text-shadow: 0 0 15px rgba(93, 214, 44, 0.6);
+    margin-bottom: 0.5rem;
+    letter-spacing: 2px;
+}
+
+.urban-subtitle {
+    color: #F8F8F8;
+    font-size: 1.5rem;
+    opacity: 0.8;
+    margin-bottom: 3rem;
+    letter-spacing: 1px;
+}
+
+/* --- TARJETAS (CARDS) --- */
+.urban-card {
+    background-color: #202020;
+    border: 2px solid #333;
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.urban-card:hover {
+    transform: translateY(-5px);
+    border-color: #5DD62C;
+    box-shadow: 0 0 20px rgba(93, 214, 44, 0.2);
+}
+
+/* --- IMÁGENES DENTRO DE CARDS --- */
+.card-img-wrapper {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    background-color: #151515;
+    border-radius: 8px;
+    border: 1px solid #2a2a2a;
+}
+
+.urban-img {
+    max-height: 80%;
+    max-width: 80%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.urban-card:hover .urban-img {
+    transform: scale(1.1);
+}
+
+.icon-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- TEXTO CARD --- */
+.card-title {
+    color: #F8F8F8;
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+}
+
+/* --- BOTONES --- */
+.urban-btn {
+    background-color: #5DD62C;
+    color: #0F0F0F !important; /* Texto negro para contraste */
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.2rem;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    width: 100%;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(93, 214, 44, 0.4);
+}
+
+.urban-btn:hover {
+    background-color: #337418; /* Verde Oscuro */
+    color: #F8F8F8 !important; /* Texto blanco en hover */
+    box-shadow: 0 0 20px rgba(93, 214, 44, 0.8);
+    transform: scale(1.02);
+}
+
+/* Variación para botón de eliminar (mantiene estilo neon pero más agresivo en hover) */
+.btn-danger-custom:hover {
+    background-color: #d62c2c;
+    box-shadow: 0 0 20px rgba(214, 44, 44, 0.6);
+}
+
+/* ************************************************************ */
+/* ARCHIVO: agregar.css */
+/* RUTA: C:\Users\juanl\Git\PROYECTOS\UrbanStore\UStore\app\static\style\producto\agregar.css */
+/* ************************************************************ */
+
+.page-container {
+        background-image: url("{% static 'img/Header/agregar.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+        padding: 2rem 0;
+    }
+    
+    .form-container {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+/* Estilos generales para el formulario */
+.container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 1.5rem;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+/* Estilos para los campos del formulario */
+.form-label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.form-control, .form-select {
+    padding: 0.75rem 1rem;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.form-check-input {
+    width: 1.2em;
+    height: 1.2em;
+    margin-top: 0.15em;
+}
+
+/* Estilos para los botones */
+.btn {
+    padding: 0.75rem;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5c636a;
+    border-color: #565e64;
+}
+
+/* Estilos para el campo de imagen */
+#imagen-field {
+    margin-top: 1.5rem;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1.5rem;
+    }
+}
+
+/* ************************************************************ */
+/* ARCHIVO: agregar_marcas.css */
+/* RUTA: C:\Users\juanl\Git\PROYECTOS\UrbanStore\UStore\app\static\style\producto\agregar_marcas.css */
+/* ************************************************************ */
+
+/* =========================================
+   ESTILO URBAN STORE - AGREGAR MARCA
+   Paleta: #0F0F0F | #202020 | #5DD62C
+   ========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+/* --- CONFIGURACIÓN BASE --- */
+body {
+    background-color: #0F0F0F !important;
+    color: #F8F8F8;
+    font-family: 'Permanent Marker', cursive;
+    background-image: none !important; /* Eliminamos fondo de imagen antiguo si existiera conflicto */
+    min-height: 100vh;
+}
+
+.urban-container {
+    padding: 4rem 0;
+}
+
+/* --- TARJETAS (CARDS) --- */
+.urban-card {
+    background-color: #202020;
+    border: 2px solid #333;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.urban-card:hover {
+    border-color: #337418;
+    box-shadow: 0 0 20px rgba(93, 214, 44, 0.1);
+}
+
+/* --- TIPOGRAFÍA Y TÍTULOS --- */
+.urban-title {
+    color: #5DD62C;
+    font-size: 3rem;
+    text-shadow: 0 0 10px rgba(93, 214, 44, 0.4);
+    margin-bottom: 0.5rem;
+    letter-spacing: 2px;
+}
+
+.urban-subtitle {
+    color: #F8F8F8;
+    font-size: 1.2rem;
+    opacity: 0.7;
+    margin-bottom: 2rem;
+}
+
+.urban-section-title {
+    color: #5DD62C;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #333;
+    padding-bottom: 1rem;
+}
+
+.urban-label {
+    color: #F8F8F8;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    display: block;
+    letter-spacing: 1px;
+}
+
+/* --- FORMULARIOS --- */
+.input-wrapper input,
+.form-control {
+    background-color: #0F0F0F !important;
+    border: 2px solid #333 !important;
+    color: #F8F8F8 !important;
+    border-radius: 8px;
+    padding: 15px;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.2rem;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.input-wrapper input:focus,
+.form-control:focus {
+    border-color: #5DD62C !important;
+    box-shadow: 0 0 15px rgba(93, 214, 44, 0.3) !important;
+    outline: none;
+}
+
+.input-wrapper input::placeholder {
+    color: #666;
+}
+
+/* --- BOTONES --- */
+.urban-btn {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.2rem;
+    padding: 12px 30px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: none;
+    min-width: 180px;
+}
+
+.save-btn {
+    background-color: #5DD62C;
+    color: #0F0F0F !important;
+    box-shadow: 0 0 10px rgba(93, 214, 44, 0.3);
+}
+
+.save-btn:hover {
+    background-color: #337418;
+    color: #F8F8F8 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(93, 214, 44, 0.6);
+}
+
+.cancel-btn {
+    background-color: #333;
+    color: #F8F8F8 !important;
+    border: 1px solid #444;
+}
+
+.cancel-btn:hover {
+    background-color: #d62c2c; /* Rojo alerta para cancelar */
+    border-color: #d62c2c;
+    box-shadow: 0 0 15px rgba(214, 44, 44, 0.4);
+}
+
+/* --- ALERTA --- */
+.urban-alert {
+    color: #d62c2c;
+    font-size: 1rem;
+    text-align: center;
+    background-color: rgba(214, 44, 44, 0.1);
+    border: 1px solid #d62c2c;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+/* --- TABLA URBAN --- */
+.urban-table-responsive {
+    overflow-x: auto;
+}
+
+.urban-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.urban-table th {
+    background-color: #337418;
+    color: #F8F8F8;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.4rem;
+    border: 1px solid #0F0F0F;
+    letter-spacing: 1px;
+}
+
+.urban-table td {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    padding: 20px;
+    vertical-align: top;
+    min-width: 200px; /* Asegura ancho en móvil */
+}
+
+/* --- TAGS (Marcas) --- */
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.urban-tag {
+    background-color: #0F0F0F;
+    color: #5DD62C;
+    border: 1px solid #5DD62C;
+    padding: 5px 12px;
+    border-radius: 20px; /* Estilo píldora */
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    cursor: default;
+}
+
+.urban-tag:hover {
+    background-color: #5DD62C;
+    color: #0F0F0F;
+    box-shadow: 0 0 10px rgba(93, 214, 44, 0.5);
+}
+
+.empty-tag {
+    color: #555;
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+/* ************************************************************ */
+/* ARCHIVO: agregar_tienda.css */
+/* RUTA: C:\Users\juanl\Git\PROYECTOS\UrbanStore\UStore\app\static\style\producto\agregar_tienda.css */
+/* ************************************************************ */
+
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+/* =========================================
+   ESTRUCTURA PRINCIPAL & FONDO
+   ========================================= */
+body {
+    background-color: #0F0F0F;
+    color: #F8F8F8;
+    font-family: 'Roboto', sans-serif; /* Fallback para textos largos */
+}
+
+.urban-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 2rem;
+    background: radial-gradient(circle at top right, #202020 0%, #0F0F0F 100%);
+}
+
+.glass-card {
+    background-color: #202020;
+    width: 100%;
+    max-width: 600px;
+    padding: 3rem;
+    border-radius: 12px;
+    border: 2px solid #333;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decoración estilo neón */
+.glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #5DD62C, #337418);
+    box-shadow: 0 0 10px #5DD62C;
+}
+
+/* =========================================
+   TIPOGRAFÍA
+   ========================================= */
+.urban-title {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2.5rem;
+    color: #5DD62C;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0px #000;
+}
+
+.urban-subtitle {
+    text-align: center;
+    color: #888;
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 1rem;
+}
+
+.urban-label {
+    font-family: 'Permanent Marker', cursive;
+    color: #F8F8F8;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 5px rgba(248, 248, 248, 0.1);
+}
+
+/* =========================================
+   INPUTS
+   ========================================= */
+.form-group {
+    margin-bottom: 2.5rem;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.urban-input {
+    width: 100%;
+    background-color: #0F0F0F;
+    border: 2px solid #333;
+    color: #F8F8F8;
+    padding: 1rem 1.2rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.urban-input::placeholder {
+    color: #555;
+    font-style: italic;
+}
+
+.urban-input:focus {
+    border-color: #5DD62C;
+    box-shadow: 0 0 15px rgba(93, 214, 44, 0.2);
+}
+
+/* =========================================
+   CHECKBOXES PERSONALIZADOS E ICONOS
+   ========================================= */
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    padding: 1rem;
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.custom-checkbox:hover {
+    border-color: #5DD62C;
+    background-color: #252525;
+}
+
+/* Ocultar checkbox nativo */
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Cuadrado del check */
+.checkmark {
+    height: 24px;
+    width: 24px;
+    min-width: 24px; /* Evitar que se encoja */
+    background-color: #0F0F0F;
+    border: 2px solid #555;
+    border-radius: 4px;
+    margin-right: 15px;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+    background-color: #5DD62C;
+    border-color: #5DD62C;
+    box-shadow: 0 0 10px rgba(93, 214, 44, 0.4);
+}
+
+/* Icono del check dentro del cuadrado */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 7px;
+    top: 2px;
+    width: 6px;
+    height: 12px;
+    border: solid #0F0F0F;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Estilos para los nuevos Iconos de Categoría */
+.category-icon {
+    font-size: 1.4rem;
+    margin-right: 12px;
+    color: #555; /* Color inactivo */
+    transition: all 0.3s ease;
+}
+
+/* Cambio de color del icono al seleccionar */
+.custom-checkbox input:checked ~ .category-icon {
+    color: #5DD62C;
+    text-shadow: 0 0 8px rgba(93, 214, 44, 0.5);
+}
+
+/* Hover sobre el contenedor también ilumina el icono un poco */
+.custom-checkbox:hover .category-icon {
+    color: #888;
+}
+.custom-checkbox input:checked:hover ~ .category-icon {
+    color: #5DD62C; /* Mantiene el verde si está seleccionado */
+}
+
+.label-text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color: #ccc;
+    transition: color 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.custom-checkbox input:checked ~ .label-text {
+    color: #F8F8F8;
+}
+
+/* =========================================
+   BOTÓN
+   ========================================= */
+.form-actions {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.urban-btn {
+    background-color: #5DD62C;
+    color: #0F0F0F;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.5rem;
+    padding: 0.8rem 3rem;
+    border: none;
+    border-radius: 50px; /* Estilo píldora */
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 0 #337418;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: 100%;
+}
+
+.urban-btn:hover {
+    background-color: #F8F8F8;
+    color: #0F0F0F;
+    box-shadow: 0 4px 0 #ccc;
+    transform: translateY(-2px);
+}
+
+.urban-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 0 0 #337418;
+}
+
+.btn-icon {
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+/* ************************************************************ */
+/* ARCHIVO: eliminar.css */
+/* RUTA: C:\Users\juanl\Git\PROYECTOS\UrbanStore\UStore\app\static\style\producto\eliminar.css */
+/* ************************************************************ */
+
+/* eliminar.css - Estilos para la página de eliminación de productos */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #343a40;
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table-responsive {
+    margin-top: 30px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table-dark {
+    background-color: #343a40;
+}
+
+.table th {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.product-image {
+    max-width: 50px;
+    height: auto;
+    border-radius: 3px;
+}
+
+.btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    margin-top: 20px;
+    padding: 8px 20px;
+}
+
+.btn-danger:hover {
+    background-color: #bb2d3b;
+    border-color: #b02a37;
+}
+
+.alert {
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.form-select {
+    margin-bottom: 15px;
+}
+
+.form-check-input {
+    margin-left: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .d-flex.justify-content-between {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn-danger {
+        width: 100%;
+    }
+}
+
+/* ************************************************************ */
+/* ARCHIVO: modificar.css */
+/* RUTA: C:\Users\juanl\Git\PROYECTOS\UrbanStore\UStore\app\static\style\producto\modificar.css */
+/* ************************************************************ */
+
+/* Estilos para el formulario de modificación */
+.modificar-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-type-selector {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: #e9ecef;
+    border-radius: 5px;
+}
+
+.product-list {
+    margin-top: 2rem;
+}
+
+.product-card {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+.product-card:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.product-card img {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: cover;
+}
+
+.btn-modificar {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #212529;
+}
+
+.btn-modificar:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+}
+
+.confirmation-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+

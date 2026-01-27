@@ -1,0 +1,416 @@
+
+
+
+
+
+
+
+
+
+
+
+{% extends "Herencia.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}25 Urban Store - Carrito{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'style/carrito.css' %}" />
+{% endblock %}
+
+{% block content %}
+<br><br><br>
+<div class="container mt-4">
+    <h2 class="mb-4">Tu Carrito de Compras</h2>
+    
+    {% if items %}
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio Unitario</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr data-product-id="{{ item.producto.id }}" data-product-type="{{ item.tipo }}">
+                    <td>
+                        <div class="d-flex align-items-center">
+                            {% if item.producto.imagen %}
+                            <img src="{{ item.producto.imagen.url }}" alt="{{ item.producto.modelo }}" class="img-thumbnail cart-product-image">
+                            {% endif %}
+                            <div class="ms-3">
+                                <h6 class="mb-1">{{ item.producto.marca | capfirst }}</h6>
+                                <p class="mb-0">{{ item.producto.modelo | title }}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>${{ item.producto.precio | intcomma }}</td>
+                    <td>
+                        <div class="quantity-selector d-flex align-items-center">
+                            <button class="btn btn-sm btn-outline-secondary decrement" 
+                                    data-product-id="{{ item.producto.id }}" 
+                                    data-product-type="{{ item.tipo }}">-</button>
+                            <span class="quantity mx-2">{{ item.cantidad }}</span>
+                            <button class="btn btn-sm btn-outline-secondary increment" 
+                                    data-product-id="{{ item.producto.id }}" 
+                                    data-product-type="{{ item.tipo }}"
+                                    data-max="{{ item.producto.cantidad }}">+</button>
+                        </div>
+                    </td>
+                    <td>${{ item.subtotal | intcomma }}</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm remove-item" 
+                                data-product-id="{{ item.producto.id }}" 
+                                data-product-type="{{ item.tipo }}">
+                            Eliminar
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                    <td colspan="2"><strong>${{ total | intcomma }}</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    
+    <div class="d-flex justify-content-between align-items-center mt-4">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="termsCheck" required>
+            <label class="form-check-label" for="termsCheck">
+                Acepto los términos y condiciones
+        </label>
+        </div>
+        <a href="{% url 'Envio' %}">
+            <button id="checkoutBtn" class="btn btn-primary">Ir a Envio</button>
+        </a>      
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        Tu carrito está vacío. <a href="{% url 'index' %}" class="alert-link">Seguir comprando</a>
+    </div>
+    {% endif %}
+</div>
+<br><br><br>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/carrito.js' %}"></script>
+{% endblock %}
+
+
+
+
+
+
+{% extends "Herencia.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}25 Urban Store - Confirmación de Pago{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'style/Ventas/commit_pay.css' %}" />
+
+{% endblock %}
+
+{% block content %}
+<br><br><br>
+<div class="container">
+    <div class="transaction-detail">
+        <h2>Pago {{ transaction_detail.state }}</h2>
+        
+        <div class="detail-item">
+            <span class="detail-label">Estado:</span>
+            <span>{{ transaction_detail.state }}</span>
+        </div>
+        
+        <div class="detail-item">
+            <span class="detail-label">Fecha:</span>
+            <span>{{ transaction_detail.transaction_date }}</span>
+        </div>
+        
+        <div class="detail-item">
+            <span class="detail-label">Tarjeta:</span>
+            <span>**** **** **** {{ transaction_detail.card_number }}</span>
+        </div>
+        
+        <div class="detail-item">
+            <span class="detail-label">Tipo:</span>
+            <span>{{ transaction_detail.pay_type }}</span>
+        </div>
+        
+        <div class="detail-item">
+            <span class="detail-label">Monto:</span>
+            <span>${{ transaction_detail.amount }}</span>
+        </div>
+        
+        <div class="detail-item">
+            <span class="detail-label">Código:</span>
+            <span>{{ transaction_detail.authorization_code }}</span>
+        </div>
+        
+        <div class="detail-item">
+            <span class="detail-label">Orden:</span>
+            <span>{{ transaction_detail.buy_order }}</span>
+        </div>
+        
+        <a href="{% url 'index' %}" class="btn btn-primary btn-back">Volver al inicio</a>
+    </div>
+</div>
+<br><br><br>
+{% endblock %}
+
+
+
+
+
+
+{% extends "Herencia.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}25 Urban Store - Envío{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'style/Ventas/Envio.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Datos de Envío</h2>
+    <form method="post" id="envio-form">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                {{ form.nombre.label_tag }}
+                {{ form.nombre }}
+            </div>
+            <div class="col-md-6">
+                {{ form.direccion.label_tag }}
+                {{ form.direccion }}
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                {{ form.ciudad.label_tag }}
+                {{ form.ciudad }}
+            </div>
+            <div class="col-md-6">
+                {{ form.region.label_tag }}
+                {{ form.region }}
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                {{ form.codigo_postal.label_tag }}
+                {{ form.codigo_postal }}
+            </div>
+            <div class="col-md-6">
+                {{ form.telefono.label_tag }}
+                {{ form.telefono }}
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+            </div>
+            <div class="col-md-6">
+                {{ form.courier.label_tag }}
+                {{ form.courier }}
+            </div>
+        </div>
+        
+        <!-- Resumen de compra -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <h4>Resumen de Compra</h4>
+                <table class="table">
+                    <tr>
+                        <td>Subtotal:</td>
+                        <td>${{ total_carrito|intcomma }}</td>
+                    </tr>
+                    <tr>
+                        <td>Costo de región:</td>
+                        <td id="costo-envio">$0</td>
+                    </tr>
+                    <tr>
+                        <td>Costo de courier:</td>
+                        <td id="costo-courier">$0</td>
+                    </tr>
+                    <tr>
+                        <td>Marcas:</td>
+                        <td>{{ envio.marcas_compradas }}</td>
+                    </tr>
+                    <tr class="table-active">
+                        <td><strong>Total:</strong></td>
+                        <td id="total-pagar"><strong>${{ total_carrito|intcomma }}</strong></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary mt-3">Continuar al Pago</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Cargar nuestro script -->
+<script src="{% static 'js/Ventas/Envio.js' %}"></script>
+{% endblock %}
+
+
+
+
+
+
+{% extends "Herencia.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}25 Urban Store - Pago{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'style/Ventas/Pago.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Resumen de Compra</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Datos de Envío</h4>
+            <p><strong>Nombre:</strong> {{ envio.nombre }}</p>
+            <p><strong>Dirección:</strong> {{ envio.direccion }}</p>
+            <p><strong>Ciudad:</strong> {{ envio.ciudad }}</p>
+            <p><strong>Región:</strong> {{ envio.get_region_display }}</p>
+            <p><strong>Código Postal:</strong> {{ envio.codigo_postal }}</p>
+            <p><strong>Teléfono:</strong> {{ envio.telefono }}</p>
+            <p><strong>Email:</strong> {{ envio.email }}</p>
+            <p><strong>Courier:</strong> {{ envio.get_courier_display }}</p>
+        </div>
+        <div class="col-md-6">
+            <h4>Resumen de Pago</h4>
+            <table class="table">
+                <tr>
+                    <td>
+                        <p><strong>Marcas compradas:</strong> {{ envio.marcas_compradas }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Subtotal:</td>
+                    <td>${{ envio.monto_carrito|intcomma }}</td>
+                </tr>
+                <tr>
+                    <td>Costo de región:</td>
+                    <td>${{ envio.get_region_cost|intcomma }}</td>
+                </tr>
+                <tr>
+                    <td>Costo de courier:</td>
+                    <td>${{ envio.get_courier_cost|intcomma }}</td>
+                </tr>
+                <tr class="table-active">
+                    <td><strong>Total a pagar:</strong></td>
+                    <td><strong>${{ envio.total_pagar|intcomma }}</strong></td>
+                </tr>
+            </table>
+            
+            <div class="mt-4">
+                <h4>Método de Pago</h4>
+                <p>Serás redirigido a Transbank para completar el pago de forma segura.</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success btn-lg w-100 mt-4">
+                        Pagar con Tarjeta ${{ envio.total_pagar|intcomma }}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/Ventas/Pago.js' %}"></script>
+{% endblock %}
+[file content end]
+
+
+
+
+
+
+{% extends "Herencia.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}25 Urban Store - Error en Pago{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'style/Ventas/pago_error.css' %}" />
+{% endblock %}
+
+{% block content %}
+<br><br><br>
+<div class="container">
+    <div class="error-container">
+        <div class="error-icon">❌</div>
+        <h2>Error en el Proceso de Pago</h2>
+        <p>{{ error }}</p>
+        <div class="error-buttons">
+            <a href="{% url 'carrito' %}" class="btn btn-outline-danger">Volver al Carrito</a>
+            <a href="{% url 'index' %}" class="btn btn-outline-secondary">Ir al Inicio</a>
+        </div>
+    </div>
+</div>
+<br><br><br>
+{% endblock %}
+
+
+
+
+
+
+{% extends "Herencia.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}25 Urban Store - Redirigiendo a Transbank{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'style/Ventas/send_pay.css' %}" />
+{% endblock %}
+
+{% block content %}
+<br><br><br>
+<div class="container">
+    <div class="redirect-container">
+        <div class="redirect-icon">↻</div>
+        <h2>Redirigiendo a Transbank</h2>
+        <p class="redirect-message">Estás siendo redirigido a la pasarela de pago de Transbank para completar tu compra.</p>
+        <p>Por favor, espera un momento...</p>
+        
+        <form action="{{ transbank.url }}" name="send_pay_form" method="POST">
+            <input type="hidden" name="token_ws" value="{{ transbank.token }}">
+            <button type="submit" class="btn btn-primary btn-manual">Si no redirige automáticamente, haz clic aquí</button>
+        </form>
+    </div>
+</div>
+<br><br><br>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/Ventas/send_pay.js' %}"></script>
+{% endblock %}
+

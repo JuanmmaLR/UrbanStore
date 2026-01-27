@@ -1,0 +1,104 @@
+{% extends "Herencia.html" %}
+{% load static %}
+
+{% block title %}25 Urban Store - Administración{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'style/producto/Administracion.css' %}" />
+{% endblock %}
+
+{% block content %}
+<section class="admin-panel-container">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h1 class="urban-title">ZONA DE ADMINISTRACIÓN</h1>
+                <p class="urban-subtitle">GESTIONA TU IMPERIO URBAN</p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center g-4">
+            
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="urban-card">
+                    <div class="card-img-wrapper">
+                        <img src="{% static 'img/producto/agregar-producto.png' %}" class="urban-img" alt="Agregar Producto">
+                    </div>
+                    <div class="card-body text-center">
+                        <h3 class="card-title">NUEVO DROP</h3>
+                        <a href="{% url 'agregar_producto' %}" class="btn urban-btn">AGREGAR PRODUCTO</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="urban-card">
+                    <div class="card-img-wrapper">
+                        <img src="{% static 'img/producto/modificar-producto.png' %}" class="urban-img" alt="Modificar Producto">
+                    </div>
+                    <div class="card-body text-center">
+                        <h3 class="card-title">EDITAR STOCK</h3>
+                        <a href="{% url 'modificar' %}" class="btn urban-btn">MODIFICAR PRODUCTO</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="urban-card">
+                    <div class="card-img-wrapper">
+                        <img src="{% static 'img/producto/eliminar-producto.png' %}" class="urban-img" alt="Eliminar Producto">
+                    </div>
+                    <div class="card-body text-center">
+                        <h3 class="card-title">LIMPIAR INVENTARIO</h3>
+                        <a href="{% url 'eliminar' %}" class="btn urban-btn btn-danger-custom">ELIMINAR PRODUCTO</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="urban-card">
+                    <div class="card-img-wrapper">
+                        <img src="{% static 'img/producto/listar-producto.png' %}" class="urban-img" alt="Agregar Marca">
+                    </div>
+                    <div class="card-body text-center">
+                        <h3 class="card-title">NUEVA MARCA</h3>
+                        <a href="{% url 'agrega_marca' %}" class="btn urban-btn">AGREGAR MARCA</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="urban-card">
+                    <div class="card-img-wrapper">
+                        <img src="{% static 'img/producto/agregar_tienda.png' %}" class="urban-img" alt="Agregar Tienda">
+                    </div>
+                    <div class="card-body text-center">
+                        <h3 class="card-title">EXPANDIR TERRITORIO</h3>
+                        <a href="{% url 'agregar_tienda' %}" class="btn urban-btn">AGREGAR SPOT</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="urban-card">
+                    <div class="card-img-wrapper">
+                         <div class="icon-placeholder">
+                            <i class="fas fa-users" style="font-size: 5rem; color: #5DD62C;"></i>
+                        </div>
+                    </div>
+                    <div class="card-body text-center">
+                        <h3 class="card-title">CREW & CLIENTES</h3>
+                        <a href="{% url 'Admin_User' %}" class="btn urban-btn">GESTIONAR USUARIOS</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{# Añade JavaScript específico si es necesario #}
+{% block extra_js %}
+<script src="{% static 'js/Administracion.js' %}"></script>
+{% endblock %}  

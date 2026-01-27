@@ -1,0 +1,464 @@
+/* ==========================================
+   DISEÑO URBAN STORE - REFACTORIZADO
+   ========================================== */
+
+:root {
+    /* Paleta de Colores Solicitada */
+    --us-black: #0F0F0F;        /* Fondo Principal */
+    --us-dark-grey: #202020;    /* Elementos secundarios / Footer */
+    --us-neon-green: #5DD62C;   /* Acentuador / Hover / Botones */
+    --us-dark-green: #337418;   /* Variantes oscuras */
+    --us-white: #F8F8F8;        /* Texto */
+    
+    /* Tipografías */
+    --font-urban: 'Permanent Marker', cursive; /* Para Headers y Navs */
+    --font-body: 'Roboto', sans-serif;         /* Para lectura y contenido */
+}
+
+/* Reset Básico y Scroll */
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--us-white); /* Fondo del body general claro, header oscuro */
+    color: var(--us-black);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* ==========================================
+   HEADER PRINCIPAL
+   ========================================== */
+.urban-header {
+    background-color: var(--us-black);
+    padding: 15px 30px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    border-bottom: 2px solid var(--us-dark-grey);
+}
+
+/* 1. Logo */
+.header-brand .logo-img {
+    height: 50px; /* Ajusta según tu logo */
+    width: auto;
+    filter: drop-shadow(0 0 2px rgba(255,255,255,0.1));
+}
+
+/* 2. Navegación (Fuente Rayada) */
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.urban-link {
+    font-family: var(--font-urban); /* Fuente estilosa solicitada */
+    font-size: 1.4rem;
+    color: var(--us-white);
+    letter-spacing: 1px;
+    position: relative;
+    padding: 5px 0;
+}
+
+.urban-link:hover, 
+.urban-link.active {
+    color: var(--us-neon-green);
+    text-shadow: 0 0 10px rgba(93, 214, 44, 0.4);
+}
+
+/* Efecto de subrayado animado */
+.urban-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--us-neon-green);
+    transition: width 0.3s ease;
+}
+
+.urban-link:hover::after {
+    width: 100%;
+}
+
+/* 3. Acciones del Header */
+.action-icon {
+    color: var(--us-white);
+    font-size: 1.2rem;
+    padding: 10px;
+    border-radius: 50%;
+    background: var(--us-dark-grey);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+
+.action-icon:hover {
+    background: var(--us-neon-green);
+    color: var(--us-black);
+    transform: translateY(-2px);
+}
+
+/* Input de Búsqueda */
+.search-compact {
+    position: relative;
+}
+
+.search-input {
+    background: var(--us-dark-grey);
+    border: 1px solid #333;
+    border-radius: 20px;
+    padding: 6px 35px 6px 15px;
+    color: var(--us-white);
+    outline: none;
+    font-size: 0.9rem;
+    width: 200px;
+    transition: width 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: var(--us-neon-green);
+    width: 240px;
+}
+
+.search-btn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+}
+
+.search-btn:hover {
+    color: var(--us-neon-green);
+}
+
+/* Contador Carrito */
+.cart-icon-wrapper {
+    position: relative;
+}
+
+.cart-counter {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: var(--us-neon-green);
+    color: var(--us-black);
+    font-size: 0.75rem;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--us-black);
+}
+
+/* Toggle Menu Hamburguesa */
+.menu-toggle {
+    background: none;
+    border: none;
+    color: var(--us-white);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.menu-toggle:hover {
+    color: var(--us-neon-green);
+}
+
+/* ==========================================
+   MENÚ MÓVIL (OFF-CANVAS)
+   ========================================== */
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    left: -100%; /* Oculto a la izquierda */
+    width: 280px;
+    height: 100vh;
+    background-color: var(--us-black);
+    z-index: 1050;
+    transition: 0.3s ease-in-out;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-nav.active {
+    left: 0;
+}
+
+.mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--us-dark-grey);
+    padding-bottom: 15px;
+}
+
+.mobile-title {
+    font-family: var(--font-urban);
+    color: var(--us-neon-green);
+    font-size: 1.5rem;
+}
+
+.close-menu {
+    background: none;
+    border: none;
+    color: var(--us-white);
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.mobile-links li {
+    margin-bottom: 15px;
+}
+
+.mobile-links a {
+    color: var(--us-white);
+    font-family: var(--font-urban);
+    font-size: 1.2rem;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.mobile-links a:hover {
+    background-color: var(--us-dark-grey);
+    color: var(--us-neon-green);
+    padding-left: 20px; /* Efecto deslizamiento */
+}
+
+/* Overlay oscuro para fondo */
+.nav-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 1040;
+    display: none;
+    backdrop-filter: blur(3px);
+}
+
+.nav-overlay.active {
+    display: block;
+}
+
+/* ==========================================
+   SIDEBAR CARRITO (OFF-CANVAS DERECHA)
+   ========================================== */
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -400px; /* Oculto a la derecha */
+    width: 350px;
+    height: 100vh;
+    background-color: var(--us-black);
+    z-index: 1100;
+    transition: 0.3s ease-in-out;
+    box-shadow: -4px 0 15px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    color: var(--us-white);
+}
+
+.cart-sidebar.active {
+    right: 0;
+}
+
+.cart-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 1090;
+    display: none;
+    backdrop-filter: blur(2px);
+}
+
+.cart-overlay.active {
+    display: block;
+}
+
+.cart-sidebar-header {
+    padding: 20px;
+    background-color: var(--us-dark-grey);
+    border-bottom: 2px solid var(--us-neon-green);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-sidebar-header h3 {
+    margin: 0;
+    font-family: var(--font-urban);
+    color: var(--us-white);
+}
+
+.close-cart {
+    background: none;
+    border: none;
+    color: var(--us-white);
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.close-cart:hover {
+    color: var(--us-neon-green);
+}
+
+.cart-sidebar-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+/* Item dentro del sidebar */
+.sidebar-item {
+    display: flex;
+    margin-bottom: 20px;
+    background-color: var(--us-dark-grey);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+.sidebar-item-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.sidebar-item-info h5 {
+    font-size: 0.95rem;
+    margin-bottom: 5px;
+    color: var(--us-white);
+}
+
+.sidebar-item-info p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #aaa;
+}
+
+.sidebar-item-price {
+    color: var(--us-neon-green);
+    font-weight: bold;
+}
+
+.cart-sidebar-footer {
+    padding: 20px;
+    background-color: var(--us-dark-grey);
+    border-top: 1px solid #333;
+}
+
+.btn-urban {
+    background-color: var(--us-neon-green);
+    color: var(--us-black);
+    font-weight: bold;
+    font-family: var(--font-urban);
+    letter-spacing: 1px;
+    border: none;
+    padding: 12px;
+}
+
+.btn-urban:hover {
+    background-color: var(--us-dark-green);
+    color: var(--us-white);
+}
+
+.font-urban {
+    font-family: var(--font-urban);
+}
+
+/* ==========================================
+   MAIN CONTENT SPACER
+   ========================================== */
+.main-content {
+    min-height: 60vh; /* Asegura que el footer no suba si hay poco contenido */
+    padding-bottom: 40px;
+}
+
+/* ==========================================
+   FOOTER
+   ========================================== */
+.urban-footer {
+    background-color: var(--us-dark-grey);
+    color: #aaa;
+    border-top: 4px solid var(--us-neon-green); /* Línea neón superior */
+    font-family: var(--font-body);
+}
+
+.footer-logo {
+    max-width: 150px;
+    filter: grayscale(100%) brightness(200%); /* Logo en blanco y negro para el footer */
+}
+
+.footer-title {
+    color: var(--us-white);
+    font-family: var(--font-urban);
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: #aaa;
+    font-size: 0.95rem;
+    transition: 0.3s;
+}
+
+.footer-links a:hover {
+    color: var(--us-neon-green);
+    padding-left: 5px;
+}
+
+.social-icons a {
+    color: var(--us-white);
+    font-size: 1.5rem;
+    margin-right: 15px;
+    transition: 0.3s;
+}
+
+.social-icons a:hover {
+    color: var(--us-neon-green);
+    transform: scale(1.2);
+}
+
+.contact-info p {
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.contact-info i {
+    color: var(--us-neon-green);
+    width: 20px;
+    text-align: center;
+    margin-right: 5px;
+}

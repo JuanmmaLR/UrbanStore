@@ -1,0 +1,233 @@
+/* ============================
+   REGISTRARSE.CSS
+   Diseño aislado del Herencia.css
+   ============================ */
+
+:root {
+  --rs-color-fondo: #f8f9fa;
+  --rs-color-card: #ffffff;
+  --rs-color-primario: #007bff;
+  --rs-color-borde: #dee2e6;
+  --rs-color-texto: #000000;
+  --rs-sombra: rgba(0, 0, 0, 0.1);
+  --rs-sombra-fuerte: rgba(0, 0, 0, 0.2);
+  --rs-radius: 12px;
+  --rs-padding-global: 60px;
+  --rs-transicion: all 0.3s ease-in-out;
+}
+
+/* ============================
+   SECCIÓN PRINCIPAL
+   ============================ */
+.rs-fondo {
+  background-color: var(--rs-color-fondo);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.rs-container {
+  max-width: 1200px;
+}
+
+/* ============================
+   TARJETA PRINCIPAL
+   ============================ */
+.rs-card {
+  background-color: var(--rs-color-card);
+  border: 1px solid var(--rs-color-borde);
+  border-radius: var(--rs-radius);
+  box-shadow: 0 6px 18px var(--rs-sombra);
+  transition: var(--rs-transicion);
+}
+
+.rs-card:hover {
+  box-shadow: 0 10px 25px var(--rs-sombra-fuerte);
+}
+
+/* Fondo interno del formulario */
+.rs-cardbody {
+  padding: 3rem 2rem;
+  background-image: url("../../img/Header/fondo_2.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+/* ============================
+   TITULO Y FORMULARIO
+   ============================ */
+.rs-titulo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--rs-color-texto);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.rs-form {
+  margin-top: 20px;
+  color: var(--rs-color-texto);
+  font-weight: bold;
+}
+
+.rs-inputgroup {
+  box-shadow: 0 1px 3px var(--rs-sombra);
+  border-radius: var(--rs-radius);
+  overflow: hidden;
+  transition: var(--rs-transicion);
+}
+
+.rs-inputgroup:hover {
+  box-shadow: 0 3px 8px var(--rs-sombra-fuerte);
+}
+
+.rs-inputicon {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  color: #000;
+  font-weight: bold;
+}
+
+.rs-input {
+  border: none;
+  padding: 12px;
+  font-size: 15px;
+  background-color: rgba(255, 255, 255, 0.85);
+  color: #000;
+  font-weight: bold;
+}
+
+.rs-input:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+/* Labels y texto del formulario */
+.rs-label,
+.rs-checklabel {
+  color: var(--rs-color-texto);
+  font-weight: bold;
+}
+
+/* ============================
+   BOTONES Y CHECKBOXES
+   ============================ */
+.rs-boton {
+  background-color: var(--rs-color-primario);
+  border: none;
+  padding: 12px 35px;
+  border-radius: var(--rs-radius);
+  transition: var(--rs-transicion);
+  font-weight: bold;
+}
+
+.rs-boton:hover {
+  background-color: #0056b3;
+  transform: scale(1.02);
+}
+
+.rs-checklabel a {
+  color: var(--rs-color-primario);
+  text-decoration: underline;
+  transition: var(--rs-transicion);
+  font-weight: bold;
+}
+
+.rs-checklabel a:hover {
+  color: #004080;
+}
+
+/* ============================
+   IMAGEN DE BIENVENIDA
+   ============================ */
+.rs-imgcol {
+  text-align: center;
+}
+
+.rs-img {
+  max-width: 100%;
+  height: auto;
+  transition: var(--rs-transicion);
+}
+
+.rs-img:hover {
+  transform: scale(1.03);
+}
+
+/* ============================
+   ENLACE INICIAR SESIÓN
+   ============================ */
+.rs-loginlink {
+  margin-top: 15px;
+  font-size: 0.95rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.rs-loginlink a {
+  color: var(--rs-color-primario);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.rs-loginlink a:hover {
+  text-decoration: underline;
+  color: #000;
+}
+
+/* ============================
+   RESPONSIVE DESIGN
+   ============================ */
+@media (max-width: 992px) {
+  .rs-cardbody {
+    padding: 2rem 1rem;
+    background-position: top;
+  }
+
+  .rs-titulo {
+    font-size: 1.7rem;
+  }
+
+  .rs-imgcol {
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .rs-fondo {
+    padding: 80px 15px;
+  }
+
+  .rs-card {
+    border-radius: 10px;
+  }
+
+  .rs-titulo {
+    font-size: 1.5rem;
+  }
+
+  .rs-boton {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .rs-fondo {
+    padding: 100px 10px;
+  }
+
+  .rs-titulo {
+    font-size: 1.4rem;
+  }
+
+  .rs-cardbody {
+    padding: 1.5rem;
+    background-size: cover;
+  }
+}

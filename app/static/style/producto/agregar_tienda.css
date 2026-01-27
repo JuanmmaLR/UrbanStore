@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+/* =========================================
+   ESTRUCTURA PRINCIPAL & FONDO
+   ========================================= */
+body {
+    background-color: #0F0F0F;
+    color: #F8F8F8;
+    font-family: 'Roboto', sans-serif; /* Fallback para textos largos */
+}
+
+.urban-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 2rem;
+    background: radial-gradient(circle at top right, #202020 0%, #0F0F0F 100%);
+}
+
+.glass-card {
+    background-color: #202020;
+    width: 100%;
+    max-width: 600px;
+    padding: 3rem;
+    border-radius: 12px;
+    border: 2px solid #333;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decoración estilo neón */
+.glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #5DD62C, #337418);
+    box-shadow: 0 0 10px #5DD62C;
+}
+
+/* =========================================
+   TIPOGRAFÍA
+   ========================================= */
+.urban-title {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2.5rem;
+    color: #5DD62C;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0px #000;
+}
+
+.urban-subtitle {
+    text-align: center;
+    color: #888;
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 1rem;
+}
+
+.urban-label {
+    font-family: 'Permanent Marker', cursive;
+    color: #F8F8F8;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 5px rgba(248, 248, 248, 0.1);
+}
+
+/* =========================================
+   INPUTS
+   ========================================= */
+.form-group {
+    margin-bottom: 2.5rem;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.urban-input {
+    width: 100%;
+    background-color: #0F0F0F;
+    border: 2px solid #333;
+    color: #F8F8F8;
+    padding: 1rem 1.2rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.urban-input::placeholder {
+    color: #555;
+    font-style: italic;
+}
+
+.urban-input:focus {
+    border-color: #5DD62C;
+    box-shadow: 0 0 15px rgba(93, 214, 44, 0.2);
+}
+
+/* =========================================
+   CHECKBOXES PERSONALIZADOS E ICONOS
+   ========================================= */
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    padding: 1rem;
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.custom-checkbox:hover {
+    border-color: #5DD62C;
+    background-color: #252525;
+}
+
+/* Ocultar checkbox nativo */
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Cuadrado del check */
+.checkmark {
+    height: 24px;
+    width: 24px;
+    min-width: 24px; /* Evitar que se encoja */
+    background-color: #0F0F0F;
+    border: 2px solid #555;
+    border-radius: 4px;
+    margin-right: 15px;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+    background-color: #5DD62C;
+    border-color: #5DD62C;
+    box-shadow: 0 0 10px rgba(93, 214, 44, 0.4);
+}
+
+/* Icono del check dentro del cuadrado */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 7px;
+    top: 2px;
+    width: 6px;
+    height: 12px;
+    border: solid #0F0F0F;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Estilos para los nuevos Iconos de Categoría */
+.category-icon {
+    font-size: 1.4rem;
+    margin-right: 12px;
+    color: #555; /* Color inactivo */
+    transition: all 0.3s ease;
+}
+
+/* Cambio de color del icono al seleccionar */
+.custom-checkbox input:checked ~ .category-icon {
+    color: #5DD62C;
+    text-shadow: 0 0 8px rgba(93, 214, 44, 0.5);
+}
+
+/* Hover sobre el contenedor también ilumina el icono un poco */
+.custom-checkbox:hover .category-icon {
+    color: #888;
+}
+.custom-checkbox input:checked:hover ~ .category-icon {
+    color: #5DD62C; /* Mantiene el verde si está seleccionado */
+}
+
+.label-text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color: #ccc;
+    transition: color 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.custom-checkbox input:checked ~ .label-text {
+    color: #F8F8F8;
+}
+
+/* =========================================
+   BOTÓN
+   ========================================= */
+.form-actions {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.urban-btn {
+    background-color: #5DD62C;
+    color: #0F0F0F;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.5rem;
+    padding: 0.8rem 3rem;
+    border: none;
+    border-radius: 50px; /* Estilo píldora */
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 0 #337418;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: 100%;
+}
+
+.urban-btn:hover {
+    background-color: #F8F8F8;
+    color: #0F0F0F;
+    box-shadow: 0 4px 0 #ccc;
+    transform: translateY(-2px);
+}
+
+.urban-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 0 0 #337418;
+}
+
+.btn-icon {
+    margin-left: 10px;
+    font-weight: bold;
+}

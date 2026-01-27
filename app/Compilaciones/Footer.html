@@ -1,0 +1,485 @@
+
+
+
+
+
+
+
+
+
+
+
+{% extends "Herencia.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}25 Urban Store - Quiénes Somos{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'style/Footer/QuienesSomos.css' %}" />
+{% endblock %}
+
+{% block content %}
+<section class="about-us-hero">
+    <div class="hero-overlay">
+        <h1>MÁS QUE ROPA, UNA ACTITUD</h1>
+        <p>Desde 2015 vistiendo la cultura urbana</p>
+    </div>
+</section>
+
+<section class="our-story">
+    <div class="container">
+        <h2>Nuestra Historia</h2>
+        <div class="story-content">
+            <div class="story-text">
+                <p>25 Urban Store nació en las calles de Santiago en 2015, cuando un grupo de amigos apasionados por la moda urbana y el streetwear decidió crear un espacio donde la ropa fuera más que tela: una expresión de identidad.</p>
+                <p>Lo que comenzó como un pequeño local en el barrio Yungay hoy se ha transformado en una de las tiendas de moda urbana más reconocidas del país, manteniendo siempre nuestro espíritu auténtico y cercano.</p>
+                <p>El nombre "25" representa el día en que abrimos nuestras puertas por primera vez, y desde entonces, cada 25 del mes celebramos con nuestros clientes con ofertas exclusivas.</p>
+            </div>
+            <div class="story-image">
+                <img src="{% static 'img/about-us/origen.jpg' %}" alt="Primera tienda 25 Urban Store">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="our-philosophy">
+    <div class="container">
+        <h2>Nuestra Filosofía</h2>
+        <div class="philosophy-grid">
+            <div class="philosophy-item">
+                <div class="icon-box">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <h3>Calidad sobre cantidad</h3>
+                <p>Seleccionamos cuidadosamente cada prenda, priorizando materiales duraderos y confortables que resistan el ritmo urbano.</p>
+            </div>
+            <div class="philosophy-item">
+                <div class="icon-box">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <h3>Comercio con conciencia</h3>
+                <p>Implementamos prácticas sostenibles en nuestra cadena de producción y apoyamos a diseñadores locales emergentes.</p>
+            </div>
+            <div class="philosophy-item">
+                <div class="icon-box">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Comunidad primero</h3>
+                <p>Organizamos eventos culturales, colaboraciones con artistas urbanos y talleres para fortalecer nuestra escena local.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="our-products">
+    <div class="container">
+        <h2>Lo Que Nos Define</h2>
+        <div class="product-categories">
+            <div class="category-card">
+                <img src="{% static 'img/about-us/poleras.jpg' %}" alt="Poleras urbanas">
+                <div class="category-info">
+                    <h3>Poleras con actitud</h3>
+                    <p>Diseños exclusivos que hablan por ti, desde gráficos minimalistas hasta estampados audaces que capturan la esencia street.</p>
+                </div>
+            </div>
+            <div class="category-card">
+                <img src="{% static 'img/about-us/polerones.jpg' %}" alt="Polerones urbanos">
+                <div class="category-info">
+                    <h3>Polerones que abrazan</h3>
+                    <p>Comodidad sin sacrificar estilo, con cortes modernos y tejidos premium para esos días de vibra relajada pero con personalidad.</p>
+                </div>
+            </div>
+            <div class="category-card">
+                <img src="{% static 'img/about-us/jeans.jpg' %}" alt="Jeans urbanos">
+                <div class="category-info">
+                    <h3>Jeans que moldean</h3>
+                    <p>Desde los clásicos slim fit hasta los oversize de última tendencia, pensados para moverse en la ciudad con total libertad.</p>
+                </div>
+            </div>
+            <div class="category-card">
+                <img src="{% static 'img/about-us/joggers.jpg' %}" alt="Joggers urbanos">
+                <div class="category-info">
+                    <h3>Joggers versátiles</h3>
+                    <p>El equilibrio perfecto entre deportivo y casual, ideales para transitar del día a la noche sin perder un ápice de estilo.</p>
+                </div>
+            </div>
+            <div class="category-card">
+                <img src="{% static 'img/about-us/accesorios.jpg' %}" alt="Accesorios urbanos">
+                <div class="category-info">
+                    <h3>Accesorios con propósito</h3>
+                    <p>Gorros, cinturones y mochilas diseñados para complementar tu outfit y hacer declaraciones sutiles pero poderosas.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="our-team">
+    <div class="container">
+        <h2>El Equipo Detrás de las Prendas</h2>
+        <div class="team-members">
+            <div class="member-card">
+                <img src="{% static 'img/about-us/team1.jpg' %}" alt="Fundador 25 Urban Store">
+                <h3>Daniel "Street" Pérez</h3>
+                <p>Fundador & Director Creativo</p>
+                <p>"Para mí la moda urbana es el lenguaje de las calles, y en 25 queremos darle voz a esa expresión."</p>
+            </div>
+            <div class="member-card">
+                <img src="{% static 'img/about-us/team2.jpg' %}" alt="Diseñadora 25 Urban Store">
+                <h3>Camila "CamiGraph" López</h3>
+                <p>Diseñadora Principal</p>
+                <p>"Cada estampado cuenta una historia, cada costura tiene un propósito. Eso es diseño con significado."</p>
+            </div>
+            <div class="member-card">
+                <img src="{% static 'img/about-us/team3.jpg' %}" alt="Community Manager 25 Urban Store">
+                <h3>Javier "UrbanConect" Martínez</h3>
+                <p>Community Manager</p>
+                <p>"Nuestra comunidad no son clientes, son familia. Su feedback es lo que nos hace mejorar cada día."</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="our-future">
+    <div class="container">
+        <div class="future-content">
+            <h2>Hacia Dónde Vamos</h2>
+            <p>En 25 Urban Store no nos conformamos. Estamos trabajando en nuestra primera colección 100% sustentable, expandiendo nuestra comunidad a través de talleres de diseño urbano, y desarrollando una app que revolucionará tu experiencia de compra.</p>
+            <p>Pero lo más importante: seguiremos siendo fieles a nuestras raíces, porque sabemos que la autenticidad no pasa de moda.</p>
+            <a href="/contacto" class="cta-button">Únete a nuestro viaje</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/Footer/QuienesSomos.js' %}"></script>
+{% endblock %}
+
+
+
+
+
+
+{% extends "Herencia.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}25 Urban Store - Sé Socio{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'style/Footer/SeSocio.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="sesocio-container">
+    <div class="sesocio-card">
+        <div class="sesocio-header">
+            <h2>Vende tus productos con nosotros</h2>
+            <p>Completa el formulario para que tu marca pueda ser parte de 25 Urban Store</p>
+        </div>
+        <div class="sesocio-body">
+            <form method="POST" class="sesocio-form needs-validation" novalidate>
+                {% csrf_token %}
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="id_nombre">Nombre completo*</label>
+                        {{ form.nombre }}
+                        <div class="invalid-feedback">
+                            Por favor ingresa tu nombre.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_email">Correo electrónico*</label>
+                        {{ form.email }}
+                        <div class="invalid-feedback">
+                            Por favor ingresa un correo válido.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="id_rut_comercial">RUT Comercial*</label>
+                        {{ form.rut_comercial }}
+                        <div class="invalid-feedback">
+                            Por favor ingresa tu RUT comercial.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_nombre_marca">Nombre de la Marca*</label>
+                        {{ form.nombre_marca }}
+                        <div class="invalid-feedback">
+                            Por favor ingresa el nombre de tu marca.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_rubro">Rubro de tus productos*</label>
+                    {{ form.rubro }}
+                    <div class="invalid-feedback">
+                        Por favor selecciona un rubro.
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_descripcion">Descripción de tu marca y productos*</label>
+                    {{ form.descripcion }}
+                    <div class="invalid-feedback">
+                        Por favor describe tu marca y productos.
+                    </div>
+                    <div class="form-text">
+                        Cuéntanos sobre los productos que vendes, tu experiencia en el mercado, etc.
+                    </div>
+                </div>
+                
+                <div class="form-submit">
+                    <button type="submit" class="sesocio-btn">
+                        Enviar Solicitud
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="sesocio-footer">
+            <small>* Todos los campos son obligatorios. Nos pondremos en contacto contigo dentro de las próximas 72 horas.</small>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/Footer/SeSocio.js' %}"></script>
+{% endblock %}
+
+
+
+
+
+
+{% extends "Herencia.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}25 Urban Store - Términos y Condiciones{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'style/Footer/TerminosCondiciones.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="terminos-container">
+    <div class="terminos-header">
+        <h1>TÉRMINOS Y CONDICIONES DE VENTA Y ENVÍO</h1>
+        <p class="fecha-actualizacion">Última actualización: Enero 2025</p>
+    </div>
+
+    <div class="terminos-content">
+        <section class="terminos-section">
+            <h2>1. CONDICIONES GENERALES</h2>
+            <p>Al realizar una compra en 25 Urban Store, usted acepta los siguientes términos y condiciones que regulan la relación comercial entre el cliente y nuestra empresa.</p>
+        </section>
+
+        <section class="terminos-section">
+            <h2>2. PROCESO DE COMPRA</h2>
+            <ul>
+                <li>Todos los precios están expresados en pesos chilenos e incluyen IVA.</li>
+                <li>Los productos quedan sujetos a disponibilidad de stock al momento de confirmar la compra.</li>
+                <li>Nos reservamos el derecho de rechazar pedidos por errores en precios o descripciones.</li>
+                <li>Recibirá un correo de confirmación con los detalles de su compra.</li>
+            </ul>
+        </section>
+
+        <section class="terminos-section">
+            <h2>3. MÉTODOS DE PAGO</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Pago en línea seguro</h3>
+                    <ul>
+                        <li>Tarjetas de crédito (Visa, Mastercard, American Express)</li>
+                        <li>Tarjetas de débito (Redcompra)</li>
+                        <li>Transferencia bancaria</li>
+                        <li>Webpay Plus</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h3>Otras formas de pago</h3>
+                    <ul>
+                        <li>Pago contra entrega (solo Región Metropolitana)</li>
+                        <li>Mercado Pago</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="terminos-section">
+            <h2>4. POLÍTICA DE ENVÍOS</h2>
+            <div class="envios-info">
+                <div class="envio-item">
+                    <h3>Cobertura</h3>
+                    <p>Envíos a todo Chile continental (excepto zonas extremas). Para Isla de Pascua y Juan Fernández, consultar costos adicionales.</p>
+                </div>
+                <div class="envio-item">
+                    <h3>Plazos de entrega</h3>
+                    <p>Región Metropolitana: 1-2 días hábiles<br>
+                    Otras regiones: 3-5 días hábiles</p>
+                </div>
+                <div class="envio-item">
+                    <h3>Costos</h3>
+                    <p>Envío gratuito para compras superiores a $50.000 en RM.<br>
+                    Envío estándar: $4.990 (RM) / $6.990 (regiones).</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="terminos-section">
+            <h2>5. CAMBIOS Y DEVOLUCIONES</h2>
+            <p>Dispones de 15 días desde la recepción para solicitar cambios o devoluciones. Los productos deben estar en perfecto estado, con etiquetas y en su empaque original. No aplica para productos personalizados o de higiene íntima.</p>
+        </section>
+
+        <section class="terminos-section">
+            <h2>6. GARANTÍAS</h2>
+            <p>Todos nuestros productos cuentan con garantía legal de 3 meses (Ley del Consumidor). Para hacerla efectiva debe presentar boleta o factura.</p>
+        </section>
+
+        <section class="terminos-section">
+            <h2>7. PROTECCIÓN DE DATOS</h2>
+            <p>Tus datos personales están protegidos según la Ley 19.628 sobre Protección de la Vida Privada. Solo los usaremos para procesar tu compra y enviarte información relevante sobre nuestros productos.</p>
+        </section>
+
+        <section class="terminos-section">
+            <h2>8. LEGISLACIÓN APLICABLE</h2>
+            <p>Estos términos se rigen por las leyes de la República de Chile. Cualquier controversia será resuelta en los tribunales competentes de Santiago.</p>
+        </section>
+
+        <div class="contacto-terminos">
+            <p>Para consultas sobre estos términos, contáctenos a <a href="mailto:terminos@25urbanstore.cl">terminos@25urbanstore.cl</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/Footer/TerminosCondiciones.js' %}"></script>
+{% endblock %}
+
+
+
+
+
+
+{% extends "Herencia.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}25 Urban Store - Trabaja con Nosotros{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'style/Footer/TrabajaConNosotros.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="container work-with-us-container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="work-with-us-form">
+                <h2 class="work-with-us-title">Únete a Nuestro Equipo</h2>
+                
+                {% if messages %}
+                <div class="mb-4">
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                <form id="workWithUsForm" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="id_nombre" class="form-label required-field">Nombre Completo</label>
+                        {{ form.nombre }}
+                        {% if form.nombre.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.nombre.errors.0 }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="id_email" class="form-label required-field">Correo Electrónico</label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.email.errors.0 }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="id_telefono" class="form-label required-field">Teléfono</label>
+                            {{ form.telefono }}
+                            {% if form.telefono.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.telefono.errors.0 }}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="id_puesto" class="form-label required-field">Puesto de Interés</label>
+                        {{ form.puesto }}
+                        {% if form.puesto.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.puesto.errors.0 }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="id_mensaje" class="form-label required-field">Mensaje</label>
+                        {{ form.mensaje }}
+                        {% if form.mensaje.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.mensaje.errors.0 }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="file-input-label required-field">Curriculum Vitae</label>
+                        {{ form.cv }}
+                        <small class="file-input-info">Formatos aceptados: PDF, DOC, DOCX (Máximo 5MB)</small>
+                        <div class="mt-2">
+                            <span id="file-name" class="text-muted">Ningún archivo seleccionado</span>
+                        </div>
+                        {% if form.cv.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.cv.errors.0 }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn work-with-us-btn">
+                            <i class="fas fa-paper-plane me-2"></i> Enviar Solicitud
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/Footer/TrabajaConNosotros.js' %}"></script>
+{% endblock %}
+

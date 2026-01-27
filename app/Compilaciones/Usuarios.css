@@ -1,0 +1,357 @@
+/* ========================================== */
+/* COMPILACION AUTOMATICA CSS                 */
+/* GRUPO: USUARIOS                    */
+/* FECHA: 2026-01-26 15:12:18         */
+/* ========================================== */
+
+/* ************************************************************ */
+/* ARCHIVO: Admin_User.css */
+/* RUTA: C:\Users\juanl\Git\PROYECTOS\UrbanStore\UStore\app\static\style\Usuarios\Admin_User.css */
+/* ************************************************************ */
+
+/* static/style/Usuarios/Admin_User.css */
+.container {
+    max-width: 1200px;
+    margin-bottom: 50px;
+}
+
+h1 {
+    color: #333;
+    padding: 20px 0;
+    border-bottom: 2px solid #eee;
+}
+
+.table th {
+    background-color: #343a40;
+    color: white;
+}
+
+.table-responsive {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.form-check-input {
+    width: 2em;
+    height: 1em;
+    margin: 0 auto;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+/* Estilo para los inputs en modo edición */
+.form-control {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    height: auto;
+}
+
+/* Estilo para las filas alternas */
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Efecto hover para las filas */
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* ************************************************************ */
+/* ARCHIVO: FormularioEnvio.css */
+/* RUTA: C:\Users\juanl\Git\PROYECTOS\UrbanStore\UStore\app\static\style\Usuarios\FormularioEnvio.css */
+/* ************************************************************ */
+
+/* static/style/Usuarios/FormularioEnvio.css */
+
+.table-hover tbody tr:hover {
+    background-color: rgba(40, 167, 69, 0.1);
+    cursor: pointer;
+}
+
+.modal-header {
+    background-color: #28a745;
+    color: white;
+}
+
+.alert-info {
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+    color: #0c5460;
+}
+
+    .form-filter {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+    .badge-processed {
+        background-color: #28a745;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+    }
+    .badge-not-processed {
+        background-color: #dc3545;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+    }
+    .filter-label {
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+/* ************************************************************ */
+/* ARCHIVO: IniciarSesion.css */
+/* RUTA: C:\Users\juanl\Git\PROYECTOS\UrbanStore\UStore\app\static\style\Usuarios\IniciarSesion.css */
+/* ************************************************************ */
+
+
+
+/* ************************************************************ */
+/* ARCHIVO: Registrarse.css */
+/* RUTA: C:\Users\juanl\Git\PROYECTOS\UrbanStore\UStore\app\static\style\Usuarios\Registrarse.css */
+/* ************************************************************ */
+
+/* ============================
+   REGISTRARSE.CSS
+   Diseño aislado del Herencia.css
+   ============================ */
+
+:root {
+  --rs-color-fondo: #f8f9fa;
+  --rs-color-card: #ffffff;
+  --rs-color-primario: #007bff;
+  --rs-color-borde: #dee2e6;
+  --rs-color-texto: #000000;
+  --rs-sombra: rgba(0, 0, 0, 0.1);
+  --rs-sombra-fuerte: rgba(0, 0, 0, 0.2);
+  --rs-radius: 12px;
+  --rs-padding-global: 60px;
+  --rs-transicion: all 0.3s ease-in-out;
+}
+
+/* ============================
+   SECCIÓN PRINCIPAL
+   ============================ */
+.rs-fondo {
+  background-color: var(--rs-color-fondo);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.rs-container {
+  max-width: 1200px;
+}
+
+/* ============================
+   TARJETA PRINCIPAL
+   ============================ */
+.rs-card {
+  background-color: var(--rs-color-card);
+  border: 1px solid var(--rs-color-borde);
+  border-radius: var(--rs-radius);
+  box-shadow: 0 6px 18px var(--rs-sombra);
+  transition: var(--rs-transicion);
+}
+
+.rs-card:hover {
+  box-shadow: 0 10px 25px var(--rs-sombra-fuerte);
+}
+
+/* Fondo interno del formulario */
+.rs-cardbody {
+  padding: 3rem 2rem;
+  background-image: url("../../img/Header/fondo_2.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+/* ============================
+   TITULO Y FORMULARIO
+   ============================ */
+.rs-titulo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--rs-color-texto);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.rs-form {
+  margin-top: 20px;
+  color: var(--rs-color-texto);
+  font-weight: bold;
+}
+
+.rs-inputgroup {
+  box-shadow: 0 1px 3px var(--rs-sombra);
+  border-radius: var(--rs-radius);
+  overflow: hidden;
+  transition: var(--rs-transicion);
+}
+
+.rs-inputgroup:hover {
+  box-shadow: 0 3px 8px var(--rs-sombra-fuerte);
+}
+
+.rs-inputicon {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  color: #000;
+  font-weight: bold;
+}
+
+.rs-input {
+  border: none;
+  padding: 12px;
+  font-size: 15px;
+  background-color: rgba(255, 255, 255, 0.85);
+  color: #000;
+  font-weight: bold;
+}
+
+.rs-input:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+/* Labels y texto del formulario */
+.rs-label,
+.rs-checklabel {
+  color: var(--rs-color-texto);
+  font-weight: bold;
+}
+
+/* ============================
+   BOTONES Y CHECKBOXES
+   ============================ */
+.rs-boton {
+  background-color: var(--rs-color-primario);
+  border: none;
+  padding: 12px 35px;
+  border-radius: var(--rs-radius);
+  transition: var(--rs-transicion);
+  font-weight: bold;
+}
+
+.rs-boton:hover {
+  background-color: #0056b3;
+  transform: scale(1.02);
+}
+
+.rs-checklabel a {
+  color: var(--rs-color-primario);
+  text-decoration: underline;
+  transition: var(--rs-transicion);
+  font-weight: bold;
+}
+
+.rs-checklabel a:hover {
+  color: #004080;
+}
+
+/* ============================
+   IMAGEN DE BIENVENIDA
+   ============================ */
+.rs-imgcol {
+  text-align: center;
+}
+
+.rs-img {
+  max-width: 100%;
+  height: auto;
+  transition: var(--rs-transicion);
+}
+
+.rs-img:hover {
+  transform: scale(1.03);
+}
+
+/* ============================
+   ENLACE INICIAR SESIÓN
+   ============================ */
+.rs-loginlink {
+  margin-top: 15px;
+  font-size: 0.95rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.rs-loginlink a {
+  color: var(--rs-color-primario);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.rs-loginlink a:hover {
+  text-decoration: underline;
+  color: #000;
+}
+
+/* ============================
+   RESPONSIVE DESIGN
+   ============================ */
+@media (max-width: 992px) {
+  .rs-cardbody {
+    padding: 2rem 1rem;
+    background-position: top;
+  }
+
+  .rs-titulo {
+    font-size: 1.7rem;
+  }
+
+  .rs-imgcol {
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .rs-fondo {
+    padding: 80px 15px;
+  }
+
+  .rs-card {
+    border-radius: 10px;
+  }
+
+  .rs-titulo {
+    font-size: 1.5rem;
+  }
+
+  .rs-boton {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .rs-fondo {
+    padding: 100px 10px;
+  }
+
+  .rs-titulo {
+    font-size: 1.4rem;
+  }
+
+  .rs-cardbody {
+    padding: 1.5rem;
+    background-size: cover;
+  }
+}
+
+

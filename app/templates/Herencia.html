@@ -1,0 +1,212 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>25 Urban Store</title>
+    <link rel="icon" type="image/png" href="{% static 'img/Header/25.png' %}" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+        crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'style/Herencia.css' %}" />
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+{% block header %}
+<header class="urban-header">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        
+        <div class="header-brand">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'img/Header/Logo.png' %}" alt="25 Urban Store" class="logo-img" />
+            </a>
+        </div>
+
+        <nav class="desktop-nav d-none d-lg-block">
+            <ul class="nav-links">
+                <li><a href="{% url 'index' %}" class="urban-link {% if request.path == '/' %}active{% endif %}">Inicio</a></li>
+                <li><a href="{% url 'Torso' %}" class="urban-link {% if 'Torso' in request.path %}active{% endif %}">Torso</a></li>
+                <li><a href="{% url 'Pantalones' %}" class="urban-link {% if 'Pantalones' in request.path %}active{% endif %}">Pantalones</a></li>
+                <li><a href="{% url 'Calzado' %}" class="urban-link {% if 'Calzado' in request.path %}active{% endif %}">Calzado</a></li>
+                <li><a href="{% url 'Accesorios' %}" class="urban-link {% if 'Accesorios' in request.path %}active{% endif %}">Accesorios</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-actions d-flex align-items-center gap-3">
+            
+            <form class="search-compact d-none d-md-flex" action="#" method="GET">
+                <input type="text" name="q" placeholder="Buscar..." class="search-input">
+                <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+            </form>
+
+            <div class="user-dropdown dropdown">
+                <a href="#" class="action-icon" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-user"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="userDropdown">
+                    {% if user.is_authenticated %}
+                        <li><span class="dropdown-header">Hola, {{ user.username }}</span></li>
+                        <li><a class="dropdown-item" href="{% url 'FormularioEnvio' %}">Mis Pedidos</a></li>
+                        {% if user.is_staff %}
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'Administracion' %}">Admin Productos</a></li>
+                            <li><a class="dropdown-item" href="{% url 'Admin_User' %}">Admin Usuarios</a></li>
+                        {% endif %}
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a></li>
+                    {% else %}
+                        <li><a class="dropdown-item" href="{% url 'IniciarSesion' %}">Iniciar Sesión</a></li>
+                        <li><a class="dropdown-item" href="{% url 'Registrarse' %}">Registrarse</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <a href="#" class="action-icon cart-icon-wrapper" id="cart-sidebar-toggle">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-counter {% if not request.session.cart %}d-none{% endif %}">
+                    {% with cart_items=request.session.cart.items|length %}
+                        {{ cart_items|default:0 }}
+                    {% endwith %}
+                </span>
+            </a>
+
+            <button class="menu-toggle d-lg-none" id="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<div class="nav-overlay" id="nav-overlay"></div>
+<nav class="mobile-nav" id="nav-menu">
+    <div class="mobile-header">
+        <span class="mobile-title">MENÚ</span>
+        <button class="close-menu" onclick="document.getElementById('menu-toggle').click()">&times;</button>
+    </div>
+    <ul class="mobile-links">
+        <li><a href="{% url 'index' %}">Inicio</a></li>
+        <li><a href="{% url 'Torso' %}">Torso</a></li>
+        <li><a href="{% url 'Pantalones' %}">Pantalones</a></li>
+        <li><a href="{% url 'Calzado' %}">Calzado</a></li>
+        <li><a href="{% url 'Accesorios' %}">Accesorios</a></li>
+    </ul>
+    
+    <div class="mobile-search p-3">
+        <form action="#" method="GET" class="d-flex">
+            <input type="text" name="q" placeholder="¿Qué buscas?" class="form-control me-2">
+            <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+        </form>
+    </div>
+</nav>
+
+<div class="cart-overlay" id="cart-overlay"></div>
+<div class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-sidebar-header">
+        <h3>Tu Carrito</h3>
+        <button class="close-cart" id="close-cart">&times;</button>
+    </div>
+    
+    <div class="p-3 border-bottom">
+        <a href="{% url 'carrito' %}" class="btn btn-outline-light w-100 font-urban">
+            <i class="fas fa-shopping-cart me-2"></i>Ir a Carrito Detallado
+        </a>
+    </div>
+
+    <div class="cart-sidebar-body" id="cart-sidebar-body">
+        <div class="text-center py-5">
+            <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Cargando...</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart-sidebar-footer">
+        <div class="d-flex justify-content-between mb-3">
+            <span class="fs-5">Total:</span>
+            <span class="fs-5 fw-bold text-success" id="cart-sidebar-total">$0</span>
+        </div>
+        <a href="{% url 'Envio' %}" class="btn btn-urban w-100" id="btn-sidebar-checkout">
+            PAGAR AHORA <i class="fas fa-arrow-right ms-2"></i>
+        </a>
+    </div>
+</div>
+
+{% endblock %}
+
+<main class="main-content">
+    {% block content %}{% endblock %}
+</main>
+
+{% block footer %}
+<footer class="urban-footer">
+    <div class="container">
+        <div class="row py-5">
+            <div class="col-md-4 mb-4">
+                <img src="{% static 'img/Header/25.png' %}" alt="Logo Footer" class="footer-logo mb-3">
+                <p class="text-muted">
+                    Estilo urbano sin límites. Viste la calle, vive tu ritmo.
+                </p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <h5 class="footer-title">Navegación</h5>
+                <ul class="footer-links">
+                    <li><a href="{% url 'index' %}">Inicio</a></li>
+                    <li><a href="{% url 'QuienesSomos' %}">Quiénes Somos</a></li>
+                    <li><a href="{% url 'Contacto' %}">Contacto</a></li>
+                    <li><a href="{% url 'TrabajaConNosotros' %}">Trabaja con Nosotros</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <h5 class="footer-title">Ayuda</h5>
+                <ul class="footer-links">
+                    <li><a href="{% url 'SeSocio' %}">Sé Socio</a></li>
+                    <li><a href="{% url 'TerminosCondiciones' %}">Términos y Condiciones</a></li>
+                    <li><span class="text-muted">Seguimiento de Pedido</span></li>
+                </ul>
+                <div class="contact-info mt-3">
+                    <p><i class="fas fa-map-marker-alt"></i> Maipú 1234, Santiago</p>
+                    <p><i class="fab fa-whatsapp"></i> +569 1234 5678</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom text-center py-3 border-top border-secondary">
+            <p class="mb-0 text-muted small">&copy; 2026 25 Urban Store. Todos los derechos reservados.</p>
+        </div>
+    </div>
+</footer>
+{% endblock %}
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"
+></script>
+
+<script src="{% static 'js/Herencia.js' %}"></script>
+
+{% block extra_js %}
+{% endblock %}
+</body>
+</html>
