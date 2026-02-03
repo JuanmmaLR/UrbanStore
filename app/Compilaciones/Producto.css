@@ -1,7 +1,7 @@
 /* ========================================== */
 /* COMPILACION AUTOMATICA CSS                 */
 /* GRUPO: PRODUCTO                    */
-/* FECHA: 2026-01-26 15:12:18         */
+/* FECHA: 2026-02-01 22:20:33         */
 /* ========================================== */
 
 /* ************************************************************ */
@@ -140,103 +140,165 @@ body {
 /* RUTA: C:\Users\juanl\Git\PROYECTOS\UrbanStore\UStore\app\static\style\producto\agregar.css */
 /* ************************************************************ */
 
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+:root {
+    --bg-main: #0F0F0F;
+    --bg-card: #202020;
+    --primary: #5DD62C;
+    --secondary: #337418;
+    --text-main: #F8F8F8;
+    --font-urban: 'Permanent Marker', cursive;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: var(--font-urban);
+}
+
 .page-container {
-        background-image: url("{% static 'img/Header/agregar.jpg' %}");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        min-height: 100vh;
-        padding: 2rem 0;
-    }
-    
-    .form-container {
-        background-color: rgba(255, 255, 255, 0.9);
-        padding: 2rem;
-        border-radius: 15px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    }
-
-/* Estilos generales para el formulario */
-.container {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    background-image: linear-gradient(rgba(15, 15, 15, 0.9), rgba(15, 15, 15, 0.9)), url("{% static 'img/Header/agregar.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    padding: 2rem 0;
 }
 
-.card {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: none;
-    border-radius: 10px;
-    overflow: hidden;
+/* Contenedor del Formulario */
+.form-container {
+    background-color: var(--bg-card);
+    padding: 2.5rem;
+    border-radius: 0px; /* Bordes rectos para estilo más urbano/brutalista */
+    border: 2px solid var(--primary);
+    box-shadow: 10px 10px 0px var(--secondary); /* Sombra sólida estilo comic/urbano */
 }
 
+/* Títulos */
 .card-header {
-    padding: 1.5rem;
+    background-color: transparent !important;
+    border-bottom: 2px dashed var(--primary);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 
-.card-body {
-    padding: 2rem;
+.card-header h2 {
+    color: var(--primary);
+    text-transform: uppercase;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0px #000;
 }
 
-/* Estilos para los campos del formulario */
+/* Usuario Badge */
+.user-badge {
+    background-color: var(--bg-main);
+    color: var(--primary);
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--primary);
+    display: inline-block;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+/* Etiquetas (Labels) */
 .form-label {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+    color: var(--text-main);
+    font-size: 1.1rem;
+    letter-spacing: 1px;
 }
 
+/* Inputs y Selects */
 .form-control, .form-select {
-    padding: 0.75rem 1rem;
-    border-radius: 5px;
-    border: 1px solid #ced4da;
+    background-color: var(--bg-main);
+    border: 1px solid #444;
+    color: var(--text-main);
+    border-radius: 0;
+    padding: 0.8rem;
+    font-family: sans-serif; /* Mejor legibilidad para escribir, aunque el resto sea Marker */
 }
 
 .form-control:focus, .form-select:focus {
-    border-color: #86b7fe;
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    border-color: var(--primary);
+    box-shadow: 0 0 10px rgba(93, 214, 44, 0.3);
 }
 
+/* Input de Archivo (Imagen) */
+.form-control[type="file"] {
+    border: 1px dashed var(--primary);
+}
+.form-control[type="file"]::-webkit-file-upload-button {
+    background-color: var(--primary);
+    color: var(--bg-main);
+    border: none;
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
+    font-family: var(--font-urban);
+    cursor: pointer;
+}
+
+/* Checkbox */
 .form-check-input {
-    width: 1.2em;
-    height: 1.2em;
-    margin-top: 0.15em;
+    background-color: var(--bg-main);
+    border-color: var(--primary);
 }
 
-/* Estilos para los botones */
+.form-check-input:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.form-check-label {
+    color: var(--primary);
+}
+
+/* Botones */
 .btn {
-    padding: 0.75rem;
-    border-radius: 5px;
-    font-weight: 600;
+    border-radius: 0;
+    font-family: var(--font-urban);
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
     transition: all 0.3s ease;
 }
 
 .btn-primary {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
+    background-color: var(--primary);
+    color: var(--bg-main); /* Contraste negro sobre verde brillante */
+    box-shadow: 4px 4px 0px var(--secondary);
 }
 
 .btn-primary:hover {
-    background-color: #0b5ed7;
-    border-color: #0a58ca;
+    background-color: var(--secondary);
+    color: var(--text-main);
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px #000;
 }
 
 .btn-secondary {
-    background-color: #6c757d;
-    border-color: #6c757d;
+    background-color: #333;
+    color: var(--text-main);
+    border: 1px solid #555;
 }
 
 .btn-secondary:hover {
-    background-color: #5c636a;
-    border-color: #565e64;
+    background-color: #444;
+    color: var(--primary);
+    border-color: var(--primary);
 }
 
-/* Estilos para el campo de imagen */
-#imagen-field {
-    margin-top: 1.5rem;
-}
-
-/* Estilos responsivos */
+/* Ajustes responsivos */
 @media (max-width: 768px) {
-    .card-body {
+    .form-container {
         padding: 1.5rem;
+        box-shadow: 5px 5px 0px var(--secondary);
+    }
+    .card-header h2 {
+        font-size: 1.8rem;
     }
 }
 
@@ -246,204 +308,164 @@ body {
 /* ************************************************************ */
 
 /* =========================================
-   ESTILO URBAN STORE - AGREGAR MARCA
-   Paleta: #0F0F0F | #202020 | #5DD62C
+   ESTILO URBAN STORE - GESTIÓN DE MARCAS
+   Paleta: #0F0F0F | #202020 | #5DD62C | #337418 | #F8F8F8
    ========================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
-/* --- CONFIGURACIÓN BASE --- */
 body {
     background-color: #0F0F0F !important;
     color: #F8F8F8;
     font-family: 'Permanent Marker', cursive;
-    background-image: none !important; /* Eliminamos fondo de imagen antiguo si existiera conflicto */
-    min-height: 100vh;
 }
 
 .urban-container {
-    padding: 4rem 0;
+    padding: 3rem 0;
 }
 
-/* --- TARJETAS (CARDS) --- */
+/* --- TARJETAS --- */
 .urban-card {
     background-color: #202020;
     border: 2px solid #333;
-    border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    border-radius: 15px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-.urban-card:hover {
-    border-color: #337418;
-    box-shadow: 0 0 20px rgba(93, 214, 44, 0.1);
-}
-
-/* --- TIPOGRAFÍA Y TÍTULOS --- */
 .urban-title {
     color: #5DD62C;
-    font-size: 3rem;
-    text-shadow: 0 0 10px rgba(93, 214, 44, 0.4);
+    font-size: 2.5rem;
+    letter-spacing: 3px;
     margin-bottom: 0.5rem;
-    letter-spacing: 2px;
 }
 
 .urban-subtitle {
     color: #F8F8F8;
-    font-size: 1.2rem;
-    opacity: 0.7;
+    opacity: 0.6;
+    font-size: 1rem;
     margin-bottom: 2rem;
-}
-
-.urban-section-title {
-    color: #5DD62C;
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    border-bottom: 2px solid #333;
-    padding-bottom: 1rem;
-}
-
-.urban-label {
-    color: #F8F8F8;
-    font-size: 1.4rem;
-    margin-bottom: 10px;
-    display: block;
-    letter-spacing: 1px;
 }
 
 /* --- FORMULARIOS --- */
-.input-wrapper input,
-.form-control {
+.urban-label {
+    color: #5DD62C;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+}
+
+.input-wrapper input {
     background-color: #0F0F0F !important;
-    border: 2px solid #333 !important;
+    border: 2px solid #337418 !important;
     color: #F8F8F8 !important;
     border-radius: 8px;
-    padding: 15px;
+    padding: 12px 20px;
     font-family: 'Permanent Marker', cursive;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     width: 100%;
     transition: all 0.3s ease;
 }
 
-.input-wrapper input:focus,
-.form-control:focus {
+.input-wrapper input:focus {
     border-color: #5DD62C !important;
-    box-shadow: 0 0 15px rgba(93, 214, 44, 0.3) !important;
+    box-shadow: 0 0 15px rgba(93, 214, 44, 0.2);
     outline: none;
 }
 
-.input-wrapper input::placeholder {
-    color: #666;
+.user-badge {
+    color: #337418;
+    font-size: 0.9rem;
+}
+
+.user-badge span {
+    color: #5DD62C;
 }
 
 /* --- BOTONES --- */
 .urban-btn {
     font-family: 'Permanent Marker', cursive;
-    font-size: 1.2rem;
-    padding: 12px 30px;
-    border-radius: 6px;
+    padding: 12px;
+    border-radius: 8px;
     text-transform: uppercase;
     transition: all 0.3s ease;
     border: none;
-    min-width: 180px;
 }
 
 .save-btn {
     background-color: #5DD62C;
     color: #0F0F0F !important;
-    box-shadow: 0 0 10px rgba(93, 214, 44, 0.3);
 }
 
 .save-btn:hover {
     background-color: #337418;
     color: #F8F8F8 !important;
-    transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(93, 214, 44, 0.6);
+    transform: scale(1.02);
 }
 
 .cancel-btn {
-    background-color: #333;
+    background-color: transparent;
     color: #F8F8F8 !important;
     border: 1px solid #444;
 }
 
 .cancel-btn:hover {
-    background-color: #d62c2c; /* Rojo alerta para cancelar */
+    background-color: #d62c2c;
     border-color: #d62c2c;
-    box-shadow: 0 0 15px rgba(214, 44, 44, 0.4);
 }
 
-/* --- ALERTA --- */
-.urban-alert {
-    color: #d62c2c;
-    font-size: 1rem;
+/* --- TABLA --- */
+.urban-section-title {
+    color: #5DD62C;
     text-align: center;
-    background-color: rgba(214, 44, 44, 0.1);
-    border: 1px solid #d62c2c;
-    padding: 10px;
-    border-radius: 6px;
-}
-
-/* --- TABLA URBAN --- */
-.urban-table-responsive {
-    overflow-x: auto;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #337418;
+    padding-bottom: 1rem;
 }
 
 .urban-table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
+    border-collapse: collapse;
 }
 
 .urban-table th {
     background-color: #337418;
     color: #F8F8F8;
     padding: 15px;
-    text-align: center;
-    font-size: 1.4rem;
-    border: 1px solid #0F0F0F;
-    letter-spacing: 1px;
+    font-size: 1.2rem;
+    text-align: left;
 }
 
 .urban-table td {
-    background-color: #1a1a1a;
-    border: 1px solid #333;
-    padding: 20px;
-    vertical-align: top;
-    min-width: 200px; /* Asegura ancho en móvil */
+    padding: 15px;
+    border-bottom: 1px solid #333;
+    font-size: 1.1rem;
 }
 
-/* --- TAGS (Marcas) --- */
-.tags-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-}
-
-.urban-tag {
-    background-color: #0F0F0F;
+.brand-name {
     color: #5DD62C;
-    border: 1px solid #5DD62C;
-    padding: 5px 12px;
-    border-radius: 20px; /* Estilo píldora */
-    font-size: 1rem;
-    transition: all 0.2s ease;
-    cursor: default;
 }
 
-.urban-tag:hover {
+.user-info {
+    color: #F8F8F8;
+    opacity: 0.8;
+}
+
+.store-tag {
     background-color: #5DD62C;
     color: #0F0F0F;
-    box-shadow: 0 0 10px rgba(93, 214, 44, 0.5);
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 0.9rem;
 }
 
-.empty-tag {
-    color: #555;
+.no-store {
+    color: #666;
     font-style: italic;
-    font-size: 0.9rem;
+}
+
+.urban-table tr:hover td {
+    background-color: #2a2a2a;
 }
 
 /* ************************************************************ */
@@ -715,97 +737,215 @@ body {
 /* RUTA: C:\Users\juanl\Git\PROYECTOS\UrbanStore\UStore\app\static\style\producto\eliminar.css */
 /* ************************************************************ */
 
-/* eliminar.css - Estilos para la página de eliminación de productos */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+/* PALETA ESTRICTA:
+   Fondo: #0F0F0F
+   Cards: #202020
+   Acento: #5DD62C (Verde)
+   Hover: #337418
+   Texto: #F8F8F8
+*/
+
+:root {
+    --bg-body: #0F0F0F;
+    --bg-card: #202020;
+    --accent: #5DD62C;
+    --accent-hover: #337418;
+    --text-white: #F8F8F8;
+    --input-bg: #0F0F0F;
+    --border-color: #444;
 }
 
-h2 {
-    color: #343a40;
-    text-align: center;
-    padding-bottom: 15px;
-    border-bottom: 2px solid #dee2e6;
+body {
+    background-color: var(--bg-body) !important;
+    color: var(--text-white);
+    font-family: 'Permanent Marker', cursive; /* Fuente global solicitada */
 }
 
-.table-responsive {
-    margin-top: 30px;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    overflow: hidden;
+/* Wrapper */
+.urban-container {
+    max-width: 1000px;
 }
 
-.table {
+/* Títulos */
+.page-title {
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 2rem;
+}
+
+.text-accent {
+    color: var(--accent) !important;
+}
+
+.urban-label {
+    color: var(--text-white);
+    font-size: 1rem;
+    margin-bottom: 5px;
+    display: block;
+    text-transform: uppercase;
+}
+
+/* Tarjeta contenedora estilo "Agregar Item" */
+.urban-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--accent); /* Borde verde sólido */
+    border-radius: 0; /* Bordes rectos */
+    position: relative;
+    box-shadow: 0 0 10px rgba(93, 214, 44, 0.1);
+}
+
+/* Badge Admin */
+.admin-badge {
+    border: 1px dashed var(--accent);
+    color: var(--accent);
+    padding: 5px 15px;
+    font-size: 0.8rem;
+    display: inline-block;
+    background-color: rgba(93, 214, 44, 0.05);
+}
+
+/* Inputs y Selects */
+.urban-input {
+    background-color: var(--input-bg);
+    border: 1px solid #444;
+    color: var(--text-white);
+    border-radius: 0;
+    padding: 10px 15px;
+    font-family: sans-serif; /* Inputs legibles */
+}
+
+.urban-input:focus {
+    background-color: var(--input-bg);
+    border-color: var(--accent);
+    color: var(--text-white);
+    box-shadow: none;
+    outline: none;
+}
+
+/* Separador dashed */
+.dashed-bottom {
+    border-bottom: 1px dashed #444;
+}
+
+/* Botones */
+.urban-btn-primary {
+    background-color: var(--accent);
+    color: #000; /* Texto negro para contraste */
+    border: none;
+    border-radius: 0;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: 'Permanent Marker', cursive;
+    transition: all 0.3s ease;
+}
+
+.urban-btn-primary:hover {
+    background-color: var(--accent-hover);
+    color: #fff;
+}
+
+.urban-btn-secondary {
+    background-color: #333;
+    color: var(--text-white);
+    border: 1px solid #555;
+    border-radius: 0;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-family: 'Permanent Marker', cursive;
+    transition: all 0.3s ease;
+}
+
+.urban-btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background-color: transparent;
+}
+
+/* Tablas */
+.urban-table-container {
+    border: 1px solid #333;
+    background-color: var(--bg-body);
+}
+
+.urban-table {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--text-white);
     margin-bottom: 0;
 }
 
-.table-dark {
-    background-color: #343a40;
+.urban-table thead th {
+    background-color: transparent;
+    border-bottom: 1px solid #444;
+    color: var(--text-white);
+    font-family: 'Permanent Marker', cursive;
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    padding: 15px;
 }
 
-.table th {
+.urban-table tbody td {
+    border-bottom: 1px solid #222;
+    padding: 10px 15px;
+    color: #aaa; /* Texto gris claro para filas */
+    font-family: sans-serif; /* Datos legibles */
     vertical-align: middle;
-    text-align: center;
 }
 
-.table td {
-    vertical-align: middle;
+.urban-table tbody tr:hover td {
+    color: var(--accent); /* Hover verde */
+    background-color: rgba(255, 255, 255, 0.02);
 }
 
-.product-image {
-    max-width: 50px;
-    height: auto;
-    border-radius: 3px;
+/* Checkbox personalizado */
+.urban-check {
+    background-color: var(--bg-body);
+    border: 1px solid #555;
+    border-radius: 0;
 }
 
-.btn-primary {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
+.urban-check:checked {
+    background-color: var(--accent);
+    border-color: var(--accent);
 }
 
-.btn-danger {
-    background-color: #dc3545;
-    border-color: #dc3545;
-    margin-top: 20px;
-    padding: 8px 20px;
+.urban-check:focus {
+    box-shadow: 0 0 0 2px rgba(93, 214, 44, 0.25);
 }
 
-.btn-danger:hover {
-    background-color: #bb2d3b;
-    border-color: #b02a37;
+/* Imágenes pequeñas en tabla */
+.img-box {
+    width: 40px;
+    height: 40px;
+    background-color: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #333;
+    overflow: hidden;
 }
 
-.alert {
-    margin-top: 20px;
-    border-radius: 5px;
+.img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.form-select {
-    margin-bottom: 15px;
+/* Alertas estilo consola */
+.alert-urban {
+    background-color: rgba(93, 214, 44, 0.1);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    border-radius: 0;
+    font-family: sans-serif;
 }
 
-.form-check-input {
-    margin-left: 0;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .container {
-        padding: 15px;
-    }
-    
-    .d-flex.justify-content-between {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .btn-danger {
-        width: 100%;
-    }
+.alert-icon {
+    font-weight: bold;
+    margin-right: 10px;
+    font-family: 'Permanent Marker', cursive;
 }
 
 /* ************************************************************ */
@@ -813,80 +953,291 @@ h2 {
 /* RUTA: C:\Users\juanl\Git\PROYECTOS\UrbanStore\UStore\app\static\style\producto\modificar.css */
 /* ************************************************************ */
 
-/* Estilos para el formulario de modificación */
-.modificar-container {
-    max-width: 1200px;
-    margin: 2rem auto;
+/* PALETA DE COLORES:
+   Fondo: #0F0F0F
+   Tarjetas: #202020
+   Primario: #5DD62C
+   Secundario: #337418
+   Texto: #F8F8F8
+*/
+
+:root {
+    --bg-main: #0F0F0F;
+    --bg-card: #202020;
+    --bg-input: #1a1a1a;
+    --primary: #5DD62C;
+    --primary-dark: #337418;
+    --text-main: #F8F8F8;
+    --text-muted: #b0b0b0;
+    --border-color: #333333;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+}
+
+.urban-wrapper {
+    background-color: var(--bg-main);
+    min-height: 100vh;
+}
+
+/* Tipografía Urban */
+.urban-title {
+    font-family: 'Permanent Marker', cursive;
+    color: var(--primary);
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+}
+
+.urban-subtitle {
+    font-family: 'Permanent Marker', cursive;
+    color: var(--text-main);
+    font-size: 1.5rem;
+}
+
+.text-urban {
+    color: var(--primary) !important;
+}
+
+/* Etiquetas y Textos */
+.urban-label {
+    color: var(--primary);
+    font-weight: bold;
+    font-family: 'Permanent Marker', cursive;
+    letter-spacing: 1px;
+}
+
+/* Cards y Contenedores */
+.urban-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
     padding: 2rem;
-    background-color: #f8f9fa;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.border-urban {
+    border: 2px solid var(--primary) !important;
+}
+
+/* Audit Badge (Usuario en Formulario) */
+.user-audit-badge {
+    background-color: rgba(93, 214, 44, 0.1);
+    border: 1px solid var(--primary);
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.product-type-selector {
-    margin-bottom: 2rem;
-    padding: 1rem;
-    background-color: #e9ecef;
-    border-radius: 5px;
+.user-audit-badge .label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: bold;
 }
 
-.product-list {
-    margin-top: 2rem;
+.user-audit-badge .username {
+    color: var(--primary);
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.1rem;
 }
 
-.product-card {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    background-color: white;
+/* Inputs y Selects */
+.urban-input, .urban-select {
+    background-color: var(--bg-input) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-main) !important;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.urban-input:focus, .urban-select:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 5px rgba(93, 214, 44, 0.5) !important;
+}
+
+/* Botones */
+.urban-btn {
+    background-color: var(--primary);
+    color: #000;
+    font-family: 'Permanent Marker', cursive;
+    border: none;
+    font-size: 1.2rem;
+    padding: 10px 20px;
     transition: all 0.3s ease;
+    border-radius: 5px;
 }
 
-.product-card:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.urban-btn:hover {
+    background-color: var(--primary-dark);
+    color: #fff;
     transform: translateY(-2px);
 }
 
-.product-card img {
-    max-width: 100px;
-    max-height: 100px;
-    object-fit: cover;
+.urban-btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    font-family: 'Permanent Marker', cursive;
 }
 
-.btn-modificar {
-    background-color: #ffc107;
-    border-color: #ffc107;
-    color: #212529;
+.urban-btn-outline:hover {
+    background-color: var(--primary);
+    color: #000;
 }
 
-.btn-modificar:hover {
-    background-color: #e0a800;
-    border-color: #d39e00;
+/* Radio Cards (Selección de Producto) */
+.product-card-wrapper {
+    position: relative;
+    height: 100%;
 }
 
-.confirmation-modal {
+.product-radio {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.product-card-content {
+    display: block;
+    background-color: var(--bg-card);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.product-card-content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(93, 214, 44, 0.2);
+}
+
+.product-radio:checked + .product-card-content {
+    border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(93, 214, 44, 0.4);
+    background-color: #2a2a2a;
+}
+
+.product-radio:checked + .product-card-content .card-title {
+    text-decoration: underline;
+}
+
+.card-img-top {
+    height: 200px;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.card-img-top img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.no-image {
+    color: #444;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.5rem;
+}
+
+.card-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.card-details {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Modal */
+.urban-modal {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8);
     z-index: 1050;
     justify-content: center;
     align-items: center;
+    backdrop-filter: blur(5px);
 }
 
-.modal-content {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 8px;
+.urban-modal-content {
+    background-color: var(--bg-card);
+    padding: 2.5rem;
+    border-radius: 12px;
     max-width: 500px;
     width: 90%;
+    border: 1px solid var(--primary);
+    text-align: center;
+    box-shadow: 0 0 30px rgba(93, 214, 44, 0.2);
 }
 
-.form-group {
-    margin-bottom: 1rem;
+/* TABLA URBAN (NUEVOS ESTILOS) */
+.urban-table-wrapper h4 {
+    border-left: 5px solid var(--primary);
+    padding-left: 15px;
+}
+
+.urban-table thead th {
+    background-color: #1a1a1a;
+    font-family: 'Permanent Marker', cursive;
+    color: var(--primary);
+    border-bottom: 2px solid var(--primary);
+    padding: 1rem;
+    letter-spacing: 1px;
+}
+
+.urban-table tbody tr {
+    transition: background-color 0.2s;
+}
+
+.urban-table tbody td {
+    background-color: var(--bg-card);
+    color: var(--text-main);
+    padding: 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.urban-table tbody tr:hover td {
+    background-color: rgba(93, 214, 44, 0.05);
+}
+
+/* Badge de Usuario en Tabla */
+.user-badge {
+    background-color: #000;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+/* Animaciones */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 

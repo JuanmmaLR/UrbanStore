@@ -2,43 +2,52 @@
 {% load static %}
 {% load humanize %}
 
-{% block title %}25 Urban Store - Torso{% endblock %}
+{% block title %}25 Urban Store - Accesorios{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" type="text/css" href="{% static 'style/Productos.css' %}" />
 {% endblock %}
 
 {% block content %}
-<div id="contenedorPrincipal" class="container">
-    <!-- Sección de Filtros -->
+<div id="contenedorPrincipal" class="container-fluid">
+    
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h1 style="font-family: 'Permanent Marker', cursive; color: #5DD62C; font-size: 3rem; text-shadow: 2px 2px #000;">
+                ACCESORIOS & COMPLEMENTOS
+            </h1>
+            <p class="text-white">Gorras, Relojes y más</p>
+        </div>
+    </div>
+
     <div class="filtros-container">
         <form method="GET" action=".">
             <div class="filtros-grid">
                 <div class="filtro-group">
-                    <label for="orden">Ordenar por:</label>
+                    <label for="orden">ORDENAR POR</label>
                     <select name="orden" id="orden">
                         <option value="reciente" {% if current_filters.orden == 'reciente' %}selected{% endif %}>Más recientes</option>
-                        <option value="precio_asc" {% if current_filters.orden == 'precio_asc' %}selected{% endif %}>Precio: Menor a Mayor</option>
-                        <option value="precio_desc" {% if current_filters.orden == 'precio_desc' %}selected{% endif %}>Precio: Mayor a Menor</option>
+                        <option value="precio_asc" {% if current_filters.orden == 'precio_asc' %}selected{% endif %}>Precio: Bajo a Alto</option>
+                        <option value="precio_desc" {% if current_filters.orden == 'precio_desc' %}selected{% endif %}>Precio: Alto a Bajo</option>
                     </select>
                 </div>
                 
                 <div class="filtro-group">
-                    <label for="precio_min">Precio mínimo:</label>
+                    <label for="precio_min">PRECIO MÍNIMO</label>
                     <input type="number" name="precio_min" id="precio_min" 
-                           value="{{ current_filters.precio_min }}" placeholder="$ Mínimo">
+                           value="{{ current_filters.precio_min }}" placeholder="$ 0">
                 </div>
                 
                 <div class="filtro-group">
-                    <label for="precio_max">Precio máximo:</label>
+                    <label for="precio_max">PRECIO MÁXIMO</label>
                     <input type="number" name="precio_max" id="precio_max" 
                            value="{{ current_filters.precio_max }}" placeholder="$ Máximo">
                 </div>
                 
                 <div class="filtro-group">
-                    <label for="genero">Género:</label>
+                    <label for="genero">GÉNERO</label>
                     <select name="genero" id="genero">
-                        <option value="">Todos</option>
+                        <option value="">Todos los estilos</option>
                         {% for value, display in GENERO_CHOICES %}
                         <option value="{{ value }}" {% if current_filters.genero == value %}selected{% endif %}>{{ display }}</option>
                         {% endfor %}
@@ -46,70 +55,79 @@
                 </div>
                 
                 <div class="filtro-group">
-                    <label for="color">Color:</label>
+                    <label for="color">COLOR</label>
                     <select name="color" id="color">
-                        <option value="">Todos</option>
+                        <option value="">Cualquier color</option>
                         {% for value, display in COLOR_CHOICES %}
                         <option value="{{ value }}" {% if current_filters.color == value %}selected{% endif %}>{{ display }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 
-                <div class="filtro-group" style="align-self: flex-end;">
-                    <button type="submit" class="btn btn-dark w-100">Filtrar</button>
+                <div class="filtro-group">
+                    <button type="submit" class="btn btn-dark w-100">APLICAR</button>
                     {% if current_filters.precio_min or current_filters.precio_max or current_filters.color or current_filters.genero %}
-                    <a href="." class="btn btn-outline-secondary w-100 mt-2">Limpiar filtros</a>
+                    <a href="." class="btn btn-outline-secondary w-100 mt-2">Borrar Filtros</a>
                     {% endif %}
                 </div>
             </div>
         </form>
     </div>
 
-    <!-- Listado de Productos -->
     <div id="filaProductos" class="row">
         {% for p in page_obj %}
-        <div id="columna_{{ forloop.counter }}" class="col-md-4 col-lg-3 mb-4">
-            <div id="tarjeta_{{ forloop.counter }}" class="card position-relative shadow-sm">
+        <div id="columna_{{ forloop.counter }}" class="col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div id="tarjeta_{{ forloop.counter }}" class="card position-relative">
                 {% if p.imagen %}
                 <img id="imagenProducto_{{ forloop.counter }}" src="{{ p.imagen.url }}" class="card-img-top" alt="{{ p.modelo }}">
                 {% endif %}
                 <div id="cuerpoTarjeta_{{ forloop.counter }}" class="card-body">
-                    <h6 id="marcaProducto_{{ forloop.counter }}" class="text-muted mb-1">{{ p.marca | capfirst }}</h6>
-                    <h5 id="nombreProducto_{{ forloop.counter }}" class="card-title">{{ p.modelo | title }}</h5>
-                    <p id="precioProducto_{{ forloop.counter }}" class="text-success fw-bold fs-5 mb-1">${{ p.precio | intcomma }}</p>
-                    <h6 id="cantidadProducto_{{ forloop.counter }}" class="text-muted mb-1">Stock: {{ p.cantidad | capfirst }}</h6>
-                    <span id="metodoPago_{{ forloop.counter }}" class="d-block fs-6 fw-normal text-muted">Transferencia</span>
-                    <button class="btn btn-dark w-100 add-to-cart"
-                            data-product-id="{{ p.id }}"
-                            data-product-type="{% if template_name == 'Torso' %}Tronco{% elif template_name == 'Pantalones' %}Piernas{% elif template_name == 'Calzado' %}Zapatos{% else %}Complemento{% endif %}"
-                            {% if p.cantidad <= 0 %}disabled{% endif %}>
-                        {% if p.cantidad > 0 %}
-                            🛒 Agregar al carro
-                        {% else %}
-                            Sin stock
-                        {% endif %}
-                    </button>
+                    <div>
+                        <h6 id="marcaProducto_{{ forloop.counter }}">{{ p.marca | default:"Urban Brand" }}</h6>
+                        <h5 id="nombreProducto_{{ forloop.counter }}">{{ p.modelo | upper }}</h5>
+                        <p id="precioProducto_{{ forloop.counter }}">${{ p.precio | intcomma }}</p>
+                    </div>
+                    
+                    <div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                             <h6 id="cantidadProducto_{{ forloop.counter }}" class="mb-0">
+                                {% if p.cantidad > 0 %}Stock: {{ p.cantidad }}{% else %}Agotado{% endif %}
+                             </h6>
+                             <small style="color: #666;">{{ p.get_genero_display }}</small>
+                        </div>
+                       
+                        <button class="add-to-cart"
+                                data-product-id="{{ p.id }}"
+                                data-product-type="Complemento"
+                                {% if p.cantidad <= 0 %}disabled{% endif %}>
+                            {% if p.cantidad > 0 %}
+                                AGREGAR AL CARRO <i class="fas fa-shopping-cart"></i>
+                            {% else %}
+                                SIN STOCK
+                            {% endif %}
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
         {% empty %}
         <div class="col-12 text-center py-5 no-products">
-            <h4>No se encontraron productos con los filtros seleccionados</h4>
-            <a href="." class="btn btn-primary mt-3">Ver todos los productos</a>
+            <h4>NO ENCONTRAMOS NADA CON ESE FLOW</h4>
+            <p>Intenta ajustar tus filtros</p>
+            <a href="." class="btn btn-dark mt-3">VER TODO</a>
         </div>
         {% endfor %}
     </div>
 
-    <!-- Paginación -->
     {% if page_obj.paginator.num_pages > 1 %}
-    <nav class="pagination">
+    <nav class="pagination justify-content-center">
         <ul class="pagination">
             {% if page_obj.has_previous %}
             <li class="page-item">
-                <a class="page-link" href="?page=1{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">&laquo; Primera</a>
+                <a class="page-link" href="?page=1{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">&laquo;</a>
             </li>
             <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Anterior</a>
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Prev</a>
             </li>
             {% endif %}
 
@@ -127,19 +145,19 @@
 
             {% if page_obj.has_next %}
             <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Siguiente</a>
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Next</a>
             </li>
             <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Última &raquo;</a>
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">&raquo;</a>
             </li>
             {% endif %}
         </ul>
     </nav>
     {% endif %}
 </div>
-<div id="cart-notification" class="alert alert-success fixed-top text-center" 
-     style="display: none; z-index: 9999; top: 20px; left: 50%; transform: translateX(-50%); 
-            max-width: 300px; transition: opacity 0.5s ease-in-out;">
+
+<div id="cart-notification" class="alert fixed-top text-center" 
+     style="display: none; z-index: 9999; top: 20px; left: 50%; transform: translateX(-50%); max-width: 300px;">
 </div>
 {% endblock %}
 

@@ -1,50 +1,223 @@
-/* static/style/Usuarios/Admin_User.css */
-.container {
-    max-width: 1200px;
-    margin-bottom: 50px;
+/* # ARCHIVO: Admin_User.css
+# RUTA: PROYECTOS\UrbanStore\UStore\app\static\css\Admin_User.css
+*/
+
+:root {
+    --bg-main: #0F0F0F;
+    --bg-secondary: #202020;
+    --accent: #5DD62C;
+    --accent-hover: #337418;
+    --text-main: #F8F8F8;
+    --text-muted: #aaaaaa;
+    --danger: #d32f2f;
 }
 
-h1 {
-    color: #333;
-    padding: 20px 0;
-    border-bottom: 2px solid #eee;
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: 'Permanent Marker', cursive; /* Fuente solicitada */
 }
 
-.table th {
-    background-color: #343a40;
-    color: white;
-}
-
-.table-responsive {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.form-check-input {
-    width: 2em;
-    height: 1em;
+.admin-wrapper {
+    padding: 2rem;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
-.btn-sm {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.875rem;
+.admin-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 1rem;
 }
 
-/* Estilo para los inputs en modo edición */
-.form-control {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.875rem;
-    height: auto;
+.admin-header h1 {
+    color: var(--accent);
+    font-size: 3rem;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0px var(--bg-secondary);
 }
 
-/* Estilo para las filas alternas */
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgba(0, 0, 0, 0.02);
+.admin-header p {
+    color: var(--text-muted);
+    font-family: 'Segoe UI', sans-serif; /* Legibilidad para subtítulos */
+    margin-top: 0.5rem;
 }
 
-/* Efecto hover para las filas */
-.table-hover tbody tr:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+/* --- TABLA CON DISEÑO FLEXBOX --- */
+.users-table-container {
+    background-color: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 1px solid #333;
+}
+
+.table-header {
+    display: flex;
+    background-color: var(--bg-main);
+    padding: 15px 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    border: 1px solid var(--accent-hover);
+}
+
+.table-row {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.03);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.table-row:hover {
+    background-color: rgba(93, 214, 44, 0.05); /* Sutil tinte verde */
+    border-color: var(--accent-hover);
+    transform: translateX(5px);
+}
+
+/* --- COLUMNAS --- */
+.col-mini { flex: 0 0 5%; }
+.col-med { flex: 1; margin: 0 5px; }
+.col-wide { flex: 1.5; margin: 0 5px; }
+.col-actions { flex: 0 0 10%; display: flex; gap: 10px; justify-content: center; }
+
+.centered { text-align: center; display: flex; justify-content: center; align-items: center; }
+
+/* --- INPUTS Y SELECTS --- */
+.urban-input, .urban-select {
+    width: 100%;
+    background-color: var(--bg-main);
+    border: 1px solid #333;
+    color: var(--text-main);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-family: 'Segoe UI', sans-serif; /* Inputs legibles */
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.urban-input:focus, .urban-select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 8px rgba(93, 214, 44, 0.2);
+}
+
+.urban-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235DD62C'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+}
+
+.id-badge {
+    background-color: #333;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* --- SWITCH TOGGLE PARA STAFF --- */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #333;
+    transition: .4s;
+}
+.slider.round { border-radius: 20px; }
+.slider.round:before { border-radius: 50%; }
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+}
+input:checked + .slider { background-color: var(--accent); }
+input:checked + .slider:before { transform: translateX(20px); }
+
+/* --- BOTONES --- */
+.btn-icon {
+    border: none;
+    border-radius: 6px;
+    padding: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 1rem;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-update {
+    background-color: var(--bg-main);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+}
+
+.btn-update:hover {
+    background-color: var(--accent);
+    color: var(--bg-main);
+}
+
+.btn-delete {
+    background-color: var(--bg-main);
+    color: var(--danger);
+    border: 1px solid var(--danger);
+}
+
+.btn-delete:hover {
+    background-color: var(--danger);
+    color: white;
+}
+
+/* --- ALERTAS --- */
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+    border: 1px solid var(--accent);
+    background-color: rgba(93, 214, 44, 0.1);
+    color: var(--accent);
+}
+
+.alert.error {
+    border-color: var(--danger);
+    color: var(--danger);
+    background-color: rgba(211, 47, 47, 0.1);
+}
+
+.no-data {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-muted);
+    font-style: italic;
 }

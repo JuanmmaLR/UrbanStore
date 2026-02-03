@@ -1,151 +1,260 @@
 /* static/style/Productos.css */
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Roboto:wght@300;400;700&display=swap');
 
-/* Estilos base */
+:root {
+    --bg-main: #0F0F0F;       /* Negro Profundo */
+    --bg-card: #202020;       /* Gris Oscuro */
+    --accent: #5DD62C;        /* Verde Brillante */
+    --accent-dark: #337418;   /* Verde Oscuro */
+    --text-main: #F8F8F8;     /* Blanco casi puro */
+    --text-muted: #aaaaaa;
+    --font-display: 'Permanent Marker', cursive;
+    --font-body: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: var(--bg-main) !important;
+    color: var(--text-main);
+    font-family: var(--font-body);
+}
+
+/* Contenedor Principal */
 #contenedorPrincipal {
-  font-family: Arial, sans-serif;
-  background: #f2f2f2;
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+    background: var(--bg-main);
+    padding: 2rem 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
-/* Estilos de la tarjeta */
-[id^="tarjeta_"] {
-  background: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-  height: 100%;
-}
-
-[id^="tarjeta_"]:hover {
-  transform: translateY(-5px);
-}
-
-[id^="imagenProducto_"] {
-  height: 250px;
-  object-fit: cover;
-  width: 100%;
-}
-
-[id^="cuerpoTarjeta_"] {
-  padding: 1.25rem;
-}
-
-[id^="nombreProducto_"] {
-  font-size: 1rem;
-  margin-bottom: 0.75rem;
-  height: 3rem;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-}
-
-/* Estilos específicos por elemento */
-#filaProductos {
-  margin-top: 20px;
-}
-
-[id^="marcaProducto_"] {
-  color: #6c757d;
-  font-size: 0.875rem;
-}
-
-[id^="precioProducto_"] {
-  color: #198754;
-  font-weight: bold;
-  font-size: 1.25rem;
-}
-
-[id^="metodoPago_"] {
-  color: #6c757d;
-  font-size: 0.75rem;
-  font-weight: normal;
-}
-
-[id^="botonCarrito_"] {
-  background-color: #212529;
-  transition: background-color 0.3s;
-}
-
-[id^="botonCarrito_"]:hover {
-  background-color: #424649;
-}
-
-/* Filtros y paginación */
+/* =========================================
+   SECCIÓN DE FILTROS
+   ========================================= */
 .filtros-container {
-  background: white;
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background: var(--bg-card);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    border: 1px solid #333;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
 .filtros-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
-}
-
-.filtro-group {
-  margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    align-items: end;
 }
 
 .filtro-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    font-family: var(--font-display);
+    color: var(--accent);
+    font-size: 1.1rem;
+    letter-spacing: 1px;
 }
 
-.filtro-group select, .filtro-group input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+.filtro-group select, 
+.filtro-group input {
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #151515;
+    border: 1px solid #444;
+    border-radius: 6px;
+    color: var(--text-main);
+    font-family: var(--font-body);
+    transition: all 0.3s ease;
 }
 
+.filtro-group select:focus, 
+.filtro-group input:focus {
+    border-color: var(--accent);
+    outline: none;
+    box-shadow: 0 0 5px rgba(93, 214, 44, 0.3);
+}
+
+/* Botones de Filtro */
+.btn-dark {
+    background-color: var(--accent);
+    color: #000;
+    border: none;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    padding: 8px;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-dark:hover {
+    background-color: var(--accent-dark);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.btn-outline-secondary {
+    border-color: #444;
+    color: var(--text-muted);
+}
+
+.btn-outline-secondary:hover {
+    background-color: #333;
+    color: var(--text-main);
+    border-color: #666;
+}
+
+/* =========================================
+   TARJETAS DE PRODUCTOS
+   ========================================= */
+[id^="tarjeta_"] {
+    background: var(--bg-card);
+    border: 1px solid #333;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+[id^="tarjeta_"]:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(93, 214, 44, 0.15);
+    border-color: var(--accent);
+}
+
+[id^="imagenProducto_"] {
+    height: 280px;
+    object-fit: cover;
+    width: 100%;
+    border-bottom: 3px solid var(--accent);
+}
+
+[id^="cuerpoTarjeta_"] {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+[id^="marcaProducto_"] {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+[id^="nombreProducto_"] {
+    font-family: var(--font-display);
+    color: var(--text-main);
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    /* Limitador de líneas */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2; /* <--- Agregado para silenciar el error de compatibilidad */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+[id^="precioProducto_"] {
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 5px rgba(93, 214, 44, 0.2);
+}
+
+[id^="cantidadProducto_"] {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+[id^="metodoPago_"] {
+    color: #666;
+    font-size: 0.8rem;
+    margin-bottom: 15px;
+}
+
+/* Botón Añadir al Carrito */
+.add-to-cart {
+    background-color: transparent;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    padding: 10px;
+    width: 100%;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.add-to-cart:hover:not(:disabled) {
+    background-color: var(--accent);
+    color: #000;
+    box-shadow: 0 0 15px var(--accent);
+}
+
+.add-to-cart:disabled {
+    border-color: #444;
+    color: #666;
+    background-color: #1a1a1a;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* =========================================
+   PAGINACIÓN
+   ========================================= */
 .pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
-}
-
-.page-item {
-  margin: 0 5px;
+    margin-top: 40px;
+    gap: 5px;
 }
 
 .page-link {
-  padding: 8px 15px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  color: #333;
+    background-color: var(--bg-card);
+    border: 1px solid #444;
+    color: var(--text-main);
+    border-radius: 4px;
+    font-family: var(--font-body);
+}
+
+.page-link:hover {
+    background-color: #333;
+    color: var(--accent);
+    border-color: var(--accent);
 }
 
 .page-item.active .page-link {
-  background: #212529;
-  color: white;
-  border-color: #212529;
+    background-color: var(--accent);
+    color: #000;
+    border-color: var(--accent);
+    font-weight: bold;
 }
 
+/* Mensaje "No products" */
 .no-products {
-  text-align: center;
-  padding: 40px 0;
-  background: #fff;
-  border-radius: 8px;
-  margin-top: 20px;
+    background: var(--bg-card);
+    color: var(--text-muted);
+    border: 1px dashed #444;
+    border-radius: 12px;
 }
 
-/* Responsividad */
-@media (max-width: 768px) {
-  [id^="columna_"] {
-    flex: 0 0 50%;
-    max-width: 50%;
-  }
+.no-products h4 {
+    font-family: var(--font-display);
+    color: var(--text-main);
 }
 
-@media (max-width: 576px) {
-  [id^="columna_"] {
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
+/* Notificación Flotante */
+#cart-notification {
+    background-color: var(--accent) !important;
+    color: #000 !important;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    border: none;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    border-radius: 8px;
 }

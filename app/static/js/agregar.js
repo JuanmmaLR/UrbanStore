@@ -1,69 +1,59 @@
+/* ARCHIVO: agregar.js */
+/* RUTA: static/js/agregar.js */
+
 document.addEventListener('DOMContentLoaded', function() {
-    const tipoProducto = document.getElementById('id_tipo');
-    const tipoAccesorioField = document.getElementById('tipo-accesorio-field');
-    const tipoSelect = document.getElementById('id_tipo');
-    const subcategoriaFields = {
-        'Tronco': document.getElementById('subcategoria-tronco-field'),
-        'Piernas': document.getElementById('subcategoria-piernas-field'),
-        'Zapatos': document.getElementById('subcategoria-zapatos-field'),
-        'Complemento': document.getElementById('tipo-accesorio-field')
-    };
-
+    // 1. REFERENCIAS A ELEMENTOS DEL DOM
+    // Django genera automáticamente el ID 'id_nombrecampo' para los inputs
+    const selectTipo = document.getElementById('id_tipo');
     
-    function toggleAccesorioField() {
-        if (tipoProducto.value === 'Complemento') {
-            tipoAccesorioField.style.display = 'block';
-        } else {
-            tipoAccesorioField.style.display = 'none';
-        }
-    }
-    
-    // Mostrar/ocultar al cargar la página
-    toggleAccesorioField();
-    
-    // Mostrar/ocultar cuando cambia el tipo de producto
-    tipoProducto.addEventListener('change', toggleAccesorioField);
+    // Contenedores de campos condicionales (Coinciden con los IDs del HTML nuevo)
+    const containerAccesorio = document.getElementById('tipo-accesorio-field');
+    const containerTronco = document.getElementById('subcategoria-tronco-field');
+    const containerPiernas = document.getElementById('subcategoria-piernas-field');
+    const containerZapatos = document.getElementById('subcategoria-zapatos-field');
 
-    function toggleSubcategoria() {
-        // Ocultar todos los campos primero
-        Object.values(subcategoriaFields).forEach(field => {
-            if(field) field.style.display = 'none';
-        });
-        
-        // Mostrar el campo correspondiente al tipo seleccionado
-        const selectedType = tipoSelect.value;
-        if(subcategoriaFields[selectedType]) {
-            subcategoriaFields[selectedType].style.display = 'block';
-        }
-    }
+    // 2. FUNCIÓN DE LÓGICA DE VISUALIZACIÓN
+    function actualizarCampos() {
+        if (!selectTipo) return;
 
-    // Inicializar y añadir listener
-    toggleSubcategoria();
-    tipoSelect.addEventListener('change', toggleSubcategoria);
-
-    // Validación adicional del formulario antes de enviar
-    const form = document.querySelector('form');
-    form.addEventListener('submit', function(e) {
-        let isValid = true;
+        // Obtenemos el texto de la opción seleccionada para ser flexibles
+        // (Podrías usar .value si conoces las claves exactas de tu base de datos ej: 'AC', 'RS')
+        const seleccion = selectTipo.options[selectTipo.selectedIndex].text.toLowerCase();
         
-        // Validar que el precio sea positivo
-        const precio = document.getElementById('id_precio').value;
-        if (precio <= 0) {
-            alert('El precio debe ser un valor positivo');
-            isValid = false;
-        }
-        
-        // Validar que se haya seleccionado un tipo de accesorio si corresponde
-        if (tipoProducto.value === 'Complemento') {
-            const tipoAccesorio = document.getElementById('id_tipo_accesorio').value;
-            if (!tipoAccesorio) {
-                alert('Por favor seleccione un tipo de accesorio');
-                isValid = false;
+        // --- RESET: Ocultar todo primero ---
+        const todosLosCampos = [containerAccesorio, containerTronco, containerPiernas, containerZapatos];
+        todosLosCampos.forEach(campo => {
+            if (campo) {
+                campo.style.display = 'none';
+                // Opcional: Limpiar el valor de los selects ocultos para evitar errores al enviar
+                // const selectInterno = campo.querySelector('select');
+                // if(selectInterno) selectInterno.selectedIndex = 0; 
             }
-        }
+        });
+
+        // --- MOSTRAR: Según la palabra clave ---
+        // Ajusta estas palabras clave según cómo hayas nombrado tus Tipos en el Admin de Django
         
-        if (!isValid) {
-            e.preventDefault();
+        if (seleccion.includes('accesorio') || seleccion.includes('lentes') || seleccion.includes('joya')) {
+            if (containerAccesorio) containerAccesorio.style.display = 'block';
+
+        } else if (seleccion.includes('superior') || seleccion.includes('camisa') || seleccion.includes('polera') || seleccion.includes('chaqueta')) {
+            if (containerTronco) containerTronco.style.display = 'block';
+
+        } else if (seleccion.includes('inferior') || seleccion.includes('pantalón') || seleccion.includes('jeans') || seleccion.includes('fald')) {
+            if (containerPiernas) containerPiernas.style.display = 'block';
+
+        } else if (seleccion.includes('calzado') || seleccion.includes('zapatilla') || seleccion.includes('bota')) {
+            if (containerZapatos) containerZapatos.style.display = 'block';
         }
-    });
+    }
+
+    // 3. EVENT LISTENERS
+    if (selectTipo) {
+        // Escuchar cambios en el selector
+        selectTipo.addEventListener('change', actualizarCampos);
+        
+        // Ejecutar al cargar la página (Crucial para cuando hay errores de validación y la página se recarga)
+        actualizarCampos();
+    }
 });

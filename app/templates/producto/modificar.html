@@ -4,201 +4,258 @@
 {% block title %}25 Urban Store - Modificar Productos{% endblock %}
 
 {% block extra_css %}
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="{% static 'style/producto/modificar.css' %}" />
 {% endblock %}
 
 {% block content %}
-<div class="modificar-container">
-    <h2 class="text-center mb-4">Modificar Productos</h2>
-    
-    <!-- Selector de tipo de producto -->
-    <div class="product-type-selector">
-        <form id="productTypeForm" method="POST" action="{% url 'modificar' %}">
-            {% csrf_token %}
-            <div class="row">
-                <div class="col-md-8">
-                    <label for="tipo_producto" class="form-label">Seleccione el tipo de producto:</label>
-                    <select class="form-select" id="tipo_producto" name="tipo_producto" required>
-                        <option value="" selected disabled>-- Seleccione --</option>
-                        <option value="Tronco">Torso</option>
-                        <option value="Piernas">Pantalones</option>
-                        <option value="Zapatos">Calzado</option>
-                        <option value="Complemento">Accesorios</option>
-                    </select>
-                </div>
-                <div class="col-md-4 d-flex align-items-end">
-                    <button type="submit" class="btn btn-primary w-100" name="listar">Listar Productos</button>
-                </div>
-            </div>
-        </form>
-    </div>
-    
-    <!-- Lista de productos -->
-    {% if productos %}
-    <div class="product-list">
-        <h4 class="mb-3">Productos de {{ tipo_producto }}</h4>
+<div class="urban-wrapper">
+    <div class="container py-5">
+        <h2 class="text-center urban-title mb-5">MODIFICAR PRODUCTOS</h2>
         
-        <form id="modifyForm" method="POST" action="{% url 'modificar' %}">
-            {% csrf_token %}
-            <input type="hidden" name="tipo_producto" value="{{ tipo_producto }}">
+        <div class="urban-card mb-5">
+            <form id="productTypeForm" method="POST" action="{% url 'modificar' %}">
+                {% csrf_token %}
+                <div class="row align-items-end g-3">
+                    <div class="col-md-8">
+                        <label for="tipo_producto" class="urban-label mb-2">SELECCIONA CATEGORÍA</label>
+                        <select class="form-select urban-select" id="tipo_producto" name="tipo_producto" required>
+                            <option value="" selected disabled>-- ¿Qué vas a editar? --</option>
+                            <option value="Tronco">Torso (Poleras/Camisas)</option>
+                            <option value="Piernas">Pantalones/Jeans</option>
+                            <option value="Zapatos">Calzado</option>
+                            <option value="Complemento">Accesorios</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn urban-btn w-100" name="listar">
+                            BUSCAR PRODUCTOS
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        {% if productos %}
+        <div class="product-list-section fade-in">
+            <h4 class="urban-subtitle mb-4">CATÁLOGO: <span class="text-urban">{{ tipo_producto|upper }}</span></h4>
             
-            <div class="row">
-                {% for producto in productos %}
-                <div class="col-md-6">
-                    <div class="product-card">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="producto_id" 
+            <form id="modifyForm" method="POST" action="{% url 'modificar' %}">
+                {% csrf_token %}
+                <input type="hidden" name="tipo_producto" value="{{ tipo_producto }}">
+                
+                <div class="row g-4">
+                    {% for producto in productos %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="product-card-wrapper">
+                            <input class="product-radio" type="radio" name="producto_id" 
                                    id="producto_{{ producto.id }}" value="{{ producto.id }}" required>
-                            <label class="form-check-label" for="producto_{{ producto.id }}">
-                                <strong>{{ producto.modelo }}</strong>
+                            
+                            <label class="product-card-content" for="producto_{{ producto.id }}">
+                                <div class="card-img-top">
+                                    {% if producto.imagen %}
+                                    <img src="{{ producto.imagen.url }}" alt="{{ producto.modelo }}">
+                                    {% else %}
+                                    <div class="no-image">SIN FOTO</div>
+                                    {% endif %}
+                                </div>
+                                <div class="card-body p-3">
+                                    <h5 class="card-title text-urban">{{ producto.modelo|default:"Sin Modelo" }}</h5>
+                                    <p class="card-price">${{ producto.precio }}</p>
+                                    <div class="card-details">
+                                        <span>Marca: {{ producto.marca }}</span>
+                                        <span>Stock: {{ producto.cantidad }}</span>
+                                    </div>
+                                    <div class="d-none data-store">
+                                        <p class="data-marca">{{ producto.marca }}</p>
+                                        <p class="data-genero">{{ producto.get_genero_display }}</p>
+                                        <p class="data-color">{{ producto.get_color_display }}</p>
+                                        {% if producto.subcategoria %}
+                                        <p class="data-subcat">{{ producto.get_subcategoria_display }}</p>
+                                        {% endif %}
+                                        {% if producto.tipo %}
+                                        <p class="data-tipo">{{ producto.get_tipo_display }}</p>
+                                        {% endif %}
+                                        <p class="data-desc">{{ producto.descripcion }}</p>
+                                        <p class="data-nuevo">{{ producto.nuevo|yesno:"true,false" }}</p>
+                                    </div>
+                                </div>
                             </label>
                         </div>
-                        <div class="row mt-2">
-                            <div class="col-md-3">
-                                {% if producto.imagen %}
-                                <img src="{{ producto.imagen.url }}" alt="{{ producto.modelo }}" class="img-fluid">
-                                {% else %}
-                                <img src="{% static 'img/placeholder.jpg' %}" alt="Sin imagen" class="img-fluid">
-                                {% endif %}
-                            </div>
-                            <div class="col-md-9">
-                                <p><strong>Modelo:</strong> {{ producto.modelo|default:"-" }}</p>
-                                <p><strong>Precio:</strong> ${{ producto.precio }}</p>
-                                <p><strong>Marca:</strong> {{ producto.marca }}</p>
-                                <p><strong>Género:</strong> {{ producto.get_genero_display }}</p>
-                                <p><strong>Color:</strong> {{ producto.get_color_display }}</p>
-                                {% if producto.subcategoria %}
-                                <p><strong>Subcategoría:</strong> {{ producto.get_subcategoria_display }}</p>
-                                {% endif %}
-                                {% if producto.tipo %}
-                                <p><strong>Tipo:</strong> {{ producto.get_tipo_display }}</p>
-                                {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="text-center mt-5">
+                    <button type="button" class="btn urban-btn-outline btn-lg" id="btnModificar">
+                        EDITAR SELECCIONADO
+                    </button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+        
+        <div class="urban-modal" id="confirmationModal">
+            <div class="urban-modal-content">
+                <h4 class="urban-subtitle mb-3">¿CONFIRMAR EDICIÓN?</h4>
+                <p class="text-light">Vas a entrar al modo edición del producto seleccionado.</p>
+                <div class="d-flex justify-content-center gap-3 mt-4">
+                    <button type="button" class="btn btn-secondary" id="cancelModal">Cancelar</button>
+                    <button type="button" class="btn urban-btn" id="confirmModify">Confirmar</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modification-form mt-5" id="modificationForm" style="display: none;">
+            <div class="urban-card border-urban">
+                <h4 class="urban-title text-center mb-4">EDITOR DE PRODUCTO</h4>
+                <form id="editProductForm" method="POST" action="{% url 'modificar' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="actualizar" value="true">
+                    <input type="hidden" name="tipo_producto" id="editTipoProducto">
+                    <input type="hidden" name="producto_id" id="editProductoId">
+                    
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="user-audit-badge">
+                                <span class="label">MODIFICANDO COMO:</span>
+                                <span class="username">{{ user.username|upper }}</span>
+                                <input type="hidden" name="usuario_modificador" value="{{ user.id }}">
                             </div>
                         </div>
                     </div>
-                </div>
-                {% endfor %}
-            </div>
-            
-            <div class="text-center mt-4">
-                <button type="button" class="btn btn-modificar" id="btnModificar">Modificar Producto Seleccionado</button>
-            </div>
-        </form>
-    </div>
-    {% endif %}
-    
-    <!-- Modal de confirmación -->
-    <div class="confirmation-modal" id="confirmationModal">
-        <div class="modal-content">
-            <h4>Confirmar Modificación</h4>
-            <p>¿Estás seguro que deseas modificar este producto?</p>
-            <div class="d-flex justify-content-between mt-4">
-                <button type="button" class="btn btn-secondary" id="cancelModal">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="confirmModify">Confirmar</button>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="editModelo" class="urban-label">MODELO</label>
+                                <input type="text" class="form-control urban-input" id="editModelo" name="modelo" required>
+                            </div>
+                            
+                            <div class="form-group mt-3">
+                                <label for="editPrecio" class="urban-label">PRECIO ($)</label>
+                                <input type="number" class="form-control urban-input" id="editPrecio" name="precio" required>
+                            </div>
+
+                            <div class="form-group mt-3">
+                                <label for="editCantidad" class="urban-label">STOCK DISPONIBLE</label>
+                                <input type="number" class="form-control urban-input" id="editCantidad" name="cantidad" min="0" value="0">
+                            </div>
+                            
+                            <div class="form-group mt-3">
+                                <label for="editMarca" class="urban-label">MARCA</label>
+                                <select class="form-select urban-select" id="editMarca" name="marca" required>
+                                    {% for marca in marcas %}
+                                    <option value="{{ marca.id }}">{{ marca.nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-6">
+                                    <label for="editGenero" class="urban-label">GÉNERO</label>
+                                    <select class="form-select urban-select" id="editGenero" name="genero" required>
+                                        {% for value, display in GENERO_CHOICES %}
+                                        <option value="{{ value }}">{{ display }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <label for="editColor" class="urban-label">COLOR</label>
+                                    <select class="form-select urban-select" id="editColor" name="color" required>
+                                        {% for value, display in COLOR_CHOICES %}
+                                        <option value="{{ value }}">{{ display }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="editDescripcion" class="urban-label">DESCRIPCIÓN</label>
+                                <textarea class="form-control urban-input" id="editDescripcion" name="descripcion" rows="4" required></textarea>
+                            </div>
+                            
+                            <div class="form-group form-check mt-3">
+                                <input type="checkbox" class="form-check-input urban-check" id="editNuevo" name="nuevo">
+                                <label class="form-check-label text-light" for="editNuevo">¿Marcar como Nuevo?</label>
+                            </div>
+                            
+                            <div class="form-group mt-3" id="subcategoriaGroup" style="display: none;">
+                                <label for="editSubcategoria" class="urban-label">SUBCATEGORÍA</label>
+                                <select class="form-select urban-select" id="editSubcategoria" name="subcategoria">
+                                    {% for value, display in SUBCATEGORIA_TRONCO %}
+                                        <option value="{{ value }}">{{ display }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            
+                            <div class="form-group mt-3" id="tipoAccesorioGroup" style="display: none;">
+                                <label for="editTipoAccesorio" class="urban-label">TIPO DE ACCESORIO</label>
+                                <select class="form-select urban-select" id="editTipoAccesorio" name="tipo_accesorio">
+                                    <option value="REL">Reloj</option>
+                                    <option value="BUF">Bufanda</option>
+                                    <option value="CIN">Cinturón</option>
+                                    <option value="COL">Collar</option>
+                                    <option value="GOR">Gorra</option>
+                                    <option value="PUL">Pulseras</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group mt-3">
+                                <label for="editImagen" class="urban-label">ACTUALIZAR IMAGEN</label>
+                                <input type="file" class="form-control urban-input" id="editImagen" name="imagen">
+                                <small class="text-muted d-block mt-1">* Deja en blanco para mantener la actual</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-5 d-flex justify-content-center gap-3">
+                        <button type="button" class="btn btn-secondary px-4" id="cancelEdit">CANCELAR</button>
+                        <button type="submit" class="btn urban-btn px-5">GUARDAR CAMBIOS</button>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
-    
-    <!-- Formulario de modificación (inicialmente oculto) -->
-    <div class="modification-form mt-4" id="modificationForm" style="display: none;">
-        <h4>Editar Producto</h4>
-        <form id="editProductForm" method="POST" action="{% url 'modificar' %}" enctype="multipart/form-data">
-            {% csrf_token %}
-            <input type="hidden" name="actualizar" value="true">
-            <input type="hidden" name="tipo_producto" id="editTipoProducto">
-            <input type="hidden" name="producto_id" id="editProductoId">
-            
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="editModelo">Modelo</label>
-                        <input type="text" class="form-control" id="editModelo" name="modelo" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="editPrecio">Precio</label>
-                        <input type="number" class="form-control" id="editPrecio" name="precio" required>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="editCantidad">Cantidad en stock</label>
-                        <input type="number" class="form-control" id="editCantidad" name="cantidad" min="0" value="0">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="editMarca">Marca</label>
-                        <select class="form-select" id="editMarca" name="marca" required>
-                            {% for marca in marcas %}
-                            <option value="{{ marca.id }}">{{ marca.nombre }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="editGenero">Género</label>
-                        <select class="form-select" id="editGenero" name="genero" required>
-                            {% for value, display in GENERO_CHOICES %}
-                            <option value="{{ value }}">{{ display }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="editColor">Color</label>
-                        <select class="form-select" id="editColor" name="color" required>
-                            {% for value, display in COLOR_CHOICES %}
-                            <option value="{{ value }}">{{ display }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="editDescripcion">Descripción</label>
-                        <textarea class="form-control" id="editDescripcion" name="descripcion" rows="3" required></textarea>
-                    </div>
-                    
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="editNuevo" name="nuevo">
-                        <label class="form-check-label" for="editNuevo">¿Es nuevo?</label>
-                    </div>
-                    
-                    <div class="form-group" id="subcategoriaGroup" style="display: none;">
-                        <label for="editSubcategoria">Subcategoría</label>
-                        <select class="form-select" id="editSubcategoria" name="subcategoria">
-                            {% for value, display in SUBCATEGORIA_TRONCO %}
-                                <option value="{{ value }}">{{ display }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    
-                    <div class="form-group" id="tipoAccesorioGroup" style="display: none;">
-                        <label for="editTipoAccesorio">Tipo de Accesorio</label>
-                        <select class="form-select" id="editTipoAccesorio" name="tipo_accesorio">
-                            <option value="REL">Reloj</option>
-                            <option value="BUF">Bufanda</option>
-                            <option value="CIN">Cinturón</option>
-                            <option value="COL">Collar</option>
-                            <option value="GOR">Gorra</option>
-                            <option value="PUL">Pulseras</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="editImagen">Imagen</label>
-                        <input type="file" class="form-control" id="editImagen" name="imagen">
-                        <small class="text-muted">Dejar en blanco para mantener la imagen actual</small>
-                    </div>
+        <div class="urban-table-wrapper mt-5 fade-in">
+            <h4 class="urban-subtitle mb-4">HISTORIAL DE ACTIVIDAD RECIENTE</h4>
+            <div class="urban-card p-0 overflow-hidden">
+                <div class="table-responsive">
+                    <table class="table urban-table table-borderless mb-0">
+                        <thead>
+                            <tr>
+                                <th scope="col">PRENDA MODIFICADA</th>
+                                <th scope="col">TIENDA ASOCIADA</th>
+                                <th scope="col">USUARIO</th>
+                                <th scope="col">FECHA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if historial %}
+                                {% for registro in historial %}
+                                <tr>
+                                    <td class="text-urban fw-bold">{{ registro.prenda }}</td>
+                                    <td>{{ registro.tienda }}</td>
+                                    <td>
+                                        <span class="user-badge">{{ registro.usuario.username|upper }}</span>
+                                    </td>
+                                    <td class="text-muted">{{ registro.fecha|date:"d/m/Y H:i" }}</td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="4" class="text-center py-4 text-muted">No hay registros de actividad reciente.</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            
-            <div class="text-center mt-3">
-                <button type="submit" class="btn btn-success">Guardar Cambios</button>
-                <button type="button" class="btn btn-secondary" id="cancelEdit">Cancelar</button>
-            </div>
-        </form>
+        </div>
+        
     </div>
 </div>
 {% endblock %}

@@ -1,7 +1,7 @@
 # ==========================================
 # COMPILACION AUTOMATICA DE PROYECTO DJANGO
 # ARCHIVO: Compilacion_Python.py
-# FECHA: 2026-01-26 15:12:18
+# FECHA: 2026-02-01 22:20:33
 # ==========================================
 
 --------------------------------------------------
@@ -10,78 +10,132 @@
 --------------------------------------------------
 
 from django.contrib import admin
-from .models import Marca, Tronco, Piernas, Zapatos, Complemento, Contacto, TrabajaConNosotros, SeSocio, Envio, Tienda
+from .models import (
+    Marca, Tronco, Piernas, Zapatos, Complemento, 
+    Contacto, TrabajaConNosotros, SeSocio, Envio, 
+    Tienda, PreferenciasUsuario, HistorialModificacion,
+    HistorialEliminacion
+)
+
+# Configuración del encabezado del Admin
+admin.site.site_header = "Administración Urban Store"
+admin.site.site_title = "Portal Urban Store"
+admin.site.index_title = "Bienvenido al Panel de Control"
+
+class MarcaAdmin(admin.ModelAdmin):
+    list_display = ['id', 'nombre', 'usuario', 'tienda']
+    search_fields = ['nombre']
+    list_filter = ['tienda']
 
 class TroncoAdmin(admin.ModelAdmin):
-    list_display = ["modelo", "precio", "cantidad", "nuevo", "marca"]
-    list_editable = ["precio", "cantidad", "nuevo", "marca"]
-    search_fields = ["modelo"]
-    list_filter = ["marca", "nuevo"]
+    list_display = ['id', 'modelo', 'marca', 'precio', 'cantidad', 'subcategoria', 'nuevo', 'usuario']
+    list_editable = ['precio', 'cantidad', 'nuevo']
+    list_filter = ['marca', 'genero', 'subcategoria', 'nuevo', 'usuario']
+    search_fields = ['modelo', 'marca__nombre']
     list_per_page = 10
+    
+    def save_model(self, request, obj, form, change):
+        obj.usuario = request.user
+        super().save_model(request, obj, form, change)
 
 class PiernasAdmin(admin.ModelAdmin):
-    list_display = ["modelo", "precio", "cantidad", "nuevo", "marca"]
-    list_editable = ["precio", "cantidad", "nuevo", "marca"]
-    search_fields = ["modelo"]
-    list_filter = ["marca", "nuevo"]
+    list_display = ['id', 'modelo', 'marca', 'precio', 'cantidad', 'subcategoria', 'nuevo', 'usuario']
+    list_editable = ['precio', 'cantidad', 'nuevo']
+    list_filter = ['marca', 'genero', 'subcategoria', 'nuevo', 'usuario']
+    search_fields = ['modelo', 'marca__nombre']
     list_per_page = 10
+
+    def save_model(self, request, obj, form, change):
+        obj.usuario = request.user
+        super().save_model(request, obj, form, change)
 
 class ZapatosAdmin(admin.ModelAdmin):
-    list_display = ["modelo", "precio", "cantidad", "nuevo", "marca"]
-    list_editable = ["precio", "cantidad", "nuevo", "marca"]
-    search_fields = ["modelo"]
-    list_filter = ["marca", "nuevo"]
+    list_display = ['id', 'modelo', 'marca', 'precio', 'cantidad', 'subcategoria', 'nuevo', 'usuario']
+    list_editable = ['precio', 'cantidad', 'nuevo']
+    list_filter = ['marca', 'genero', 'subcategoria', 'nuevo', 'usuario']
+    search_fields = ['modelo', 'marca__nombre']
     list_per_page = 10
 
+    def save_model(self, request, obj, form, change):
+        obj.usuario = request.user
+        super().save_model(request, obj, form, change)
+
 class ComplementoAdmin(admin.ModelAdmin):
-    list_display = ["modelo", "precio", "cantidad", "nuevo", "marca", "tipo"]
-    list_editable = ["precio", "cantidad", "nuevo", "marca", "tipo"]
-    search_fields = ["modelo"]
-    list_filter = ["marca", "nuevo", "tipo"]
+    list_display = ['id', 'modelo', 'marca', 'precio', 'cantidad', 'subcategoria', 'nuevo', 'usuario']
+    list_editable = ['precio', 'cantidad', 'nuevo', 'subcategoria'] 
+    list_filter = ['marca', 'genero', 'subcategoria', 'nuevo', 'usuario']
+    search_fields = ['modelo', 'marca__nombre']
     list_per_page = 10
+
+    def save_model(self, request, obj, form, change):
+        obj.usuario = request.user
+        super().save_model(request, obj, form, change)
 
 class ContactoAdmin(admin.ModelAdmin):
     list_display = ['nombre', 'email', 'fecha', 'leido']
+    list_editable = ['leido']
     list_filter = ['leido', 'fecha']
     search_fields = ['nombre', 'email', 'mensaje']
-    list_editable = ['leido']
-    date_hierarchy = 'fecha'
-
-class TrabajaConNosotrosAdmin(admin.ModelAdmin):
-    list_display = ['nombre', 'email', 'puesto', 'fecha', 'leido']
-    list_filter = ['puesto', 'leido', 'fecha']
-    search_fields = ['nombre', 'email', 'mensaje']
-    list_editable = ['leido']
-    date_hierarchy = 'fecha'
     readonly_fields = ['fecha']
 
+class TrabajaConNosotrosAdmin(admin.ModelAdmin):
+    list_display = ['nombre', 'puesto', 'email', 'fecha', 'leido']
+    list_editable = ['leido']
+    list_filter = ['puesto', 'leido']
+    search_fields = ['nombre', 'email']
+
 class SeSocioAdmin(admin.ModelAdmin):
-    list_display = ['nombre_marca', 'nombre', 'email', 'rubro', 'fecha', 'contacto']
-    list_filter = ['rubro', 'contacto', 'fecha']
-    search_fields = ['nombre_marca', 'nombre', 'email']
+    list_display = ['nombre_marca', 'nombre', 'rubro', 'fecha', 'contacto']
     list_editable = ['contacto']
-    date_hierarchy = 'fecha'
+    list_filter = ['rubro', 'contacto']
+    search_fields = ['nombre_marca', 'nombre']
 
 class EnvioAdmin(admin.ModelAdmin):
-    list_display = ['nombre', 'ciudad', 'region', 'total_pagar', 'fecha', 'marcas_compradas']
-    list_filter = ['region', 'fecha']
-    search_fields = ['nombre', 'email']
+    list_display = ['id', 'nombre', 'region', 'courier', 'total_pagar', 'procesado', 'fecha']
+    list_editable = ['procesado']
+    list_filter = ['region', 'courier', 'procesado', 'fecha']
+    search_fields = ['nombre', 'id']
+    readonly_fields = ['fecha', 'monto_carrito', 'costo_envio', 'total_pagar']
 
 class TiendaAdmin(admin.ModelAdmin):
     list_display = ['nombre_tienda', 'categorias']
-    search_fields = ['nombre_tienda', 'categorias']
-    list_per_page = 10
+    search_fields = ['nombre_tienda']
 
-admin.site.register(SeSocio, SeSocioAdmin)
-admin.site.register(TrabajaConNosotros, TrabajaConNosotrosAdmin)
-admin.site.register(Contacto, ContactoAdmin)
-admin.site.register(Marca)
+class PreferenciasUsuarioAdmin(admin.ModelAdmin):
+    list_display = ['user', 'tienda_asociada', 'recibir_notificaciones']
+    list_filter = ['tienda_asociada', 'recibir_notificaciones']
+    search_fields = ['user__username']
+
+class HistorialModificacionAdmin(admin.ModelAdmin):
+    list_display = ['prenda', 'usuario', 'tienda', 'fecha']
+    list_filter = ['usuario', 'tienda', 'fecha']
+    search_fields = ['prenda', 'usuario__username', 'tienda']
+    readonly_fields = ['fecha']
+
+class HistorialEliminacionAdmin(admin.ModelAdmin):
+    list_display = ['fecha', 'producto_modelo', 'marca', 'tipo_producto', 'usuario', 'motivo']
+    list_filter = ['tipo_producto', 'fecha', 'usuario']
+    search_fields = ['producto_modelo', 'marca', 'usuario__username']
+    readonly_fields = ['fecha', 'usuario', 'producto_modelo', 'marca', 'tipo_producto', 'motivo']
+    list_per_page = 20
+    
+    def has_add_permission(self, request):
+        return False
+
+# --- REGISTRO DE MODELOS ---
+admin.site.register(Marca, MarcaAdmin)
 admin.site.register(Tronco, TroncoAdmin)
 admin.site.register(Piernas, PiernasAdmin)
 admin.site.register(Zapatos, ZapatosAdmin)
 admin.site.register(Complemento, ComplementoAdmin)
+admin.site.register(Contacto, ContactoAdmin)
+admin.site.register(TrabajaConNosotros, TrabajaConNosotrosAdmin)
+admin.site.register(SeSocio, SeSocioAdmin)
 admin.site.register(Envio, EnvioAdmin)
 admin.site.register(Tienda, TiendaAdmin)
+admin.site.register(PreferenciasUsuario, PreferenciasUsuarioAdmin)
+admin.site.register(HistorialModificacion, HistorialModificacionAdmin)
+admin.site.register(HistorialEliminacion, HistorialEliminacionAdmin)
 
 --------------------------------------------------
 # ARCHIVO: apps.py
@@ -381,50 +435,68 @@ class Marca(models.Model):
 
     def __str__(self):
         return self.nombre
+    
+class HistorialModificacion(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Usuario")
+    prenda = models.CharField(max_length=100, verbose_name="Prenda")
+    tienda = models.CharField(max_length=100, verbose_name="Tienda")
+    fecha = models.DateTimeField(auto_now_add=True, verbose_name="Fecha")
 
-class Tronco(models.Model):  # Antes: Torso
+    def __str__(self):
+        return f"{self.prenda} modificado por {self.usuario.username}"
+
+class Tronco(models.Model):
     modelo = models.CharField(max_length=50, default='', blank=True)
     precio = models.IntegerField()
     descripcion = models.TextField()
     nuevo = models.BooleanField()
-    marca = models.ForeignKey(Marca, on_delete=models.PROTECT)
+    marca = models.ForeignKey('Marca', on_delete=models.PROTECT)
     imagen = models.ImageField(upload_to="productos", null=True)
     cantidad = models.PositiveIntegerField(default=0) 
     genero = models.CharField(max_length=3, choices=GENERO_CHOICES, default='UNI')
     color = models.CharField(max_length=3, choices=COLOR_CHOICES, default='NEG')
     subcategoria = models.CharField(max_length=3, choices=SUBCATEGORIA_TRONCO, default='POL')
+    # Actualizado para reflejar que es el usuario de la última modificación
+    usuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Modificado por")
+
     def __str__(self):
         return self.modelo
 
-class Piernas(models.Model):  # Antes: Pantalones
+class Piernas(models.Model):
     modelo = models.CharField(max_length=50, default='', blank=True)
     precio = models.IntegerField()
     descripcion = models.TextField()
     nuevo = models.BooleanField()
-    marca = models.ForeignKey(Marca, on_delete=models.PROTECT)
+    marca = models.ForeignKey('Marca', on_delete=models.PROTECT)
     imagen = models.ImageField(upload_to="productos", null=True)
     cantidad = models.PositiveIntegerField(default=0)
     genero = models.CharField(max_length=3, choices=GENERO_CHOICES, default='UNI')
     color = models.CharField(max_length=3, choices=COLOR_CHOICES, default='NEG')
     subcategoria = models.CharField(max_length=3, choices=SUBCATEGORIA_PIERNAS, default='JEA')
+    # Actualizado para reflejar que es el usuario de la última modificación
+    usuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Modificado por")
+
     def __str__(self):
         return self.modelo
 
-class Zapatos(models.Model):  # Antes: Calzado
+class Zapatos(models.Model):
     modelo = models.CharField(max_length=50, default='', blank=True)
     precio = models.IntegerField()
     descripcion = models.TextField()
     nuevo = models.BooleanField()
-    marca = models.ForeignKey(Marca, on_delete=models.PROTECT)
+    marca = models.ForeignKey('Marca', on_delete=models.PROTECT)
     imagen = models.ImageField(upload_to="productos", null=True)
     cantidad = models.PositiveIntegerField(default=0)
     genero = models.CharField(max_length=3, choices=GENERO_CHOICES, default='UNI')
     color = models.CharField(max_length=3, choices=COLOR_CHOICES, default='NEG')
     subcategoria = models.CharField(max_length=3, choices=SUBCATEGORIA_ZAPATOS, default='ZAP')
+    # Actualizado para reflejar que es el usuario de la última modificación
+    usuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Modificado por")
+
     def __str__(self):
         return self.modelo
 
-class Complemento(models.Model):  # Antes: Accesorios
+class Complemento(models.Model):
     TIPO_ACCESORIO = [
         ('REL', 'Reloj'),
         ('BUF', 'Bufanda'),
@@ -438,12 +510,14 @@ class Complemento(models.Model):  # Antes: Accesorios
     precio = models.IntegerField()
     descripcion = models.TextField()
     nuevo = models.BooleanField()
-    marca = models.ForeignKey(Marca, on_delete=models.PROTECT)
-    tipo = models.CharField(max_length=3, choices=TIPO_ACCESORIO, default='REL')
+    marca = models.ForeignKey('Marca', on_delete=models.PROTECT)
+    subcategoria = models.CharField(max_length=3, choices=TIPO_ACCESORIO, default='REL')
     imagen = models.ImageField(upload_to="productos", null=True)
     cantidad = models.PositiveIntegerField(default=0)
     genero = models.CharField(max_length=3, choices=GENERO_CHOICES, default='UNI')
     color = models.CharField(max_length=3, choices=COLOR_CHOICES, default='NEG')
+    # Actualizado para reflejar que es el usuario de la última modificación
+    usuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Modificado por")
     
     def __str__(self):
         return self.modelo
@@ -591,9 +665,35 @@ class Tienda(models.Model):
 class PreferenciasUsuario(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="preferencias")
     recibir_notificaciones = models.BooleanField(default=False)
+    
+    # Nuevo campo para asociar el usuario a una tienda (Convertirlo en trabajador)
+    tienda_asociada = models.ForeignKey(
+        'Tienda', 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=True, 
+        verbose_name="Tienda Asignada (Trabajador)",
+        related_name="trabajadores"
+    )
 
     def __str__(self):
-        return f"Preferencias de {self.user.username}"
+        estado = f" - Staff {self.tienda_asociada.nombre_tienda}" if self.tienda_asociada else ""
+        return f"Preferencias de {self.user.username}{estado}"
+
+class HistorialEliminacion(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="Eliminado por")
+    producto_modelo = models.CharField(max_length=100, verbose_name="Modelo del Producto")
+    marca = models.CharField(max_length=100, verbose_name="Marca")
+    tipo_producto = models.CharField(max_length=50, verbose_name="Categoría")
+    fecha = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de Baja")
+    motivo = models.CharField(max_length=255, default="Eliminación manual desde inventario", verbose_name="Motivo")
+
+    def __str__(self):
+        return f"BAJA: {self.producto_modelo} - {self.fecha.strftime('%d/%m/%Y %H:%M')}"
+
+    class Meta:
+        verbose_name = "Historial de Eliminación"
+        verbose_name_plural = "Historial de Eliminaciones"
 
 --------------------------------------------------
 # ARCHIVO: tests.py
@@ -698,9 +798,9 @@ from .models import (
     SUBCATEGORIA_TRONCO, 
     SUBCATEGORIA_PIERNAS, 
     SUBCATEGORIA_ZAPATOS,
-    Marca, Tronco, Piernas, Zapatos, Complemento, Envio as EnvioModel, Tienda
+    Marca, Tronco, Piernas, Zapatos, Complemento, HistorialEliminacion, HistorialModificacion, Envio as EnvioModel, Tienda
 )
-from .models import PreferenciasUsuario
+from .models import Tienda, PreferenciasUsuario, User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -1424,16 +1524,20 @@ def agregar_producto(request):
     if request.method == 'POST':
         form = ProductoForm(request.POST, request.FILES)
         if form.is_valid():
+            # Extracción de datos comunes
             tipo = form.cleaned_data['tipo']
-            genero = form.cleaned_data['genero']
-            color = form.cleaned_data['color']
-            cantidad = form.cleaned_data['cantidad']
             modelo = form.cleaned_data['modelo']
             precio = form.cleaned_data['precio']
             descripcion = form.cleaned_data['descripcion']
             nuevo = form.cleaned_data['nuevo']
             marca = form.cleaned_data['marca']
             imagen = form.cleaned_data['imagen']
+            cantidad = form.cleaned_data['cantidad']
+            genero = form.cleaned_data['genero']
+            color = form.cleaned_data['color']
+            
+            # Captura del usuario que realiza la carga
+            usuario_actual = request.user
 
             if tipo == 'Tronco':
                 subcategoria = form.cleaned_data['subcategoria_tronco']
@@ -1447,7 +1551,8 @@ def agregar_producto(request):
                     cantidad=cantidad,
                     genero=genero,
                     color=color,
-                    subcategoria=subcategoria
+                    subcategoria=subcategoria,
+                    usuario=usuario_actual
                 )
             elif tipo == 'Piernas':
                 subcategoria = form.cleaned_data['subcategoria_piernas']
@@ -1461,7 +1566,8 @@ def agregar_producto(request):
                     cantidad=cantidad,
                     genero=genero,
                     color=color,
-                    subcategoria=subcategoria
+                    subcategoria=subcategoria,
+                    usuario=usuario_actual
                 )
             elif tipo == 'Zapatos':
                 subcategoria = form.cleaned_data['subcategoria_zapatos']
@@ -1475,10 +1581,11 @@ def agregar_producto(request):
                     cantidad=cantidad,
                     genero=genero,
                     color=color,
-                    subcategoria=subcategoria
+                    subcategoria=subcategoria,
+                    usuario=usuario_actual
                 )
             elif tipo == 'Complemento':
-                tipo_accesorio = form.cleaned_data['tipo_accesorio']
+                subcategoria = form.cleaned_data['tipo_accesorio']
                 Complemento.objects.create(
                     modelo=modelo,
                     precio=precio,
@@ -1489,17 +1596,15 @@ def agregar_producto(request):
                     cantidad=cantidad,
                     genero=genero,
                     color=color,
-                    tipo=tipo_accesorio
+                    subcategoria=subcategoria,
+                    usuario=usuario_actual
                 )
             
-            messages.success(request, 'Producto agregado correctamente!')
-            return redirect('agregar_producto')
-    
-    else:  # CASO GET
+            return redirect('Administracion')
+    else:
         form = ProductoForm()
-    
-    # Renderizar siempre el formulario (GET o POST inválido)
-    return render(request, 'producto/agregar.html', {'form': form}) 
+
+    return render(request, 'producto/agregar.html', {'form': form})
 
 @login_required
 def agrega_marca(request):
@@ -1508,42 +1613,33 @@ def agrega_marca(request):
         if form.is_valid():
             marca = form.save(commit=False)
             
-            # Asignar usuario logueado
+            # 1. Asignar Usuario
             marca.usuario = request.user
             
-            # Asignar tienda seleccionada
-            tienda_id = request.POST.get('tienda')
-            if tienda_id:
-                try:
-                    tienda = Tienda.objects.get(id=tienda_id)
-                    marca.tienda = tienda
-                except Tienda.DoesNotExist:
-                    pass
+            # 2. Guardamos también la tienda histórica (opcional, pero útil como respaldo)
+            if hasattr(request.user, 'preferencias') and request.user.preferencias.tienda_asociada:
+                marca.tienda = request.user.preferencias.tienda_asociada
             
             marca.save()
-            messages.success(request, 'Marca agregada correctamente!')
+            messages.success(request, 'Marca registrada correctamente.')
             return redirect('agrega_marca')
+    else:
+        form = MarcaForm()
     
-    form = MarcaForm()
-    
-    # Obtener tiendas para el selector
-    tiendas = Tienda.objects.all()
+    # CONSULTA ACTUALIZADA:
+    # Traemos 'usuario__preferencias__tienda_asociada' para ver la tienda EN VIVO del usuario.
+    # Mantenemos 'tienda' como respaldo por si el usuario fue eliminado.
+    marcas = Marca.objects.all().select_related(
+        'usuario__preferencias__tienda_asociada', 
+        'tienda'
+    ).order_by('-id')
 
-    # Obtener marcas por categoría
-    marcas_torso = Marca.objects.filter(tronco__isnull=False).distinct()
-    marcas_pantalones = Marca.objects.filter(piernas__isnull=False).distinct()
-    marcas_calzado = Marca.objects.filter(zapatos__isnull=False).distinct()
-    marcas_accesorios = Marca.objects.filter(complemento__isnull=False).distinct()
-    
-    context = {
+    data = {
         'form': form,
-        'tiendas': tiendas, # AGREGADO: Variable solicitada
-        'marcas_torso': marcas_torso,
-        'marcas_pantalones': marcas_pantalones,
-        'marcas_calzado': marcas_calzado,
-        'marcas_accesorios': marcas_accesorios,
+        'marcas': marcas,
     }
-    return render(request, "producto/agrega_marca.html", context)
+
+    return render(request, "producto/agrega_marca.html", data)
 
 def agregar_tienda(request):
     if request.method == 'POST':
@@ -1576,6 +1672,8 @@ def modificar(request):
     productos = None
     tipo_producto = None
     marcas = Marca.objects.all()
+    # Obtener los últimos 20 registros del historial para la tabla
+    historial = HistorialModificacion.objects.all().order_by('-fecha')[:20]
     
     if request.method == 'POST':
         # Si es para listar productos
@@ -1596,6 +1694,7 @@ def modificar(request):
             producto_id = request.POST.get('producto_id')
             
             try:
+                # Selección del modelo según el tipo
                 if tipo_producto == 'Tronco':
                     producto = Tronco.objects.get(id=producto_id)
                 elif tipo_producto == 'Piernas':
@@ -1613,9 +1712,10 @@ def modificar(request):
                 producto.marca = Marca.objects.get(id=request.POST.get('marca'))
                 producto.cantidad = int(request.POST.get('cantidad', 0))
                 
-                # Actualizar campos nuevos
+                # Actualizar campos de características
                 producto.genero = request.POST.get('genero')
                 producto.color = request.POST.get('color')
+                producto.usuario = request.user
                 
                 # Actualizar subcategoría según el tipo de producto
                 if tipo_producto == 'Tronco':
@@ -1625,14 +1725,28 @@ def modificar(request):
                 elif tipo_producto == 'Zapatos':
                     producto.subcategoria = request.POST.get('subcategoria')
                 elif tipo_producto == 'Complemento':
-                    producto.tipo = request.POST.get('tipo_accesorio')
+                    producto.subcategoria = request.POST.get('tipo_accesorio')
                 
-                # Actualizar imagen si se proporcionó una nueva
+                # Actualizar imagen
                 if 'imagen' in request.FILES:
                     producto.imagen = request.FILES['imagen']
                 
                 producto.save()
-                messages.success(request, 'Producto modificado correctamente!')
+
+                # --- REGISTRO EN HISTORIAL ---
+                # Determinamos el nombre de la tienda asociada a la marca del producto
+                nombre_tienda = "Sin Tienda"
+                if producto.marca and producto.marca.tienda:
+                    nombre_tienda = producto.marca.tienda.nombre_tienda
+                
+                HistorialModificacion.objects.create(
+                    usuario=request.user,
+                    prenda=producto.modelo,
+                    tienda=nombre_tienda
+                )
+                # -----------------------------
+                
+                messages.success(request, f'Producto modificado exitosamente por: {request.user.username.upper()}')
                 return redirect('modificar')
             
             except Exception as e:
@@ -1648,6 +1762,7 @@ def modificar(request):
         'SUBCATEGORIA_TRONCO': SUBCATEGORIA_TRONCO,
         'SUBCATEGORIA_PIERNAS': SUBCATEGORIA_PIERNAS,
         'SUBCATEGORIA_ZAPATOS': SUBCATEGORIA_ZAPATOS,
+        'historial': historial, # Enviamos el historial al template
     })
 
 @login_required
@@ -1655,8 +1770,11 @@ def eliminar(request):
     productos = None
     tipo_producto = None
     
+    # Consulta crítica: Carga el historial para enviarlo al HTML
+    historial_bajas = HistorialEliminacion.objects.all().order_by('-fecha')[:50]
+    
     if request.method == 'POST':
-        # Si es para listar productos
+        # --- CASO 1: LISTAR PRODUCTOS ---
         if 'listar' in request.POST:
             tipo_producto = request.POST.get('tipo_producto')
             if tipo_producto == 'Tronco':
@@ -1668,7 +1786,7 @@ def eliminar(request):
             elif tipo_producto == 'Complemento':
                 productos = Complemento.objects.all()
         
-        # Si es para eliminar productos seleccionados
+        # --- CASO 2: ELIMINAR SELECCIONADOS ---
         elif 'eliminar_seleccionados' in request.POST:
             tipo_producto = request.POST.get('tipo_producto')
             seleccionados = request.POST.getlist('seleccionados')
@@ -1677,39 +1795,64 @@ def eliminar(request):
                 messages.warning(request, 'No has seleccionado ningún producto para eliminar.')
             else:
                 try:
-                    if tipo_producto == 'Tronco':
-                        Tronco.objects.filter(id__in=seleccionados).delete()
-                    elif tipo_producto == 'Piernas':
-                        Piernas.objects.filter(id__in=seleccionados).delete()
-                    elif tipo_producto == 'Zapatos':
-                        Zapatos.objects.filter(id__in=seleccionados).delete()
-                    elif tipo_producto == 'Complemento':
-                        Complemento.objects.filter(id__in=seleccionados).delete()
+                    model_class = None
+                    if tipo_producto == 'Tronco': model_class = Tronco
+                    elif tipo_producto == 'Piernas': model_class = Piernas
+                    elif tipo_producto == 'Zapatos': model_class = Zapatos
+                    elif tipo_producto == 'Complemento': model_class = Complemento
                     
-                    messages.success(request, f'Se han eliminado {len(seleccionados)} producto(s) correctamente.')
+                    if model_class:
+                        # Recuperar objetos antes de borrar para guardarlos en historial
+                        items_a_borrar = model_class.objects.filter(id__in=seleccionados)
+                        
+                        historial_objs = []
+                        for item in items_a_borrar:
+                            marca_nombre = item.marca.nombre if item.marca else "Sin Marca"
+                            historial_objs.append(HistorialEliminacion(
+                                usuario=request.user,
+                                producto_modelo=item.modelo,
+                                marca=marca_nombre,
+                                tipo_producto=tipo_producto,
+                                motivo="Selección Manual"
+                            ))
+                        
+                        HistorialEliminacion.objects.bulk_create(historial_objs)
+                        
+                        count, _ = items_a_borrar.delete()
+                        messages.success(request, f'Se han eliminado {count} producto(s) correctamente.')
+                    
                     return redirect('eliminar')
                 except Exception as e:
                     messages.error(request, f'Error al eliminar productos: {str(e)}')
                     return redirect('eliminar')
         
-        # Si es para eliminar todos los productos del tipo seleccionado
+        # --- CASO 3: ELIMINAR TODOS ---
         elif 'eliminar_todos' in request.POST:
             tipo_producto = request.POST.get('tipo_producto')
             try:
-                if tipo_producto == 'Tronco':
-                    count = Tronco.objects.count()
-                    Tronco.objects.all().delete()
-                elif tipo_producto == 'Piernas':
-                    count = Piernas.objects.count()
-                    Piernas.objects.all().delete()
-                elif tipo_producto == 'Zapatos':
-                    count = Zapatos.objects.count()
-                    Zapatos.objects.all().delete()
-                elif tipo_producto == 'Complemento':
-                    count = Complemento.objects.count()
-                    Complemento.objects.all().delete()
+                model_class = None
+                if tipo_producto == 'Tronco': model_class = Tronco
+                elif tipo_producto == 'Piernas': model_class = Piernas
+                elif tipo_producto == 'Zapatos': model_class = Zapatos
+                elif tipo_producto == 'Complemento': model_class = Complemento
                 
-                messages.success(request, f'Se han eliminado {count} producto(s) correctamente.')
+                if model_class:
+                    items_a_borrar = model_class.objects.all()
+                    
+                    historial_objs = [
+                        HistorialEliminacion(
+                            usuario=request.user,
+                            producto_modelo=item.modelo,
+                            marca=item.marca.nombre if item.marca else "Sin Marca",
+                            tipo_producto=tipo_producto,
+                            motivo="Vaciado de Categoría Completa"
+                        ) for item in items_a_borrar
+                    ]
+                    HistorialEliminacion.objects.bulk_create(historial_objs)
+                    
+                    count, _ = items_a_borrar.delete()
+                    messages.success(request, f'Se han eliminado {count} producto(s).')
+                
                 return redirect('eliminar')
             except Exception as e:
                 messages.error(request, f'Error al eliminar todos los productos: {str(e)}')
@@ -1718,11 +1861,14 @@ def eliminar(request):
     return render(request, "producto/eliminar.html", {
         'productos': productos,
         'tipo_producto': tipo_producto,
+        'historial_bajas': historial_bajas # Variable clave para la tabla
     })
 
 @login_required
 def Admin_User(request):
-    users = User.objects.all().order_by('id')
+    # Usamos select_related para optimizar la consulta de preferencias
+    users = User.objects.select_related('preferencias').all().order_by('id')
+    tiendas = Tienda.objects.all()
     
     if request.method == 'POST':
         if 'delete_user' in request.POST:
@@ -1742,6 +1888,7 @@ def Admin_User(request):
             first_name = request.POST.get(f'first_name_{user_id}')
             last_name = request.POST.get(f'last_name_{user_id}')
             is_staff = request.POST.get(f'is_staff_{user_id}') == 'on'
+            tienda_id = request.POST.get(f'tienda_{user_id}')
             
             try:
                 user = User.objects.get(id=user_id)
@@ -1751,12 +1898,32 @@ def Admin_User(request):
                 user.last_name = last_name
                 user.is_staff = is_staff
                 user.save()
+                
+                # Lógica para asignar Tienda en PreferenciasUsuario
+                # get_or_create asegura que no falle si el usuario no tenía preferencias previas
+                prefs, created = PreferenciasUsuario.objects.get_or_create(user=user)
+                
+                if tienda_id and tienda_id != "":
+                    try:
+                        tienda_obj = Tienda.objects.get(id=tienda_id)
+                        prefs.tienda_asociada = tienda_obj
+                    except Tienda.DoesNotExist:
+                        prefs.tienda_asociada = None
+                else:
+                    # Si se selecciona la opción vacía, se desvincula la tienda
+                    prefs.tienda_asociada = None
+                
+                prefs.save()
+                
                 messages.success(request, f'Usuario {user.username} actualizado correctamente.')
             except User.DoesNotExist:
                 messages.error(request, 'El usuario no existe.')
             return redirect('Admin_User')
     
-    return render(request, "Usuarios/Admin_User.html", {'users': users})
+    return render(request, "Usuarios/Admin_User.html", {
+        'users': users,
+        'tiendas': tiendas
+    })
 
 def IniciarSesion(request):
     if request.method == 'POST':

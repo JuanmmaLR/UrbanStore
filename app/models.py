@@ -54,50 +54,68 @@ class Marca(models.Model):
 
     def __str__(self):
         return self.nombre
+    
+class HistorialModificacion(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Usuario")
+    prenda = models.CharField(max_length=100, verbose_name="Prenda")
+    tienda = models.CharField(max_length=100, verbose_name="Tienda")
+    fecha = models.DateTimeField(auto_now_add=True, verbose_name="Fecha")
 
-class Tronco(models.Model):  # Antes: Torso
+    def __str__(self):
+        return f"{self.prenda} modificado por {self.usuario.username}"
+
+class Tronco(models.Model):
     modelo = models.CharField(max_length=50, default='', blank=True)
     precio = models.IntegerField()
     descripcion = models.TextField()
     nuevo = models.BooleanField()
-    marca = models.ForeignKey(Marca, on_delete=models.PROTECT)
+    marca = models.ForeignKey('Marca', on_delete=models.PROTECT)
     imagen = models.ImageField(upload_to="productos", null=True)
     cantidad = models.PositiveIntegerField(default=0) 
     genero = models.CharField(max_length=3, choices=GENERO_CHOICES, default='UNI')
     color = models.CharField(max_length=3, choices=COLOR_CHOICES, default='NEG')
     subcategoria = models.CharField(max_length=3, choices=SUBCATEGORIA_TRONCO, default='POL')
+    # Actualizado para reflejar que es el usuario de la última modificación
+    usuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Modificado por")
+
     def __str__(self):
         return self.modelo
 
-class Piernas(models.Model):  # Antes: Pantalones
+class Piernas(models.Model):
     modelo = models.CharField(max_length=50, default='', blank=True)
     precio = models.IntegerField()
     descripcion = models.TextField()
     nuevo = models.BooleanField()
-    marca = models.ForeignKey(Marca, on_delete=models.PROTECT)
+    marca = models.ForeignKey('Marca', on_delete=models.PROTECT)
     imagen = models.ImageField(upload_to="productos", null=True)
     cantidad = models.PositiveIntegerField(default=0)
     genero = models.CharField(max_length=3, choices=GENERO_CHOICES, default='UNI')
     color = models.CharField(max_length=3, choices=COLOR_CHOICES, default='NEG')
     subcategoria = models.CharField(max_length=3, choices=SUBCATEGORIA_PIERNAS, default='JEA')
+    # Actualizado para reflejar que es el usuario de la última modificación
+    usuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Modificado por")
+
     def __str__(self):
         return self.modelo
 
-class Zapatos(models.Model):  # Antes: Calzado
+class Zapatos(models.Model):
     modelo = models.CharField(max_length=50, default='', blank=True)
     precio = models.IntegerField()
     descripcion = models.TextField()
     nuevo = models.BooleanField()
-    marca = models.ForeignKey(Marca, on_delete=models.PROTECT)
+    marca = models.ForeignKey('Marca', on_delete=models.PROTECT)
     imagen = models.ImageField(upload_to="productos", null=True)
     cantidad = models.PositiveIntegerField(default=0)
     genero = models.CharField(max_length=3, choices=GENERO_CHOICES, default='UNI')
     color = models.CharField(max_length=3, choices=COLOR_CHOICES, default='NEG')
     subcategoria = models.CharField(max_length=3, choices=SUBCATEGORIA_ZAPATOS, default='ZAP')
+    # Actualizado para reflejar que es el usuario de la última modificación
+    usuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Modificado por")
+
     def __str__(self):
         return self.modelo
 
-class Complemento(models.Model):  # Antes: Accesorios
+class Complemento(models.Model):
     TIPO_ACCESORIO = [
         ('REL', 'Reloj'),
         ('BUF', 'Bufanda'),
@@ -111,12 +129,14 @@ class Complemento(models.Model):  # Antes: Accesorios
     precio = models.IntegerField()
     descripcion = models.TextField()
     nuevo = models.BooleanField()
-    marca = models.ForeignKey(Marca, on_delete=models.PROTECT)
-    tipo = models.CharField(max_length=3, choices=TIPO_ACCESORIO, default='REL')
+    marca = models.ForeignKey('Marca', on_delete=models.PROTECT)
+    subcategoria = models.CharField(max_length=3, choices=TIPO_ACCESORIO, default='REL')
     imagen = models.ImageField(upload_to="productos", null=True)
     cantidad = models.PositiveIntegerField(default=0)
     genero = models.CharField(max_length=3, choices=GENERO_CHOICES, default='UNI')
     color = models.CharField(max_length=3, choices=COLOR_CHOICES, default='NEG')
+    # Actualizado para reflejar que es el usuario de la última modificación
+    usuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Modificado por")
     
     def __str__(self):
         return self.modelo
@@ -264,6 +284,32 @@ class Tienda(models.Model):
 class PreferenciasUsuario(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="preferencias")
     recibir_notificaciones = models.BooleanField(default=False)
+    
+    # Nuevo campo para asociar el usuario a una tienda (Convertirlo en trabajador)
+    tienda_asociada = models.ForeignKey(
+        'Tienda', 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=True, 
+        verbose_name="Tienda Asignada (Trabajador)",
+        related_name="trabajadores"
+    )
 
     def __str__(self):
-        return f"Preferencias de {self.user.username}"
+        estado = f" - Staff {self.tienda_asociada.nombre_tienda}" if self.tienda_asociada else ""
+        return f"Preferencias de {self.user.username}{estado}"
+
+class HistorialEliminacion(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="Eliminado por")
+    producto_modelo = models.CharField(max_length=100, verbose_name="Modelo del Producto")
+    marca = models.CharField(max_length=100, verbose_name="Marca")
+    tipo_producto = models.CharField(max_length=50, verbose_name="Categoría")
+    fecha = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de Baja")
+    motivo = models.CharField(max_length=255, default="Eliminación manual desde inventario", verbose_name="Motivo")
+
+    def __str__(self):
+        return f"BAJA: {self.producto_modelo} - {self.fecha.strftime('%d/%m/%Y %H:%M')}"
+
+    class Meta:
+        verbose_name = "Historial de Eliminación"
+        verbose_name_plural = "Historial de Eliminaciones"

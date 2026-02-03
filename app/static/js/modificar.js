@@ -1,147 +1,168 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Elementos del DOM
+    // --- ELEMENTOS DEL DOM ---
     const btnModificar = document.getElementById('btnModificar');
     const confirmationModal = document.getElementById('confirmationModal');
     const cancelModal = document.getElementById('cancelModal');
     const confirmModify = document.getElementById('confirmModify');
     const modificationForm = document.getElementById('modificationForm');
     const cancelEdit = document.getElementById('cancelEdit');
-    const tipoAccesorioGroup = document.getElementById('tipoAccesorioGroup');
-    const subcategoriaGroup = document.getElementById('subcategoriaGroup');
     
-    // Mostrar modal de confirmación al hacer clic en Modificar
+    // Grupos condicionales
+    const subcategoriaGroup = document.getElementById('subcategoriaGroup');
+    const tipoAccesorioGroup = document.getElementById('tipoAccesorioGroup');
+
+    // --- FUNCIONES DE MODAL ---
+
+    // 1. Abrir Modal de Confirmación
     if (btnModificar) {
         btnModificar.addEventListener('click', function() {
             const selectedProduct = document.querySelector('input[name="producto_id"]:checked');
             
             if (!selectedProduct) {
-                alert('Por favor selecciona un producto para modificar');
+                alert('⚠️ Por favor, selecciona un producto del catálogo para editar.');
                 return;
             }
             
+            // Efecto visual simple
             confirmationModal.style.display = 'flex';
+            confirmationModal.classList.add('fade-in');
         });
     }
     
-    // Ocultar modal al hacer clic en Cancelar
+    // 2. Cerrar Modal
     if (cancelModal) {
         cancelModal.addEventListener('click', function() {
             confirmationModal.style.display = 'none';
         });
     }
-    
-    // Confirmar modificación y mostrar formulario de edición
+
+    // --- LÓGICA DE EXTRACCIÓN Y POBLADO DE DATOS ---
+
     if (confirmModify) {
         confirmModify.addEventListener('click', function() {
             confirmationModal.style.display = 'none';
             
-            const selectedProduct = document.querySelector('input[name="producto_id"]:checked');
-            const tipoProducto = document.querySelector('input[name="tipo_producto"]').value;
+            // Obtener inputs base
+            const selectedRadio = document.querySelector('input[name="producto_id"]:checked');
+            const tipoProductoInput = document.querySelector('input[name="tipo_producto"]'); // El hidden del listado
+            const tipoProducto = tipoProductoInput ? tipoProductoInput.value : '';
             
-            // Obtener datos del producto seleccionado
-            const productCard = selectedProduct.closest('.product-card');
-            const modelo = productCard.querySelector('p:nth-of-type(1)').textContent.replace('Modelo: ', '').trim();
-            const precio = productCard.querySelector('p:nth-of-type(2)').textContent.replace('Precio: $', '').trim();
-            const marcaTexto = productCard.querySelector('p:nth-of-type(3)').textContent.replace('Marca: ', '').trim();
-            const generoTexto = productCard.querySelector('p:nth-of-type(4)').textContent.replace('Género: ', '').trim();
-            const colorTexto = productCard.querySelector('p:nth-of-type(5)').textContent.replace('Color: ', '').trim();
-            let subcategoriaTexto = '';
+            // Localizar el Wrapper de la tarjeta seleccionada
+            const cardWrapper = selectedRadio.closest('.product-card-wrapper');
             
-            // Obtener subcategoría solo si no es Complemento
-            if (tipoProducto !== 'Complemento') {
-                const subcategoriaElem = productCard.querySelector('p:nth-of-type(6)');
-                if (subcategoriaElem) {
-                    subcategoriaTexto = subcategoriaElem.textContent.replace('Subcategoría: ', '').trim();
+            if (!cardWrapper) return;
+
+            // --- EXTRACCIÓN DE DATOS DE LA TARJETA ---
+            // Datos visibles
+            const modeloText = cardWrapper.querySelector('.card-title').textContent.trim();
+            const precioText = cardWrapper.querySelector('.card-price').textContent.replace(/[^\d]/g, ''); // Solo números
+            
+            // Stock (extraído de los detalles visibles)
+            let cantidadText = "0";
+            const detailsSpans = cardWrapper.querySelectorAll('.card-details span');
+            detailsSpans.forEach(span => {
+                if (span.textContent.includes('Stock:')) {
+                    cantidadText = span.textContent.replace('Stock:', '').trim();
                 }
-            }
+            });
+
+            // Datos ocultos (Data Store)
+            const dataStore = cardWrapper.querySelector('.data-store');
+            const marcaText = dataStore.querySelector('.data-marca').textContent.trim();
+            const generoText = dataStore.querySelector('.data-genero').textContent.trim();
+            const colorText = dataStore.querySelector('.data-color').textContent.trim();
+            const descText = dataStore.querySelector('.data-desc').textContent.trim();
+            const nuevoBool = dataStore.querySelector('.data-nuevo').textContent.trim() === 'true';
             
-            // Rellenar formulario de edición
-            document.getElementById('editModelo').value = modelo === '-' ? '' : modelo;
-            document.getElementById('editPrecio').value = precio;
+            // Subcategorías (pueden no existir según el tipo)
+            const subcatElem = dataStore.querySelector('.data-subcat');
+            const subcatText = subcatElem ? subcatElem.textContent.trim() : '';
             
-            // Seleccionar la marca correcta en el dropdown
-            const marcaSelect = document.getElementById('editMarca');
-            for (let i = 0; i < marcaSelect.options.length; i++) {
-                if (marcaSelect.options[i].text === marcaTexto) {
-                    marcaSelect.selectedIndex = i;
-                    break;
-                }
-            }
+            const tipoAccesorioElem = dataStore.querySelector('.data-tipo');
+            const tipoAccesorioText = tipoAccesorioElem ? tipoAccesorioElem.textContent.trim() : '';
+
+            // --- POBLADO DEL FORMULARIO DE EDICIÓN ---
             
-            // Seleccionar género
-            const generoSelect = document.getElementById('editGenero');
-            for (let i = 0; i < generoSelect.options.length; i++) {
-                if (generoSelect.options[i].text === generoTexto) {
-                    generoSelect.selectedIndex = i;
-                    break;
-                }
-            }
-            
-            // Seleccionar color
-            const colorSelect = document.getElementById('editColor');
-            for (let i = 0; i < colorSelect.options.length; i++) {
-                if (colorSelect.options[i].text === colorTexto) {
-                    colorSelect.selectedIndex = i;
-                    break;
-                }
-            }
-            
-            // Seleccionar subcategoría si aplica
-            if (tipoProducto !== 'Complemento' && subcategoriaTexto) {
-                const subcategoriaSelect = document.getElementById('editSubcategoria');
-                for (let i = 0; i < subcategoriaSelect.options.length; i++) {
-                    if (subcategoriaSelect.options[i].text === subcategoriaTexto) {
-                        subcategoriaSelect.selectedIndex = i;
-                        break;
-                    }
-                }
-            }
-            
+            // IDs ocultos
             document.getElementById('editTipoProducto').value = tipoProducto;
-            document.getElementById('editProductoId').value = selectedProduct.value;
+            document.getElementById('editProductoId').value = selectedRadio.value;
+
+            // Campos de texto y número
+            document.getElementById('editModelo').value = (modeloText === 'Sin Modelo') ? '' : modeloText;
+            document.getElementById('editPrecio').value = precioText;
+            document.getElementById('editCantidad').value = cantidadText;
+            document.getElementById('editDescripcion').value = descText;
+            document.getElementById('editNuevo').checked = nuevoBool;
+
+            // --- SELECCIÓN EN DROPDOWNS (MATCH POR TEXTO) ---
+            setSelectedByText('editMarca', marcaText);
+            setSelectedByText('editGenero', generoText);
+            setSelectedByText('editColor', colorText);
+
+            // --- VISIBILIDAD Y CAMPOS CONDICIONALES ---
             
-            // Mostrar campo de tipo de accesorio si es necesario
+            // Resetear visibilidad
+            subcategoriaGroup.style.display = 'none';
+            tipoAccesorioGroup.style.display = 'none';
+
             if (tipoProducto === 'Complemento') {
+                // Lógica para Accesorios
                 tipoAccesorioGroup.style.display = 'block';
-                const tipoAccesorio = productCard.querySelector('p:nth-of-type(6)').textContent.replace('Tipo: ', '').trim();
-                const tipoValue = getTipoValue(tipoAccesorio);
-                document.getElementById('editTipoAccesorio').value = tipoValue;
+                // Mapeo especial para tipos de accesorios (si el texto difiere del value)
+                // Intentamos match por texto primero
+                setSelectedByText('editTipoAccesorio', tipoAccesorioText);
+                
+                // Si el match por texto falla (ej: data dice "Reloj" y value es "REL"),
+                // usamos la función auxiliar si es necesario, pero el setSelectedByText suele bastar 
+                // si el backend renderiza el nombre completo en .data-store
             } else {
-                tipoAccesorioGroup.style.display = 'none';
-            }
-            
-            // Mostrar campo de subcategoría si es necesario
-            if (tipoProducto === 'Tronco' || tipoProducto === 'Piernas' || tipoProducto === 'Zapatos') {
+                // Lógica para Ropa/Zapatos
                 subcategoriaGroup.style.display = 'block';
-            } else {
-                subcategoriaGroup.style.display = 'none';
+                setSelectedByText('editSubcategoria', subcatText);
             }
-            
-            // Mostrar formulario de edición
+
+            // --- MOSTRAR FORMULARIO Y SCROLL ---
             modificationForm.style.display = 'block';
+            modificationForm.classList.add('fade-in');
             
-            // Desplazarse al formulario
-            modificationForm.scrollIntoView({ behavior: 'smooth' });
+            // Scroll suave hacia el formulario
+            setTimeout(() => {
+                modificationForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
         });
     }
     
-    // Cancelar edición
+    // Cancelar Edición (Ocultar formulario)
     if (cancelEdit) {
         cancelEdit.addEventListener('click', function() {
             modificationForm.style.display = 'none';
+            // Scroll de vuelta arriba
+            document.querySelector('.urban-title').scrollIntoView({ behavior: 'smooth' });
         });
     }
-    
-    // Función auxiliar para obtener el valor del tipo de accesorio
-    function getTipoValue(tipoText) {
-        const tipos = {
-            'Reloj': 'REL',
-            'Bufanda': 'BUF',
-            'Cinturón': 'CIN',
-            'Collar': 'COL',
-            'Gorra': 'GOR',
-            'Pulseras': 'PUL'
-        };
-        return tipos[tipoText] || 'REL';
+
+    // --- FUNCIONES AUXILIARES ---
+
+    /**
+     * Selecciona una opción en un <select> basándose en el texto visible de la opción.
+     * Útil cuando tenemos el nombre ("Nike") pero necesitamos enviar el ID ("1").
+     */
+    function setSelectedByText(selectId, textToMatch) {
+        const select = document.getElementById(selectId);
+        if (!select) return;
+
+        let found = false;
+        for (let i = 0; i < select.options.length; i++) {
+            if (select.options[i].text.trim() === textToMatch.trim()) {
+                select.selectedIndex = i;
+                found = true;
+                break;
+            }
+        }
+        
+        // Fallback: Si no encuentra match exacto, intenta match parcial o log
+        if (!found && textToMatch) {
+            console.warn(`No se encontró coincidencia exacta para: "${textToMatch}" en #${selectId}`);
+        }
     }
 });

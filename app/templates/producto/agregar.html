@@ -5,103 +5,105 @@
 
 {% block extra_css %}
 <link rel="stylesheet" type="text/css" href="{% static 'style/producto/agregar.css' %}" />
-<style>
-    .page-container {
-        background-image: url("{% static 'img/Header/agregar.jpg' %}");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        min-height: 100vh;
-        padding: 2rem 0;
-    }
-    
-</style>
 {% endblock %}
 
 {% block content %}
 
-<section class="agregar"></section>
 <div class="page-container">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="form-container">
-                    <div class="card-header bg-primary text-white mb-4">
-                        <h2 class="text-center">Agregar Nuevo Producto</h2>
+                    
+                    <div class="card-header text-center">
+                        <h2>Agregar Nuevo Item</h2>
                     </div>
+
+                    <div class="text-end">
+                        <span class="user-badge">
+                            <i class="fas fa-user-tag"></i> Upload by: {{ user.username|default:"Admin" }}
+                        </span>
+                    </div>
+
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         
-                        <div class="mb-3">
-                            <label for="{{ form.tipo.id_for_label }}" class="form-label">Tipo de Producto</label>
-                            {{ form.tipo }}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.tipo.id_for_label }}" class="form-label">Tipo de Producto</label>
+                                {{ form.tipo }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.marca.id_for_label }}" class="form-label">Marca</label>
+                                {{ form.marca }}
+                            </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="{{ form.modelo.id_for_label }}" class="form-label">Modelo</label>
-                            {{ form.modelo }}
+                        <div class="row">
+                            <div class="col-md-8 mb-3">
+                                <label for="{{ form.modelo.id_for_label }}" class="form-label">Modelo</label>
+                                {{ form.modelo }}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="{{ form.precio.id_for_label }}" class="form-label">Precio ($)</label>
+                                {{ form.precio }}
+                            </div>
                         </div>
                         
                         <div class="mb-3">
-                            <label for="{{ form.precio.id_for_label }}" class="form-label">Precio</label>
-                            {{ form.precio }}
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="{{ form.descripcion.id_for_label }}" class="form-label">Descripción</label>
+                            <label for="{{ form.descripcion.id_for_label }}" class="form-label">Descripción Detallada</label>
                             {{ form.descripcion }}
                         </div>
 
-                        <div class="mb-3">
-                            <label for="{{ form.cantidad.id_for_label }}" class="form-label">Cantidad en stock</label>
-                            {{ form.cantidad }}
-                        </div>
-                        
-                        <div class="mb-3 form-check">
-                            {{ form.nuevo }}
-                            <label for="{{ form.nuevo.id_for_label }}" class="form-check-label">¿Es nuevo?</label>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="{{ form.marca.id_for_label }}" class="form-label">Marca</label>
-                            {{ form.marca }}
-                        </div>
-                        <div class="mb-3">
-                            <label for="{{ form.genero.id_for_label }}" class="form-label">Género</label>
-                            {{ form.genero }}
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="{{ form.cantidad.id_for_label }}" class="form-label">Stock</label>
+                                {{ form.cantidad }}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="{{ form.genero.id_for_label }}" class="form-label">Género</label>
+                                {{ form.genero }}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="{{ form.color.id_for_label }}" class="form-label">Color</label>
+                                {{ form.color }}
+                            </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="{{ form.color.id_for_label }}" class="form-label">Color</label>
-                            {{ form.color }}
+                        <div class="mb-4 form-check">
+                            {{ form.nuevo }}
+                            <label for="{{ form.nuevo.id_for_label }}" class="form-check-label">¿Es colección nueva?</label>
                         </div>
-                        <div class="mb-3" id="imagen-field">
-                            <label for="{{ form.imagen.id_for_label }}" class="form-label">Imagen del Producto</label>
+                        
+                        <div class="mb-4" id="imagen-field">
+                            <label for="{{ form.imagen.id_for_label }}" class="form-label">Fotografía del Producto</label>
                             {{ form.imagen }}
                         </div>
                         
-                        <div class="mb-3" id="tipo-accesorio-field" style="display: none;">
-                            <label for="{{ form.tipo_accesorio.id_for_label }}" class="form-label">Tipo de Accesorio</label>
-                            {{ form.tipo_accesorio }}
-                        </div>
-                        <div class="mb-3" id="subcategoria-tronco-field" style="display: none;">
-                            <label for="{{ form.subcategoria_tronco.id_for_label }}" class="form-label">Subcategoría</label>
-                            {{ form.subcategoria_tronco }}
-                        </div>
+                        <div class="p-3 mb-3 border border-secondary" style="background-color: rgba(0,0,0,0.3);">
+                            <div class="mb-3" id="tipo-accesorio-field" style="display: none;">
+                                <label for="{{ form.tipo_accesorio.id_for_label }}" class="form-label text-success">Tipo de Accesorio</label>
+                                {{ form.tipo_accesorio }}
+                            </div>
+                            <div class="mb-3" id="subcategoria-tronco-field" style="display: none;">
+                                <label for="{{ form.subcategoria_tronco.id_for_label }}" class="form-label text-success">Subcategoría (Superior)</label>
+                                {{ form.subcategoria_tronco }}
+                            </div>
 
-                        <div class="mb-3" id="subcategoria-piernas-field" style="display: none;">
-                            <label for="{{ form.subcategoria_piernas.id_for_label }}" class="form-label">Subcategoría</label>
-                            {{ form.subcategoria_piernas }}
-                        </div>
+                            <div class="mb-3" id="subcategoria-piernas-field" style="display: none;">
+                                <label for="{{ form.subcategoria_piernas.id_for_label }}" class="form-label text-success">Subcategoría (Inferior)</label>
+                                {{ form.subcategoria_piernas }}
+                            </div>
 
-                        <div class="mb-3" id="subcategoria-zapatos-field" style="display: none;">
-                            <label for="{{ form.subcategoria_zapatos.id_for_label }}" class="form-label">Subcategoría</label>
-                            {{ form.subcategoria_zapatos }}
+                            <div class="mb-3" id="subcategoria-zapatos-field" style="display: none;">
+                                <label for="{{ form.subcategoria_zapatos.id_for_label }}" class="form-label text-success">Subcategoría (Calzado)</label>
+                                {{ form.subcategoria_zapatos }}
+                            </div>
                         </div>
                         
-                        <div class="d-grid gap-2 mt-4">
-                            <button type="submit" class="btn btn-primary py-2">Guardar Producto</button>
-                            <a href="{% url 'Administracion' %}" class="btn btn-secondary py-2">Cancelar</a>
+                        <div class="d-grid gap-2 mt-5">
+                            <button type="submit" class="btn btn-primary py-3">Guardar en Inventario</button>
+                            <a href="{% url 'Administracion' %}" class="btn btn-secondary py-2">Cancelar Operación</a>
                         </div>
                     </form>
                 </div>

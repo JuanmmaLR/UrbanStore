@@ -1,76 +1,287 @@
-/* Estilos para el formulario de modificación */
-.modificar-container {
-    max-width: 1200px;
-    margin: 2rem auto;
+/* PALETA DE COLORES:
+   Fondo: #0F0F0F
+   Tarjetas: #202020
+   Primario: #5DD62C
+   Secundario: #337418
+   Texto: #F8F8F8
+*/
+
+:root {
+    --bg-main: #0F0F0F;
+    --bg-card: #202020;
+    --bg-input: #1a1a1a;
+    --primary: #5DD62C;
+    --primary-dark: #337418;
+    --text-main: #F8F8F8;
+    --text-muted: #b0b0b0;
+    --border-color: #333333;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+}
+
+.urban-wrapper {
+    background-color: var(--bg-main);
+    min-height: 100vh;
+}
+
+/* Tipografía Urban */
+.urban-title {
+    font-family: 'Permanent Marker', cursive;
+    color: var(--primary);
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+}
+
+.urban-subtitle {
+    font-family: 'Permanent Marker', cursive;
+    color: var(--text-main);
+    font-size: 1.5rem;
+}
+
+.text-urban {
+    color: var(--primary) !important;
+}
+
+/* Etiquetas y Textos */
+.urban-label {
+    color: var(--primary);
+    font-weight: bold;
+    font-family: 'Permanent Marker', cursive;
+    letter-spacing: 1px;
+}
+
+/* Cards y Contenedores */
+.urban-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
     padding: 2rem;
-    background-color: #f8f9fa;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.border-urban {
+    border: 2px solid var(--primary) !important;
+}
+
+/* Audit Badge (Usuario en Formulario) */
+.user-audit-badge {
+    background-color: rgba(93, 214, 44, 0.1);
+    border: 1px solid var(--primary);
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.product-type-selector {
-    margin-bottom: 2rem;
-    padding: 1rem;
-    background-color: #e9ecef;
-    border-radius: 5px;
+.user-audit-badge .label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: bold;
 }
 
-.product-list {
-    margin-top: 2rem;
+.user-audit-badge .username {
+    color: var(--primary);
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.1rem;
 }
 
-.product-card {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    background-color: white;
+/* Inputs y Selects */
+.urban-input, .urban-select {
+    background-color: var(--bg-input) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-main) !important;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.urban-input:focus, .urban-select:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 5px rgba(93, 214, 44, 0.5) !important;
+}
+
+/* Botones */
+.urban-btn {
+    background-color: var(--primary);
+    color: #000;
+    font-family: 'Permanent Marker', cursive;
+    border: none;
+    font-size: 1.2rem;
+    padding: 10px 20px;
     transition: all 0.3s ease;
+    border-radius: 5px;
 }
 
-.product-card:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.urban-btn:hover {
+    background-color: var(--primary-dark);
+    color: #fff;
     transform: translateY(-2px);
 }
 
-.product-card img {
-    max-width: 100px;
-    max-height: 100px;
-    object-fit: cover;
+.urban-btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    font-family: 'Permanent Marker', cursive;
 }
 
-.btn-modificar {
-    background-color: #ffc107;
-    border-color: #ffc107;
-    color: #212529;
+.urban-btn-outline:hover {
+    background-color: var(--primary);
+    color: #000;
 }
 
-.btn-modificar:hover {
-    background-color: #e0a800;
-    border-color: #d39e00;
+/* Radio Cards (Selección de Producto) */
+.product-card-wrapper {
+    position: relative;
+    height: 100%;
 }
 
-.confirmation-modal {
+.product-radio {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.product-card-content {
+    display: block;
+    background-color: var(--bg-card);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.product-card-content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(93, 214, 44, 0.2);
+}
+
+.product-radio:checked + .product-card-content {
+    border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(93, 214, 44, 0.4);
+    background-color: #2a2a2a;
+}
+
+.product-radio:checked + .product-card-content .card-title {
+    text-decoration: underline;
+}
+
+.card-img-top {
+    height: 200px;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.card-img-top img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.no-image {
+    color: #444;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.5rem;
+}
+
+.card-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.card-details {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Modal */
+.urban-modal {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8);
     z-index: 1050;
     justify-content: center;
     align-items: center;
+    backdrop-filter: blur(5px);
 }
 
-.modal-content {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 8px;
+.urban-modal-content {
+    background-color: var(--bg-card);
+    padding: 2.5rem;
+    border-radius: 12px;
     max-width: 500px;
     width: 90%;
+    border: 1px solid var(--primary);
+    text-align: center;
+    box-shadow: 0 0 30px rgba(93, 214, 44, 0.2);
 }
 
-.form-group {
-    margin-bottom: 1rem;
+/* TABLA URBAN (NUEVOS ESTILOS) */
+.urban-table-wrapper h4 {
+    border-left: 5px solid var(--primary);
+    padding-left: 15px;
+}
+
+.urban-table thead th {
+    background-color: #1a1a1a;
+    font-family: 'Permanent Marker', cursive;
+    color: var(--primary);
+    border-bottom: 2px solid var(--primary);
+    padding: 1rem;
+    letter-spacing: 1px;
+}
+
+.urban-table tbody tr {
+    transition: background-color 0.2s;
+}
+
+.urban-table tbody td {
+    background-color: var(--bg-card);
+    color: var(--text-main);
+    padding: 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.urban-table tbody tr:hover td {
+    background-color: rgba(93, 214, 44, 0.05);
+}
+
+/* Badge de Usuario en Tabla */
+.user-badge {
+    background-color: #000;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+/* Animaciones */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }

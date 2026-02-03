@@ -5,7 +5,6 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'style/producto/agregar_marcas.css' %}">
-
 {% endblock %}
 
 {% block content %}
@@ -13,11 +12,11 @@
     <div class="container">
         <div class="row justify-content-center">
             
-            <div class="col-12 col-lg-8 mb-5">
+            <div class="col-12 col-lg-6 mb-5">
                 <div class="urban-card form-card">
-                    <div class="card-header-urban">
-                        <h2 class="urban-title text-center">NUEVA MARCA</h2>
-                        <p class="urban-subtitle text-center">AÑADE UNA NUEVA FIRMA Y ASÍGNALA A UN SPOT</p>
+                    <div class="card-header-urban text-center">
+                        <h2 class="urban-title">NUEVA MARCA</h2>
+                        <p class="urban-subtitle">REGISTRA UNA NUEVA FIRMA EN EL SISTEMA</p>
                     </div>
                     
                     <div class="card-body-urban">
@@ -35,29 +34,15 @@
                                     </div>
                                 {% endif %}
                             </div>
-
-                            <div class="mb-4">
-                                <label for="id_tienda" class="urban-label">SPOT / TIENDA</label>
-                                <div class="input-wrapper">
-                                    <select name="tienda" id="id_tienda" class="form-control urban-select">
-                                        <option value="" selected disabled>SELECCIONA EL SPOT</option>
-                                        {% for tienda in tiendas %}
-                                            <option value="{{ tienda.id }}">{{ tienda.nombre_tienda }}</option>
-                                        {% empty %}
-                                            <option value="" disabled>NO HAY TIENDAS REGISTRADAS</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
                             
-                            <div class="mb-4 text-end">
-                                <small style="color: #337418; font-family: 'Permanent Marker', cursive;">
-                                    LOGUEADO COMO: <span style="color: #5DD62C;">{{ user.username|upper }}</span>
+                            <div class="mb-4 text-center">
+                                <small class="user-badge">
+                                    OPERADOR: <span>{{ user.username|upper }}</span>
                                 </small>
                             </div>
 
-                            <div class="d-grid gap-3 d-md-flex justify-content-md-center actions-panel">
-                                <button type="submit" class="btn urban-btn save-btn">GUARDAR MARCA</button>
+                            <div class="d-grid gap-3 actions-panel">
+                                <button type="submit" class="btn urban-btn save-btn">REGISTRAR MARCA</button>
                                 <a href="{% url 'Administracion' %}" class="btn urban-btn cancel-btn">VOLVER AL PANEL</a>
                             </div>
                         </form>
@@ -67,80 +52,42 @@
 
             <div class="col-12">
                 <div class="urban-card table-card">
-                    <h3 class="urban-section-title">MARCAS ACTIVAS POR CATEGORÍA</h3>
-                    <p class="text-center" style="color: #888; margin-top: -1rem; margin-bottom: 2rem; font-size: 0.9rem;">
-                        <i class="fas fa-info-circle"></i> Hover sobre la marca para ver el Creador
-                    </p>
+                    <h3 class="urban-section-title">REGISTRO GLOBAL DE MARCAS</h3>
                     
                     <div class="urban-table-responsive">
                         <table class="urban-table">
                             <thead>
                                 <tr>
-                                    <th>TORSO</th>
-                                    <th>PANTALONES</th>
-                                    <th>CALZADO</th>
-                                    <th>ACCESORIOS</th>
+                                    <th>MARCA</th>
+                                    <th>CREADA POR</th>
+                                    <th>SPOT ASOCIADO (ACTUAL)</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="brand-column">
-                                        <div class="tags-container">
-                                            {% for marca in marcas_torso %}
-                                                <span class="urban-tag" title="Creado por: {{ marca.usuario.username|default:'Desconocido' }}">
-                                                    {{ marca.nombre }} 
-                                                    {% if marca.tienda %}
-                                                        <small style="color: #337418; font-size: 0.7em;">[{{ marca.tienda.nombre_tienda }}]</small>
-                                                    {% endif %}
-                                                </span>
-                                            {% empty %}
-                                                <span class="empty-tag">VACÍO</span>
-                                            {% endfor %}
-                                        </div>
-                                    </td>
-                                    <td class="brand-column">
-                                        <div class="tags-container">
-                                            {% for marca in marcas_pantalones %}
-                                                <span class="urban-tag" title="Creado por: {{ marca.usuario.username|default:'Desconocido' }}">
-                                                    {{ marca.nombre }}
-                                                    {% if marca.tienda %}
-                                                        <small style="color: #337418; font-size: 0.7em;">[{{ marca.tienda.nombre_tienda }}]</small>
-                                                    {% endif %}
-                                                </span>
-                                            {% empty %}
-                                                <span class="empty-tag">VACÍO</span>
-                                            {% endfor %}
-                                        </div>
-                                    </td>
-                                    <td class="brand-column">
-                                        <div class="tags-container">
-                                            {% for marca in marcas_calzado %}
-                                                <span class="urban-tag" title="Creado por: {{ marca.usuario.username|default:'Desconocido' }}">
-                                                    {{ marca.nombre }}
-                                                    {% if marca.tienda %}
-                                                        <small style="color: #337418; font-size: 0.7em;">[{{ marca.tienda.nombre_tienda }}]</small>
-                                                    {% endif %}
-                                                </span>
-                                            {% empty %}
-                                                <span class="empty-tag">VACÍO</span>
-                                            {% endfor %}
-                                        </div>
-                                    </td>
-                                    <td class="brand-column">
-                                        <div class="tags-container">
-                                            {% for marca in marcas_accesorios %}
-                                                <span class="urban-tag" title="Creado por: {{ marca.usuario.username|default:'Desconocido' }}">
-                                                    {{ marca.nombre }}
-                                                    {% if marca.tienda %}
-                                                        <small style="color: #337418; font-size: 0.7em;">[{{ marca.tienda.nombre_tienda }}]</small>
-                                                    {% endif %}
-                                                </span>
-                                            {% empty %}
-                                                <span class="empty-tag">VACÍO</span>
-                                            {% endfor %}
-                                        </div>
-                                    </td>
-                                </tr>
+                                {% for marca in marcas %}
+                                    <tr>
+                                        <td class="brand-name">{{ marca.nombre|upper }}</td>
+                                        <td class="user-info">
+                                            <i class="fas fa-user-circle"></i> {{ marca.usuario.username|default:"SISTEMA" }}
+                                        </td>
+                                        <td class="store-info">
+                                            {# LÓGICA DE ACTUALIZACIÓN AUTOMÁTICA #}
+                                            {% if marca.usuario.preferencias.tienda_asociada %}
+                                                {# Muestra la tienda donde trabaja el usuario AHORA #}
+                                                <span class="store-tag">{{ marca.usuario.preferencias.tienda_asociada.nombre_tienda|upper }}</span>
+                                            {% elif marca.tienda %}
+                                                {# Respaldo: Muestra la tienda donde se creó (histórico) #}
+                                                <span class="store-tag" style="opacity: 0.7;">{{ marca.tienda.nombre_tienda|upper }} (HIST.)</span>
+                                            {% else %}
+                                                <span class="no-store">SIN SPOT</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="3" class="text-center py-4">NO HAY MARCAS REGISTRADAS EN LA BASE DE DATOS</td>
+                                    </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
